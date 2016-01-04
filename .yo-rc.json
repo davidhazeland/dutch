@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "dutch",
+    "style": "less",
+    "postcss": false
+  }
+}

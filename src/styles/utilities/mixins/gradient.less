@@ -1,0 +1,17 @@
+.gradient(@top, @bottom) {
+  background-image: @top;
+  background-image: -moz-linear-gradient(top, @top 0%, @bottom 100%); /* FF3.6+ */
+  background-image: -webkit-linear-gradient(top, @top 0%, @bottom 100%); /* Chrome10+,Safari5.1+ */
+  background-image: -o-linear-gradient(top, @top 0%, @bottom 100%); /* Opera 11.10+ */
+  background-image: -ms-linear-gradient(top, @top 0%, @bottom 100%); /* IE10+ */
+  background-image: linear-gradient(to bottom, @top 0%, @bottom 100%); /* W3C */
+}
+
+.gradient-image(@top, @bottom, @url) {
+  background-image: @top;
+  background-image: url(@url), -moz-linear-gradient(top, @top 0%, @bottom 100%); /* FF3.6+ */
+  background-image: url(@url), -webkit-linear-gradient(top, @top 0%, @bottom 100%); /* Chrome10+,Safari5.1+ */
+  background-image: url(@url), -o-linear-gradient(top, @top 0%, @bottom 100%); /* Opera 11.10+ */
+  background-image: url(@url), -ms-linear-gradient(top, @top 0%, @bottom 100%); /* IE10+ */
+  background-image: url(@url), linear-gradient(to bottom, @top 0%, @bottom 100%); /* W3C */
+}

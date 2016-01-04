@@ -1,0 +1,35 @@
+.ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box() {
+  border-radius: 2px;
+  border: 1px solid @divider-color;
+  background-color: @white;
+}
+
+.wrapper() {
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}
+
+.form-box {
+  .box();
+  width: 92%;
+  .mq(md, {
+    width: 400px;
+  });
+  margin: 0 auto;
+  padding: 10px 20px 30px;
+  .box-sizing(border-box);
+}
+
+.red-box {
+  .box();
+  border: 1px solid @secondary-color;
+}

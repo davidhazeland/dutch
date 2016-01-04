@@ -1,0 +1,39 @@
+// Media Query
+
+.media-query(min, @rule, @min-width) {
+  @media screen and (min-width: @min-width) {
+    @rule();
+  }
+}
+
+.media-query(max, @rule, @max-width) {
+  @media screen and (max-width: @max-width) {
+    @rule();
+  }
+}
+
+.mq(xs, @rule) {
+  .media-query(min, @rule, @screen-xs);
+}
+
+.mq(sm, @rule) {
+  .media-query(min, @rule, @screen-sm);
+}
+
+.mq(md, @rule) {
+  .media-query(min, @rule, @screen-md);
+}
+
+.mq(lg, @rule) {
+  .media-query(min, @rule, @screen-lg);
+}
+
+//.uf(@query, @rule) {
+//  @media (update-frequency: @query) {
+//    @rule
+//  }
+//}
+
+
+
+

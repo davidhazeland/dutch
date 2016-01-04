@@ -1,0 +1,23 @@
+.LoadMore {
+  text-align: center;
+  position: relative;
+  .button {
+    margin: 0 auto;
+  }
+  &:before,
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 300px;
+    height: 1px;
+    background-color: @divider-color;
+    position: absolute;
+    top: 50%;
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
+  }
+}
