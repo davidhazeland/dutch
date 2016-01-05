@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-require('styles//Navigation.less');
+require('styles/components//Navigation.less');
 
 class NavigationComponent extends React.Component {
   render() {

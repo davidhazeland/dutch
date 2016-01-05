@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-require('styles//ReporterSearchBox.less');
+require('styles/components//ReporterSearchBox.less');
 
 class ReporterSearchBoxComponent extends React.Component {
   render() {

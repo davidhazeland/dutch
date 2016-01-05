@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-require('styles//PageReporter.less');
+require('styles/components//PageReporter.less');
 
 import ReporterSearchBox from './ReporterSearchBoxComponent';
 import ReporterResult from './ReporterResultComponent';

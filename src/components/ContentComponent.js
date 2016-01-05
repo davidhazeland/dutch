@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-require('styles//Content.less');
+require('styles/components//Content.less');
 
 import PageReporter from './PageReporterComponent';
 

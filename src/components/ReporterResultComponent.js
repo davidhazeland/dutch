@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-require('styles//ReporterResult.less');
+require('styles/components//ReporterResult.less');
 
 class ReporterResultComponent extends React.Component {
   render() {

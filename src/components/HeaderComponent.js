@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-require('styles//Header.less');
+require('styles/components//Header.less');
 
 class HeaderComponent extends React.Component {
   render() {
