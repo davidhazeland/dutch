@@ -1,33 +1,25 @@
 require('jquery');
 require('semantic');
 require('normalize.css');
-require('styles/App.css');
+require('styles/index.less');
 
 import React from 'react';
-
-let yeomanImage = require('../images/yeoman.png');
+import Header from './HeaderComponent';
+import Navigation from './NavigationComponent';
+import Content from './ContentComponent';
 
 class AppComponent extends React.Component {
-  componentDidMount() {
-    $('.ui.dropdown').dropdown();
-  }
-
   render() {
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
-        <select className="ui dropdown">
-          <option value="">Gender</option>
-          <option value="1">Male</option>
-          <option value="0">Female</option>
-        </select>
+      <div className="app">
+        <Header/>
+        <Navigation/>
+        <Content/>
       </div>
     );
   }
 }
 
-AppComponent.defaultProps = {
-};
+AppComponent.defaultProps = {};
 
 export default AppComponent;
