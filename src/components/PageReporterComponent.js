@@ -7,40 +7,46 @@ require('styles//PageReporter.less');
 class PageReporterComponent extends React.Component {
   render() {
     return (
-      <div className="pagereporter-component">
+      <div className="PageReporter">
         <h2 class="ui header">Pages</h2>
         <div className="ui icon input">
           <input type="text" placeholder="Search..."/>
-            <i className="search icon"></i>
+          <i className="search icon"></i>
         </div>
-        <table className="ui celled table">
+        <table className="ui orange celled table">
           <thead>
           <tr>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Notes</th>
+            <th>Pages</th>
+            <th>Pageviews</th>
+            <th>Unique Pageviews</th>
+            <th>Avg. Time on Page</th>
+            <th>Entrances</th>
+            <th>Bounce Rate</th>
+            <th>% Exit</th>
+            <th>Page Value</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td>No Name Specified</td>
-            <td>Unknown</td>
-            <td className="negative">None</td>
-          </tr>
-          <tr className="positive">
-            <td>Jimmy</td>
-            <td><i className="icon checkmark"></i> Approved</td>
-            <td>None</td>
+            <td>
+            </td>
+            <td>33,122 (2.51%)</td>
+            <td>27,345 (2.28%)</td>
+            <td>00:01:44</td>
+            <td>26,848 (3.78%)</td>
+            <td>70.09%</td>
+            <td>69.80%</td>
+            <td>$0.00</td>
           </tr>
           <tr>
-            <td>Jamie</td>
-            <td>Unknown</td>
-            <td className="positive"><i className="icon close"></i> Requires call</td>
-          </tr>
-          <tr className="negative">
-            <td>Jill</td>
-            <td>Unknown</td>
-            <td>None</td>
+            <td>/ung-dung/theo-doi-can-nang-thai-ky/</td>
+            <td>33,122 (2.51%)</td>
+            <td>27,345 (2.28%)</td>
+            <td>00:01:44</td>
+            <td>26,848 (3.78%)</td>
+            <td>70.09%</td>
+            <td>69.80%</td>
+            <td>$0.00</td>
           </tr>
           </tbody>
         </table>

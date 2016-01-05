@@ -9,7 +9,7 @@ import PageReporter from './PageReporterComponent';
 class ContentComponent extends React.Component {
   render() {
     return (
-      <div className="content-component">
+      <div className="Content">
         <PageReporter/>
       </div>
     );

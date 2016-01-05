@@ -7,7 +7,7 @@ require('styles//Navigation.less');
 class NavigationComponent extends React.Component {
   render() {
     return (
-      <div className="navigation-component">
+      <div className="Navigation">
         <div className="ui vertical menu">
           <div className="item">
             <div className="header">Products</div>

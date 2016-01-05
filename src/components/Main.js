@@ -11,7 +11,7 @@ import Content from './ContentComponent';
 class AppComponent extends React.Component {
   render() {
     return (
-      <div className="app">
+      <div className="App">
         <Header/>
         <Navigation/>
         <Content/>

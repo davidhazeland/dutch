@@ -7,7 +7,7 @@ require('styles//Header.less');
 class HeaderComponent extends React.Component {
   render() {
     return (
-      <div className="header-component">
+      <div className="Header">
         <div className="ui secondary pointing menu">
           <a className="active orange item">
             Home
