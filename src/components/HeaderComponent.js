@@ -9,7 +9,7 @@ class HeaderComponent extends React.Component {
     return (
       <div className="header-component">
         <div className="ui secondary pointing menu">
-          <a className="active item">
+          <a className="active orange item">
             Home
           </a>
           <a className="item">
