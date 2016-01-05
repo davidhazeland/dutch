@@ -4,52 +4,16 @@ import React from 'react';
 
 require('styles//PageReporter.less');
 
+import ReporterSearchBox from './ReporterSearchBoxComponent';
+import ReporterResult from './ReporterResultComponent';
+
 class PageReporterComponent extends React.Component {
   render() {
     return (
       <div className="PageReporter">
-        <h2 class="ui header">Pages</h2>
-        <div className="ui icon input">
-          <input type="text" placeholder="Search..."/>
-          <i className="search icon"></i>
-        </div>
-        <table className="ui orange celled table">
-          <thead>
-          <tr>
-            <th>Pages</th>
-            <th>Pageviews</th>
-            <th>Unique Pageviews</th>
-            <th>Avg. Time on Page</th>
-            <th>Entrances</th>
-            <th>Bounce Rate</th>
-            <th>% Exit</th>
-            <th>Page Value</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-            </td>
-            <td>33,122 (2.51%)</td>
-            <td>27,345 (2.28%)</td>
-            <td>00:01:44</td>
-            <td>26,848 (3.78%)</td>
-            <td>70.09%</td>
-            <td>69.80%</td>
-            <td>$0.00</td>
-          </tr>
-          <tr>
-            <td>/ung-dung/theo-doi-can-nang-thai-ky/</td>
-            <td>33,122 (2.51%)</td>
-            <td>27,345 (2.28%)</td>
-            <td>00:01:44</td>
-            <td>26,848 (3.78%)</td>
-            <td>70.09%</td>
-            <td>69.80%</td>
-            <td>$0.00</td>
-          </tr>
-          </tbody>
-        </table>
+        <h2 className="ui header">Pages</h2>
+        <ReporterSearchBox/>
+        <ReporterResult/>
       </div>
     );
   }
