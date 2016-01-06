@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'react-router';
 
 require('styles/components//Header.less');
 
@@ -9,12 +10,10 @@ class HeaderComponent extends React.Component {
     return (
       <div className="Header">
         <div className="ui secondary pointing menu">
-          <a className="active orange item">
+          <a href="/" className="active orange item">
             Home
           </a>
-          <a className="item">
-            Messages
-          </a>
+          <Link to="/page" className="item">Page</Link>
           <a className="item">
             Friends
           </a>
