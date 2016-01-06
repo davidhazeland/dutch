@@ -4,13 +4,13 @@ import React from 'react';
 
 require('styles/components//Content.less');
 
-import PageReporter from './PageReporterComponent';
+//import PageReporter from '../containers/PageReporter';
 
 class ContentComponent extends React.Component {
   render() {
     return (
       <div className="Content">
-        <PageReporter/>
+        {this.props.children}
       </div>
     );
   }
