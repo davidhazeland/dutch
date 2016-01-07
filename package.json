@@ -64,6 +64,7 @@
     "less": "^2.5.3"
   },
   "dependencies": {
+    "bluebird": "3.1.1",
     "core-js": "^2.0.0",
     "history": "1.17.0",
     "immutable": "3.7.6",
