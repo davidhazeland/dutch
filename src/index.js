@@ -7,3 +7,7 @@ import 'core-js/fn/object/assign';
 //ReactDOM.render(<App />, document.getElementById('app'));
 
 import './components/run';
+
+import {signIn} from './services/GoogleAPI';
+
+signIn();
