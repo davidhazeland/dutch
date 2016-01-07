@@ -1,5 +1,6 @@
 /* global gapi */
 
+import Promise from 'bluebird';
 import config from 'config';
 
 // Set authorized scope.
@@ -36,7 +37,14 @@ export function load() {
 
 
 export function signIn() {
-  hasAPI(()=> {
-    authorize().then(load);
+  return new Promise((resolve, reject) => {
+    hasAPI(() => {
+      authorize().then(load).then((response) => {
+        resolve(response);
+      }, (err)=> {
+        reject(err);
+      });
+    });
   });
+
 }

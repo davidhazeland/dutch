@@ -3,10 +3,21 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import cx from 'classnames';
+
 require('styles/components//Header.less');
 
 class HeaderComponent extends React.Component {
+  handleAuthorize() {
+    this.props.onAuthorize();
+  }
+
   render() {
+    const authButtonClass = cx({
+      'Header-authButton ui item': true,
+      'visible': !this.props.authorization.get('authorized')
+    });
+
     return (
       <div className="Header">
         <div className="ui secondary pointing menu">
@@ -18,9 +29,9 @@ class HeaderComponent extends React.Component {
             Friends
           </a>
           <div className="right menu">
-            <a className="ui item">
-              Logout
-            </a>
+            <button className={authButtonClass} onClick={e => this.handleAuthorize(e)}>
+              Authorize
+            </button>
           </div>
         </div>
       </div>

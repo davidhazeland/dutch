@@ -6,8 +6,7 @@ import { Router, Route, IndexRoute } from 'react-router'
 import { createHistory } from 'history'
 import { syncReduxAndRouter } from 'redux-simple-router'
 
-//import App from '../containers/App';
-import Main from '../components/Main';
+import App from '../containers/App';
 import PageReporter from '../containers/PageReporter';
 
 const history = createHistory();
@@ -18,7 +17,7 @@ syncReduxAndRouter(history, store);
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={Main}>
+      <Route path="/" component={App}>
         <IndexRoute component={PageReporter} />
         <Route path="page" component={PageReporter}/>
       </Route>
