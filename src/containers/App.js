@@ -16,9 +16,7 @@ class App extends Component {
   render() {
     const {actions, PageReporter, EventReporter, Authorization} = this.props;
     return (
-      <Main
-        actions={actions}
-        Authorization={Authorization}>
+      <Main actions={actions} Authorization={Authorization}>
         {this.props.children}
       </Main>
     );
@@ -35,9 +33,7 @@ App.propTypes = {
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
-  const props = {
-    Authorization: state.Authorization
-  };
+  const props = { Authorization: state.Authorization };
   return props;
 }
 function mapDispatchToProps(dispatch) {
@@ -45,7 +41,7 @@ function mapDispatchToProps(dispatch) {
   const actions = {
     AuthorizationSetState: require('../actions/AuthorizationSetState.js')
   };
-  const actionMap = {actions: bindActionCreators(actions, dispatch)};
+  const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

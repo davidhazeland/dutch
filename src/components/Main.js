@@ -8,7 +8,7 @@ import Header from './HeaderComponent';
 import Navigation from './NavigationComponent';
 import Content from './ContentComponent';
 
-import {authorize, load, signIn} from '../services/GoogleAPI';
+import {authorize, load, signIn} from '../gapi/OAuth';
 
 
 class AppComponent extends React.Component {
