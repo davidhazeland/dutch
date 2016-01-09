@@ -28,7 +28,7 @@ module.exports = function(state = initialState, action) {
         return setResult(state, action.parameter);
     } break;
 
-    case 'PAGE_REPORTER_SEARCH': {
+    case 'PAGE_REPORTER_SET_KEYWORD': {
       // Modify next state depending on the action and return it
       return setKeyword(state, action.parameter);
     } break;

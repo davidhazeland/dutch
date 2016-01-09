@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import configureStore from '../stores';
 import { Router, Route, IndexRoute } from 'react-router'
 import { createHistory } from 'history'
 import { syncReduxAndRouter } from 'redux-simple-router'
+
+const configureStore = require('../stores');
 
 import App from '../containers/App';
 import PageReporter from '../containers/PageReporter';

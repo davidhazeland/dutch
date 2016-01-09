@@ -5,10 +5,12 @@ import React from 'react';
 require('styles/components//ReporterSearchBox.less');
 
 class ReporterSearchBoxComponent extends React.Component {
-  handleKeyUp() {
-    const node = this.refs.input;
-    const text = node.value.trim();
-    this.props.onChange(text);
+  handleKeyUp(e) {
+    if (e.keyCode === 13) {
+      const node = this.refs.input;
+      const text = node.value.trim();
+      this.props.onChange(text);
+    }
   }
 
   render() {

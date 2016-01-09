@@ -6,6 +6,9 @@ require('styles/components//ReporterResult.less');
 
 class ReporterResultComponent extends React.Component {
   render() {
+    if (!this.props.result) return (
+      <h4>Empty!</h4>
+    );
     return (
       <div className="ReporterResult">
         <table className="ui orange celled table">
@@ -22,27 +25,20 @@ class ReporterResultComponent extends React.Component {
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>
-            </td>
-            <td>33,122 (2.51%)</td>
-            <td>27,345 (2.28%)</td>
-            <td>00:01:44</td>
-            <td>26,848 (3.78%)</td>
-            <td>70.09%</td>
-            <td>69.80%</td>
-            <td>$0.00</td>
-          </tr>
-          <tr>
-            <td>/ung-dung/theo-doi-can-nang-thai-ky/</td>
-            <td>33,122 (2.51%)</td>
-            <td>27,345 (2.28%)</td>
-            <td>00:01:44</td>
-            <td>26,848 (3.78%)</td>
-            <td>70.09%</td>
-            <td>69.80%</td>
-            <td>$0.00</td>
-          </tr>
+          {this.props.result.rows.map((item, key)=> {
+            return (
+              <tr key={key}>
+                <td>{item[0]}</td>
+                <td>{item[1]}</td>
+                <td>{item[2]}</td>
+                <td>{item[3]}</td>
+                <td>{item[4]}</td>
+                <td>{item[5]}</td>
+                <td>{item[6]}</td>
+                <td>{item[7]}</td>
+              </tr>
+            )
+          })}
           </tbody>
         </table>
       </div>
