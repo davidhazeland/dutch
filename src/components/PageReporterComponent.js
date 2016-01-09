@@ -7,8 +7,6 @@ require('styles/components//PageReporter.less');
 import ReporterSearchBox from './ReporterSearchBoxComponent';
 import ReporterResult from './ReporterResultComponent';
 
-import {query} from '../gapi/PageTracking';
-
 class PageReporterComponent extends React.Component {
   handleSearchBoxChange(value) {
     this.props.actions.PageReporterSetKeyword(value);

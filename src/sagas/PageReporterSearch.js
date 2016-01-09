@@ -1,6 +1,5 @@
 import {call, put, take, fork} from 'redux-saga';
 import {query} from '../gapi/PageTracking';
-import PageReportSetKeyWord from '../actions/PageReporterSetKeyword';
 import PageReportSetResult from '../actions/PageReporterSetResult';
 
 function* request(getState) {
