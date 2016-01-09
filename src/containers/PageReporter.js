@@ -28,7 +28,8 @@ function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
     PageReporterSetResult: require('../actions/PageReporterSetResult.js'),
-    PageReporterSearch: require('../actions/PageReporterSearch.js')
+    PageReporterSearch: require('../actions/PageReporterSearch.js'),
+    PageReporterSetKeyword: require('../actions/PageReporterSetKeyword.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

@@ -11,7 +11,7 @@ import {query} from '../gapi/PageTracking';
 
 class PageReporterComponent extends React.Component {
   handleSearchBoxChange(value) {
-    this.props.actions.PageReporterSearch(value);
+    this.props.actions.PageReporterSetKeyword(value);
   }
 
   render() {
