@@ -14,9 +14,9 @@ import OverviewComponent from '../components/OverviewComponent';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, Google} = this.props;
+    const {actions, Google, Overview} = this.props;
     return (
-      <OverviewComponent actions={actions} Google={Google}/>
+      <OverviewComponent actions={actions} Google={Google} Overview={Overview}/>
     );
   }
 }
@@ -27,12 +27,14 @@ class App extends Component {
  */
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  Google: PropTypes.object.isRequired
+  Google: PropTypes.object.isRequired,
+  Overview: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
   const props = {
-    Google: state.Google
+    Google: state.Google,
+    Overview: state.Overview
   };
   return props;
 }
