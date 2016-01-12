@@ -2,7 +2,7 @@
 
 /**
  * Query Google Analytics API
- * @param profileId
+ * @param viewId
  * @param queryParams
  * {
  *  startDate,
@@ -26,8 +26,8 @@
  * }
  * @returns Promise
  */
-export function query(profileId, queryParams) {
-  const id = `ga:${profileId}`;
+export function query(viewId, queryParams) {
+  const id = `ga:${viewId}`;
   const startDate = queryParams.startDate;
   const endDate = queryParams.endDate;
   const metrics = queryParams.metrics.join(',');
