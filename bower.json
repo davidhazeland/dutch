@@ -1,0 +1,21 @@
+{
+  "name": "dutch",
+  "description": "Dutch Project",
+  "main": "",
+  "authors": [
+    "David Hazeland"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/davidhazeland/dutch",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#~2.1.7"
+  }
+}
