@@ -4,6 +4,12 @@
 
 ### Installation
 
+To install dependency packages:
+
+```
+npm install && bower install
+```
+
 To build project:
 
 ```
