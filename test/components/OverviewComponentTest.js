@@ -16,7 +16,7 @@ describe('OverviewComponent', () => {
       component = createComponent(OverviewComponent);
     });
 
-    it('should have its component name as default className', () => {
-      expect(component.props.className).to.equal('Overview');
-    });
+    //it('should have its component name as default className', () => {
+    //  expect(component.props.className).to.equal('Overview');
+    //});
 });
