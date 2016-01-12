@@ -1,4 +1,5 @@
 const sagas = [
+  require('./OverviewRequestActiveUsers'),
   require('./GoogleAuthorize'),
   require('./GoogleSignIn')
 ];

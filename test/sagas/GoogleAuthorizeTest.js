@@ -14,14 +14,14 @@ describe('[Saga] Google Authorize', () => {
     this.saga = authorize();
   });
 
-  it('authorize() should call Google Auth service', function() {
+  it('should call Google Auth service', function() {
     const actual = this.saga.next().value;
     const expected = call(googleAuthorize);
     expect(actual).to.deep.equal(expected);
   });
 
 
-  it('authorize() dispatch Authorize Success action when service return result', function() {
+  it('should dispatch Authorize Success action when service return result', function() {
     const response = {
       result: true,
       error: false
@@ -34,7 +34,7 @@ describe('[Saga] Google Authorize', () => {
     expect(actual).to.deep.equal(expected);
   });
 
-  it('authorize() dispatch Authorize Failure action when service return error', function() {
+  it('should dispatch Authorize Failure action when service return error', function() {
     const response = {
       result: false,
       error: true
