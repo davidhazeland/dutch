@@ -4,8 +4,8 @@ import GoogleAuthorizeSuccess from '../actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from '../actions/GoogleAuthorizeFailure';
 
 export function* signIn() {
-  const {result, error} = call(googleSignIn);
-  if (!error) {
+  const {result, error} = yield call(googleSignIn);
+  if (result) {
     yield put(GoogleAuthorizeSuccess(result));
   } else {
     yield put(GoogleAuthorizeFailure(error));

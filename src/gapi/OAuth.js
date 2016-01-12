@@ -1,5 +1,6 @@
 /* global gapi */
 
+import async from 'async-q';
 import Promise from 'bluebird';
 import config from 'config';
 
@@ -37,18 +38,37 @@ function loadAPI() {
 
 
 export function authorize() {
-  return Promise.all([requestAuthorization.call(null, false), loadAPI]);
+  return new Promise((resolve, reject) => {
+    async.series([requestAuthorization.call(null, false), loadAPI]).then(response => {
+      resolve({
+        result: response[0]
+      }, err => {
+        reject({
+          error: err
+        });
+      });
+    });
+  });
 }
 
 
 export function signIn() {
   return new Promise((resolve, reject) => {
     hasAPI(() => {
-      Promise.all([requestAuthorization, loadAPI]).then(response => {
-        resolve(response);
+      async.series([requestAuthorization, loadAPI]).then(response => {
+        resolve({
+          result: response[0]
+        });
       }, err => {
-        reject(err);
+        reject({
+          error: err
+        });
       });
+      //Promise.all([requestAuthorization, loadAPI]).then(response => {
+      //  resolve(response);
+      //}, err => {
+      //  reject(err);
+      //});
     });
   });
 }
