@@ -17,8 +17,8 @@ class AppComponent extends React.Component {
     return (
       <div className="Main">
         <Header Google={this.props.Google}
-                onGoogleAuthorize={() => this.props.actions.GoogleAuthorize()}
-                onFacebookLogin={()=> this.onFacebookLogin()}
+                onAuthorizeGoogle={() => this.props.actions.GoogleAuthorize()}
+                onLoginFacebook={() => {}}
         />
         <Navigation/>
         <Content>

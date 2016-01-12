@@ -8,14 +8,6 @@ import cx from 'classnames';
 require('styles/components//Header.less');
 
 class HeaderComponent extends React.Component {
-  handleAuthorize() {
-    this.props.onGoogleAuthorize();
-  }
-
-  handleLoginFacebook() {
-    this.props.onFacebookLogin();
-  }
-
   render() {
     const authButtonClass = cx({
       'Header-authButton ui item': true,
@@ -33,10 +25,12 @@ class HeaderComponent extends React.Component {
             Friends
           </a>
           <div className="right menu">
-            <button className={authButtonClass} onClick={e => this.handleAuthorize(e)}>
-              Authorize
+            <button className={authButtonClass}
+                    onClick={() => this.props.onAuthorizeGoogle()}>
+              Authorize Google
             </button>
-            <button className="ui item" onClick={e => this.handleLoginFacebook(e)}>
+            <button className="ui item"
+                    onClick={() => this.props.onLoginFacebook()}>
               Login Facebook
             </button>
           </div>

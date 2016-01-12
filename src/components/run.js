@@ -8,7 +8,7 @@ import { syncReduxAndRouter } from 'redux-simple-router'
 const configureStore = require('../stores');
 
 import App from '../containers/App';
-import PageReporter from '../containers/PageReporter';
+import Overview from '../containers/Overview';
 
 const history = createHistory();
 const store = configureStore();
@@ -19,8 +19,7 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={PageReporter} />
-        <Route path="page" component={PageReporter}/>
+        <IndexRoute component={Overview} />
       </Route>
     </Router>
   </Provider>,

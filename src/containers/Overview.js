@@ -10,15 +10,13 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import OverviewComponent from '../components/OverviewComponent';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
     const {actions, Google} = this.props;
     return (
-      <Main actions={actions} Google={Google}>
-        {this.props.children}
-      </Main>
+      <OverviewComponent actions={actions} Google={Google}/>
     );
   }
 }
@@ -41,10 +39,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
-    GoogleAuthorize: require('../actions/GoogleAuthorize.js'),
-    GoogleAuthorizeSuccess: require('../actions/GoogleAuthorizeSuccess.js'),
-    GoogleAuthorizeFailure: require('../actions/GoogleAuthorizeFailure.js'),
-    GoogleSignIn: require('../actions/GoogleSignIn.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
