@@ -33,9 +33,7 @@ App.propTypes = {
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
-  const props = {
-    Google: state.Google
-  };
+  const props = { Google: state.Google };
   return props;
 }
 function mapDispatchToProps(dispatch) {
