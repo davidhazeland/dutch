@@ -7,7 +7,7 @@ import Immutable from 'immutable';
 
 var reducer = require('../../src/reducers/Google');
 
-describe('Google', () => {
+describe('[Reducer] Google', () => {
 
   it('should not change the passed state', (done) => {
 
@@ -17,13 +17,13 @@ describe('Google', () => {
     done();
   });
 
-  it('should change state to authorizing when authorize', (done) => {
+  it('should change to authorizing state when call GOOGLE_AUTHORIZE action', () => {
     const state = Immutable.Map();
-
     const nextState = reducer(state, {type: 'GOOGLE_AUTHORIZE'});
 
-    expect(nextState.get('isAuthorizing')).to.equal(true);
+    const actual = nextState.get('isAuthorizing');
+    const expected = true;
 
-    done();
+    expect(actual).to.equal(expected);
   });
 });
