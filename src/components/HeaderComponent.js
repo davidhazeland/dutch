@@ -12,6 +12,10 @@ class HeaderComponent extends React.Component {
     this.props.onAuthorize();
   }
 
+  handleLoginFacebook() {
+    this.props.onFacebookLogin();
+  }
+
   render() {
     const authButtonClass = cx({
       'Header-authButton ui item': true,
@@ -31,6 +35,9 @@ class HeaderComponent extends React.Component {
           <div className="right menu">
             <button className={authButtonClass} onClick={e => this.handleAuthorize(e)}>
               Authorize
+            </button>
+            <button className="ui item" onClick={e => this.handleLoginFacebook(e)}>
+              Login Facebook
             </button>
           </div>
         </div>

@@ -17,6 +17,6 @@ describe('ReporterSearchBoxComponent', () => {
     });
 
     it('should have its component name as default className', () => {
-      expect(component.props.className).to.equal('ReporterSearchBox');
+      expect(component.props.className).to.contains('ReporterSearchBox');
     });
 });

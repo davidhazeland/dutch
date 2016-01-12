@@ -5,7 +5,7 @@ import {query as queryAnalyticsReporting} from './AnalyticsCoreReporting';
 
 function mapParams(params) {
   const sort = {
-    name: 'ga:pageviews',
+    name: 'ga:adsenseRevenue',
     direction: params.desc ? '-' : ''
   };
   const filters = [
@@ -25,7 +25,7 @@ function mapParams(params) {
 
 
 export function query(params) {
-  const pageMetrics = ['ga:pageviews', 'ga:uniquePageviews', 'ga:avgTimeOnPage', 'ga:entranceRate', 'ga:bounceRate', 'ga:exitRate', 'ga:pageValue'];
+  const pageMetrics = ['ga:adsenseRevenue'];
   const pageDimensions = ['ga:pagePath'];
 
   const paramsMapped = mapParams(params);
