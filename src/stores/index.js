@@ -4,14 +4,14 @@ import createLogger from 'redux-logger';
 import sagaMiddleware from 'redux-saga';
 
 const reducers = require('../reducers');
-import sagas from '../sagas/PageReporterSearch';
+const sagas = require('../sagas');
 
 const loggerMiddleware = createLogger();
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware, // lets us dispatch() functions
   loggerMiddleware, // neat middleware that logs actions
-  sagaMiddleware(sagas)
+  sagaMiddleware(...sagas)
 )(createStore);
 
 module.exports = function(initialState) {

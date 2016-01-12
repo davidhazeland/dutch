@@ -9,7 +9,7 @@ require('styles/components//Header.less');
 
 class HeaderComponent extends React.Component {
   handleAuthorize() {
-    this.props.onAuthorize();
+    this.props.onGoogleAuthorize();
   }
 
   handleLoginFacebook() {
@@ -19,7 +19,7 @@ class HeaderComponent extends React.Component {
   render() {
     const authButtonClass = cx({
       'Header-authButton ui item': true,
-      'visible': !this.props.authorization.get('authorized')
+      'visible': !this.props.Google.get('authorized')
     });
 
     return (

@@ -29,7 +29,8 @@ function mapDispatchToProps(dispatch) {
   const actions = {
     PageReporterSetResult: require('../actions/PageReporterSetResult.js'),
     PageReporterSearch: require('../actions/PageReporterSearch.js'),
-    PageReporterSetKeyword: require('../actions/PageReporterSetKeyword.js')
+    PageReporterSetKeyword: require('../actions/PageReporterSetKeyword.js'),
+    GoogleAuthorize: require('../actions/GoogleAuthorize.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

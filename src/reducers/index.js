@@ -11,6 +11,7 @@ import { routeReducer } from 'redux-simple-router';
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
   PageReporter: require('../reducers/PageReporter.js'),
-  Authorization: require('../reducers/Authorization.js')
+  Authorization: require('../reducers/Authorization.js'),
+  Google: require('../reducers/Google.js')
 };
 module.exports = combineReducers(Object.assign({}, reducers, { routing: routeReducer }));

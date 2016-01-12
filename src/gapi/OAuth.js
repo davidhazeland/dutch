@@ -18,7 +18,7 @@ function hasAPI(callback) {
 }
 
 
-export function authorize(immediate = true) {
+function requestAuthorization(immediate = true) {
   // Handles the authorization flow.
   // `immediate` should be false when invoked from the button click.
   const authData = {
@@ -31,20 +31,24 @@ export function authorize(immediate = true) {
 }
 
 
-export function load() {
+function loadAPI() {
   return gapi.client.load('analytics', 'v3');
+}
+
+
+export function authorize() {
+  return Promise.all([requestAuthorization.call(null, false), loadAPI]);
 }
 
 
 export function signIn() {
   return new Promise((resolve, reject) => {
     hasAPI(() => {
-      authorize().then(load).then((response) => {
+      Promise.all([requestAuthorization, loadAPI]).then(response => {
         resolve(response);
-      }, (err)=> {
+      }, err => {
         reject(err);
       });
     });
   });
-
 }

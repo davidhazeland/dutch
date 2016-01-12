@@ -14,9 +14,9 @@ import Main from '../components/Main';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, Authorization} = this.props;
+    const {actions, Google} = this.props;
     return (
-      <Main actions={actions} Authorization={Authorization}>
+      <Main actions={actions} Google={Google}>
         {this.props.children}
       </Main>
     );
@@ -29,17 +29,24 @@ class App extends Component {
  */
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  Authorization: PropTypes.object.isRequired
+  Google: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
-  const props = { Authorization: state.Authorization };
+  const props = {
+    Authorization: state.Authorization,
+    GoogleAuth: state.GoogleAuth,
+    Google: state.Google
+  };
   return props;
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
-    AuthorizationSetState: require('../actions/AuthorizationSetState.js')
+    GoogleAuthorize: require('../actions/GoogleAuthorize.js'),
+    GoogleAuthorizeSuccess: require('../actions/GoogleAuthorizeSuccess.js'),
+    GoogleAuthorizeFailure: require('../actions/GoogleAuthorizeFailure.js'),
+    GoogleSignIn: require('../actions/GoogleSignIn.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
