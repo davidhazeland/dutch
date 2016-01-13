@@ -25,7 +25,7 @@ function setAuthorized(state, authorized) {
     .set('authorized', authorized);
 }
 
-function signIn(state) {
+function setSigningIn(state) {
   return state.set('isSigningIn', true);
 }
 
@@ -52,7 +52,7 @@ module.exports = function(state = initialState, action) {
 
     case 'GOOGLE_SIGN_IN': {
       // Modify next state depending on the action and return it
-      return signIn(state);
+      return setSigningIn(state);
     } break;
 
     default: {

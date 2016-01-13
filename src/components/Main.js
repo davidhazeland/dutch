@@ -11,6 +11,7 @@ import Content from './ContentComponent';
 class AppComponent extends React.Component {
   componentDidMount() {
     this.props.actions.GoogleSignIn();
+    this.props.actions.FacebookLogin();
   }
 
   renderContent() {
@@ -26,8 +27,9 @@ class AppComponent extends React.Component {
     return (
       <div className="Main">
         <Header Google={this.props.Google}
+                Facebook={this.props.Facebook}
                 onAuthorizeGoogle={() => this.props.actions.GoogleAuthorize()}
-                onLoginFacebook={() => {}}
+                onAuthorizeFacebook={() => this.props.actions.FacebookAuthorize()}
         />
         <Navigation/>
         {content}

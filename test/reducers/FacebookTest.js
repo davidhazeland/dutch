@@ -11,4 +11,24 @@ describe('Facebook', () => {
 
     done();
   });
+
+  it('handle FACEBOOK_AUTHORIZE action', () => {
+    const state = Immutable.Map();
+    const nextState = reducer(state, {type: 'FACEBOOK_AUTHORIZE'});
+
+    const actual = nextState.get('isAuthorizing');
+    const expected = true;
+
+    expect(actual).to.equal(expected);
+  });
+
+  //it('handle FACEBOOK_SIGN_IN action', () => {
+  //  const state = Immutable.Map();
+  //  const nextState = reducer(state, {type: 'FACEBOOK_SIGN_IN'});
+  //
+  //  const actual = nextState.get('isSigningIn');
+  //  const expected = true;
+  //
+  //  expect(actual).to.equal(expected);
+  //});
 });

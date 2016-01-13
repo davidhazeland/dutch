@@ -44,9 +44,9 @@ function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
     GoogleAuthorize: require('../actions/GoogleAuthorize.js'),
-    GoogleAuthorizeSuccess: require('../actions/GoogleAuthorizeSuccess.js'),
-    GoogleAuthorizeFailure: require('../actions/GoogleAuthorizeFailure.js'),
-    GoogleSignIn: require('../actions/GoogleSignIn.js')
+    GoogleSignIn: require('../actions/GoogleSignIn.js'),
+    FacebookAuthorize: require('../actions/FacebookAuthorize.js'),
+    FacebookLogin: require('../actions/FacebookLogin.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

@@ -9,9 +9,14 @@ require('styles/components//Header.less');
 
 class HeaderComponent extends React.Component {
   render() {
-    const authButtonClass = cx({
+    const authGoogleClass = cx({
       'Header-authButton ui item': true,
       'visible': !this.props.Google.get('authorized')
+    });
+
+    const authFacebookClass = cx({
+      'Header-authButton ui item': true,
+      'visible': !this.props.Facebook.get('authorized')
     });
 
     return (
@@ -25,12 +30,12 @@ class HeaderComponent extends React.Component {
             Friends
           </a>
           <div className="right menu">
-            <button className={authButtonClass}
+            <button className={authGoogleClass}
                     onClick={() => this.props.onAuthorizeGoogle()}>
               Authorize Google
             </button>
-            <button className="ui item"
-                    onClick={() => this.props.onLoginFacebook()}>
+            <button className={authFacebookClass}
+                    onClick={() => this.props.onAuthorizeFacebook()}>
               Login Facebook
             </button>
           </div>

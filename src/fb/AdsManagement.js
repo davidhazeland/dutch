@@ -18,6 +18,7 @@ function getCampaigns() {
   )
 }
 
+
 function getStories(stories) {
   const batch = stories.map(id => {
     return {method: 'GET', relative_url: `${id}?fields=link`};
@@ -32,19 +33,4 @@ function getStories(stories) {
     console.log(links);
   });
 }
-
-export function get() {
-  FB.getLoginStatus((res) => {
-    if (res.status === 'connected') {
-      getCampaigns();
-    } else {
-      FB.login(function (response) {
-        if (response.authResponse) {
-          getCampaigns();
-        }
-      }, {scope: 'ads_management,ads_read'});
-    }
-  });
-}
-
 
