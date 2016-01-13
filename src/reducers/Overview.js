@@ -5,7 +5,7 @@
  */
 import Immutable from 'immutable';
 
-const initialState = {};
+const initialState = Immutable.Map();
 
 function requestActiveUsers(state) {
   return state.setIn(['activeUser', 'isRequesting'], true);

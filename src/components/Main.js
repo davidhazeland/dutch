@@ -13,7 +13,16 @@ class AppComponent extends React.Component {
     this.props.actions.GoogleSignIn();
   }
 
+  renderContent() {
+    return (
+      <Content>
+        {this.props.children}
+      </Content>
+    );
+  }
+
   render() {
+    const content = this.props.Google.get('authorized') ? this.renderContent() : null;
     return (
       <div className="Main">
         <Header Google={this.props.Google}
@@ -21,9 +30,7 @@ class AppComponent extends React.Component {
                 onLoginFacebook={() => {}}
         />
         <Navigation/>
-        <Content>
-          {this.props.children}
-        </Content>
+        {content}
       </div>
     );
   }
