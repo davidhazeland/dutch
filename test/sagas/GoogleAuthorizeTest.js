@@ -10,10 +10,12 @@ import GoogleAuthorizeSuccess from 'actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from 'actions/GoogleAuthorizeFailure';
 
 describe('[Saga] Google Authorize', () => {
-  const saga = authorize();
+  beforeEach(function() {
+    this.saga = authorize();
+  });
 
   it('should call Google Auth service', function() {
-    const actual = saga.next().value;
+    const actual = this.saga.next().value;
     const expected = call(googleAuthorize);
     expect(actual).to.deep.equal(expected);
   });
@@ -22,7 +24,8 @@ describe('[Saga] Google Authorize', () => {
   it('then dispatch Authorize Success action when service return result', function() {
     const result = {};
 
-    const actual = saga.next(result).value;
+    this.saga.next();
+    const actual = this.saga.next(result).value;
     const expected = put(GoogleAuthorizeSuccess(result));
 
     expect(actual).to.deep.equal(expected);

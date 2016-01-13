@@ -31,14 +31,11 @@ describe('[Saga] Overview Request Active Users', () => {
   });
 
   it('should dispatch Receive Active Users action when service return result', function(){
-    const response = {
-      result: true,
-      error: false
-    };
+    const result = [];
 
     this.saga.next();
-    const actual = this.saga.next(response).value;
-    const expected = put(OverviewReceiveActiveUsers(response.result));
+    const actual = this.saga.next(result).value;
+    const expected = put(OverviewReceiveActiveUsers(result));
 
     expect(actual).to.deep.equal(expected);
   });
