@@ -22,10 +22,8 @@ class HeaderComponent extends React.Component {
     return (
       <div className="Header">
         <div className="ui secondary pointing menu">
-          <a href="/" className="active orange item">
-            Home
-          </a>
-          <Link to="/page" className="item">Page</Link>
+          <Link to="/overview" className="item">Home</Link>
+          <Link to="/reporting" className="item active orange">Reporting</Link>
           <a className="item">
             Friends
           </a>

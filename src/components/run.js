@@ -9,6 +9,7 @@ const configureStore = require('../stores');
 
 import App from '../containers/App';
 import Overview from '../containers/Overview';
+import Reporting from '../containers/Reporting';
 
 const history = createHistory();
 const store = configureStore();
@@ -19,7 +20,9 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Overview} />
+        <IndexRoute component={Reporting} />
+        <Route path="overview" component={Overview} />
+        <Route path="reporting" component={Reporting} />
       </Route>
     </Router>
   </Provider>,
