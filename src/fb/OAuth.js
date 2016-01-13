@@ -3,20 +3,12 @@
 import Promise from 'bluebird';
 import config from 'config';
 
-window.fbAsyncInit = function () {
-  FB.init({
-    appId: config.FACEBOOK_APP_ID,
-    xfbml: true,
-    version: 'v2.4'
-  });
-};
-
-
 const SCOPES = ['ads_management', 'ads_read'];
 
 
 function hasAPI(callback) {
   if (typeof (FB) !== 'undefined') {
+    init();
     callback();
   }
   else {
@@ -24,6 +16,15 @@ function hasAPI(callback) {
       hasAPI(callback);
     }, 50);
   }
+}
+
+
+function init() {
+  FB.init({
+    appId: config.FACEBOOK_APP_ID,
+    xfbml: true,
+    version: 'v2.5'
+  });
 }
 
 
