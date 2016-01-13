@@ -2,35 +2,57 @@
 
 import config from 'config';
 
-function getCampaigns() {
-  const uri = `/act_${config.FACEBOOK_AD_ACCOUNT_ID}/ads?fields=adcreatives{object_story_id}`;
-  FB.api(
-    uri,
-    function (response) {
-      if (response && !response.error) {
-        /* handle the result */
-        const stories = response.data.map(item => {
-          return item.adcreatives.data[0].object_story_id;
-        });
-        getStories(stories);
-      }
-    }
-  )
+
+function mapStory(data) {
+  return data.map(item => {
+    return JSON.parse(item.body).link;
+  });
 }
 
 
-function getStories(stories) {
-  const batch = stories.map(id => {
+function batchStory(storyIds) {
+  const batch = storyIds.map(id => {
     return {method: 'GET', relative_url: `${id}?fields=link`};
   });
-  FB.api('/', 'POST', {
-    batch: batch,
-    include_headers: false
-  }, function (response) {
-    const links = response.map(item => {
-      return JSON.parse(item.body).link;
+  return new Promise((resolve, reject) => {
+    FB.api('/', 'POST', {
+      batch: batch,
+      include_headers: false
+    }, function (response) {
+      if (response) {
+        resolve(mapStory(response));
+      } else {
+        reject(response);
+      }
     });
-    console.log(links);
   });
+}
+
+function mapStoryId(data) {
+  return data.map(item => {
+    return item.adcreatives.data[0].object_story_id;
+  });
+}
+
+export function getAdverts(account) {
+  return new Promise((resolve, reject) => {
+    const url = `/act_${account.id}/ads?fields=adcreatives{object_story_id}`;
+    FB.api(url, (response) => {
+      if (response && !response.error) {
+        const storyIds = mapStoryId(response.data);
+        batchStory(storyIds).then(stories => {
+          resolve({
+            ads: response.data,
+            stories: stories
+          });
+        }, err => {
+          reject(err);
+        });
+      } else {
+        reject(response);
+      }
+    });
+  });
+
 }
 
