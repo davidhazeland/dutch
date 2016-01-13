@@ -12,7 +12,18 @@ function mapViewId(properties) {
 }
 
 function mapResult(response) {
-  return response;
+  const result = [];
+
+  for (const id in response.result) {
+    const data = response.result[id].result;
+    result.push({
+      id: id,
+      rows: data.rows,
+      total: data.totalsForAllResults['rt:activeUsers']
+    });
+  }
+
+  return result;
 }
 
 
@@ -27,13 +38,15 @@ export function batch(account) {
     };
 
     _.forEach(viewIds, (viewId) => {
-      batch.add(query(viewId, queryParams));
+      batch.add(query(viewId, queryParams), {
+        id: viewId
+      });
     });
 
     batch.then(response => {
       resolve(mapResult(response));
     }, err => {
-      reject(err);
+      reject(new Error(err));
     });
   });
 }
