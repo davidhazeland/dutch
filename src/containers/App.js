@@ -14,9 +14,9 @@ import Main from '../components/Main';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, Google} = this.props;
+    const {actions, Google, Facebook} = this.props;
     return (
-      <Main actions={actions} Google={Google}>
+      <Main actions={actions} Google={Google} Facebook={Facebook}>
         {this.props.children}
       </Main>
     );
@@ -29,11 +29,15 @@ class App extends Component {
  */
 App.propTypes = {
   actions: PropTypes.object.isRequired,
-  Google: PropTypes.object.isRequired
+  Google: PropTypes.object.isRequired,
+  Facebook: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
-  const props = { Google: state.Google };
+  const props = {
+    Google: state.Google,
+    Facebook: state.Facebook
+  };
   return props;
 }
 function mapDispatchToProps(dispatch) {
