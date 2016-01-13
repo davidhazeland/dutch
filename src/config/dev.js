@@ -47,7 +47,8 @@ let config = {
   appEnv: 'dev',  // feel free to remove the appEnv property here
   GOOGLE_API_CLIENT_ID: '60820199865-7tncjaor95g3sdhqe7gcefeobcp1vtn5.apps.googleusercontent.com',
   GOOGLE_ANALYTICS_ACCOUNTS: GOOGLE_ANALYTICS_ACCOUNTS,
-  FACEBOOK_AD_ACCOUNTS: FACEBOOK_AD_ACCOUNTS
+  FACEBOOK_AD_ACCOUNTS: FACEBOOK_AD_ACCOUNTS,
+  OVERVIEW_REFRESH_PERIOD: 3000
 };
 
 export default Object.freeze(Object.assign({}, baseConfig, config));
