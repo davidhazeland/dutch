@@ -37,16 +37,16 @@ function loadAPI() {
 }
 
 
-export function authorize() {
+export function authorize(immediate = false) {
   return new Promise((resolve, reject) => {
-    async.series([requestAuthorization.call(null, false), loadAPI]).then(response => {
-      resolve({
-        result: response[0]
-      }, err => {
-        reject({
-          error: err
-        });
+    requestAuthorization(immediate).then(response => {
+      loadAPI().then(() => {
+        resolve(response);
+      }, () => {
+        reject(new Error('Google API load failure!'));
       });
+    }, () => {
+      reject(new Error('Google authorize failure!'));
     });
   });
 }
@@ -55,20 +55,11 @@ export function authorize() {
 export function signIn() {
   return new Promise((resolve, reject) => {
     hasAPI(() => {
-      async.series([requestAuthorization, loadAPI]).then(response => {
-        resolve({
-          result: response[0]
-        });
+      authorize(true).then(response => {
+        resolve(response);
       }, err => {
-        reject({
-          error: err
-        });
+        reject(err);
       });
-      //Promise.all([requestAuthorization, loadAPI]).then(response => {
-      //  resolve(response);
-      //}, err => {
-      //  reject(err);
-      //});
     });
   });
 }

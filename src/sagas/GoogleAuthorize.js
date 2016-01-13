@@ -4,11 +4,12 @@ import GoogleAuthorizeSuccess from '../actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from '../actions/GoogleAuthorizeFailure';
 
 export function* authorize() {
-  const {result, error} = yield call(googleAuthorize);
-  if (result) {
+  try {
+    const result = yield call(googleAuthorize);
     yield put(GoogleAuthorizeSuccess(result));
-  } else {
-    yield put(GoogleAuthorizeFailure(error));
+  }
+  catch (err) {
+    yield put(GoogleAuthorizeFailure(err));
   }
 }
 
