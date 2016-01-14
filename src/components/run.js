@@ -20,7 +20,7 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Reporting} />
+        <IndexRoute component={Overview} />
         <Route path="overview" component={Overview} />
         <Route path="reporting" component={Reporting} />
       </Route>

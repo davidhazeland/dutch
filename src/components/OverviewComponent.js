@@ -26,34 +26,58 @@ class OverviewComponent extends React.Component {
   renderActiveUser() {
     if (!this.props.Overview.getIn(['activeUser', 'data'])) return null;
 
-    return this.props.Overview.getIn(['activeUser', 'data']).map((item, key) => {
-      return (
-        <div className="ui segment" key={key}>
-          <div className="ui orange statistic">
-            <div className="value">
-              {item.get('total')}
+    const data = this.props.Overview.getIn(['activeUser', 'data']);
+    const total = data.reduce((reduction, value) => {
+      return reduction + parseInt(value.get('total'));
+    }, 0);
+    return (
+      <div className="">
+        <div className="ui segment">
+          <div className="ui green statistics">
+            <div className="statistic">
+              <div className="value">
+                {total}
+              </div>
+              <div className="grey label">
+                Total
+              </div>
             </div>
-            <div className="grey label">
-              {this.viewIdToName(item.get('id'))}
-            </div>
-          </div>
-          <div className="ui mini grey statistics">
-            {item.get('rows').map((row, key) => {
-              return (
-                <div className="statistic" key={key}>
-                  <div className="value">
-                    {row.get(1)}
-                  </div>
-                  <div className="grey label">
-                    {row.get(0)}
-                  </div>
-                </div>
-              )
-            })}
           </div>
         </div>
-      )
-    });
+        <div className="ui horizontal segments">
+          {data.map((item, key) => {
+            return (
+              <div className="ui segment" key={key}>
+                <div className="ui orange statistic">
+                  <div className="value">
+                    {item.get('total')}
+                  </div>
+                  <div className="grey label">
+                    {this.viewIdToName(item.get('id'))}
+                  </div>
+                </div>
+                <div className="ui mini grey statistics">
+                  {item.get('rows').map((row, key) => {
+                    return (
+                      <div className="statistic" key={key}>
+                        <div className="value">
+                          {row.get(1)}
+                        </div>
+                        <div className="grey label">
+                          {row.get(0)}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+
+
   }
 
   render() {
