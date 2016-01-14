@@ -5,7 +5,7 @@ import {query as queryAnalyticsReporting} from './AnalyticsCoreReporting';
 
 function mapParams(params) {
   const sort = {
-    name: 'ga:adsenseRevenue',
+    name: 'ga:pageViews',
     direction: params.desc ? '-' : ''
   };
   const filters = [
@@ -24,13 +24,13 @@ function mapParams(params) {
 }
 
 
-export function query(params) {
-  const pageMetrics = ['ga:adsenseRevenue'];
+export function query(viewId, params) {
+  const pageMetrics = ['ga:pageViews'];
   const pageDimensions = ['ga:pagePath'];
 
   const paramsMapped = mapParams(params);
 
-  const analyticsReporting = queryAnalyticsReporting(config.GOOGLE_ANALYTICS_VIEW_ID, {
+  return queryAnalyticsReporting(viewId, {
     metrics: pageMetrics,
     dimensions: pageDimensions,
     startDate: paramsMapped.startDate,
@@ -39,12 +39,12 @@ export function query(params) {
     filters: paramsMapped.filters
   });
 
-  return new Promise((resolve, reject) => {
-    analyticsReporting.then(response => {
-        resolve(response.result);
-      })
-      .then(null, (err) => {
-        reject(err);
-      });
-  });
+  //return new Promise((resolve, reject) => {
+  //  analyticsReporting.then(response => {
+  //      resolve(response);
+  //    })
+  //    .then(null, (err) => {
+  //      reject(err);
+  //    });
+  //});
 }

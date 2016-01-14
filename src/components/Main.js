@@ -23,7 +23,8 @@ class AppComponent extends React.Component {
   }
 
   render() {
-    const content = this.props.Google.get('authorized') ? this.renderContent() : null;
+    const authorized = this.props.Google.get('authorized') && this.props.Facebook.get('authorized');
+    const content = authorized ? this.renderContent() : null;
     return (
       <div className="Main">
         <Header Google={this.props.Google}

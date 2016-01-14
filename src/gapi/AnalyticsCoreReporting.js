@@ -44,10 +44,8 @@ export function query(viewId, queryParams) {
     'end-date': endDate,
     'metrics': metrics,
     'dimensions': dimensions,
+    //'filters': filters,
     'sort': sort,
-    'filters': filters,
-    'max-results': 10
+    'max-results': 10000
   });
 }
-
-
