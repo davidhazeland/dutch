@@ -25,4 +25,18 @@ describe('Reporting', () => {
 
     expect(actual).to.equal(expected);
   });
+
+  it('handle RECEIVE_AD_ANALYTICS action', () => {
+    const state = Immutable.Map();
+    const action = {
+      type: 'REPORTING_RECEIVE_AD_ANALYTICS',
+      parameter: []
+    };
+    const nextState = reducer(state, action);
+
+    const actual = nextState.getIn(['adAnalytics', 'data']).toJS();
+    const expected = [];
+
+    expect(actual).to.deep.equal(expected);
+  });
 });

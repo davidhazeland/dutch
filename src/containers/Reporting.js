@@ -14,9 +14,9 @@ import ReportingComponent from '../components/ReportingComponent';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {actions, Google, Facebook} = this.props;
+    const {actions, Google, Facebook, Reporting} = this.props;
     return (
-      <ReportingComponent actions={actions} Google={Google} Facebook={Facebook}/>
+      <ReportingComponent actions={actions} Google={Google} Facebook={Facebook} Reporting={Reporting}/>
     );
   }
 }
@@ -28,19 +28,22 @@ class App extends Component {
 App.propTypes = {
   actions: PropTypes.object.isRequired,
   Google: PropTypes.object.isRequired,
-  Facebook: PropTypes.object.isRequired
+  Facebook: PropTypes.object.isRequired,
+  Reporting: PropTypes.object.isRequired
 };
 function mapStateToProps(state) {
   /* Populated by react-webpack-redux:reducer */
   const props = {
     Google: state.Google,
-    Facebook: state.Facebook
+    Facebook: state.Facebook,
+    Reporting: state.Reporting
   };
   return props;
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
+    ReportingSelectProperty: require('../actions/ReportingSelectProperty.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;

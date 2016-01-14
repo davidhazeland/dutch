@@ -16,7 +16,10 @@ class App extends Component {
   render() {
     const {actions, Google, Facebook} = this.props;
     return (
-      <Main actions={actions} Google={Google} Facebook={Facebook}>
+      <Main
+        actions={actions}
+        Google={Google}
+        Facebook={Facebook}>
         {this.props.children}
       </Main>
     );
