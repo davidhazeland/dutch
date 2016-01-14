@@ -14,7 +14,7 @@ module.exports = function(config) {
       mocha: {}
     },
     singleRun: true,
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'mocha'],
     preprocessors: {
       'test/loadtests.js': [ 'webpack', 'sourcemap' ]
     },
