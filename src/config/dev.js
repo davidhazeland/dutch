@@ -9,7 +9,7 @@ const GOOGLE_ANALYTICS_ACCOUNTS = [
       {
         id: 'UA-55012181-3',
         name: 'Con là tất cả',
-        websiteUrl: "http://conlatatca.vn",
+        websiteUrl: 'http://conlatatca.vn',
         defaultProfileId: '100697044',
         views: [
           {
@@ -20,7 +20,7 @@ const GOOGLE_ANALYTICS_ACCOUNTS = [
       {
         id: 'UA-55012181-7',
         name: 'Mang thai lần đầu',
-        websiteUrl: "http://mangthailandau.com",
+        websiteUrl: 'http://mangthailandau.com',
         defaultProfileId: '111505121',
         views: [
           {
@@ -31,7 +31,7 @@ const GOOGLE_ANALYTICS_ACCOUNTS = [
       {
         id: 'UA-55012181-8',
         name: 'Nhật ký nuôi con',
-        websiteUrl: "http://nhatkynuoicon.com",
+        websiteUrl: 'http://nhatkynuoicon.com',
         defaultProfileId: '113933233',
         views: [
           {

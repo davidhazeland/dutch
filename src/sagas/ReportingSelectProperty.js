@@ -1,4 +1,4 @@
-import {call, put, take, fork, race} from 'redux-saga';
+import {call, put, take, fork} from 'redux-saga';
 import {query} from '../services/AdAnalytics';
 import ReportingReceiveAdAnalytics from 'actions/ReportingReceiveAdAnalytics';
 import ReportingRequestAdAnalyticsFailure from 'actions/ReportingRequestAdAnalyticsFailure';

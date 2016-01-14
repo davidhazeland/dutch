@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import config from 'config';
 
 import {query as queryAnalyticsReporting} from './AnalyticsCoreReporting';
 
@@ -48,3 +47,5 @@ export function query(viewId, params) {
   //    });
   //});
 }
+
+
