@@ -7,17 +7,21 @@ import Immutable from 'immutable';
 
 const initialState = Immutable.fromJS({});
 
+function selectProperty(state, property) {
+  return state.set('selectedProperty', property);
+}
+
 module.exports = function(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
   //let nextState = Object.assign({}, state);
 
   switch(action.type) {
-    /*
-    case 'YOUR_ACTION': {
+
+    case 'REPORTING_SELECT_PROPERTY': {
       // Modify next state depending on the action and return it
-      return nextState;
+      return selectProperty(state, action.parameter);
     } break;
-    */
+
     default: {
       /* Return original state if no actions were consumed. */
       return state;

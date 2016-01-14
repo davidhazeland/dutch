@@ -11,4 +11,18 @@ describe('Reporting', () => {
 
     done();
   });
+
+  it('handle SELECT_PROPERTY action', () => {
+    const state = Immutable.Map();
+    const action = {
+      type: 'REPORTING_SELECT_PROPERTY',
+      parameter: 'UA-ID'
+    };
+    const nextState = reducer(state, action);
+
+    const actual = nextState.get('selectedProperty');
+    const expected = 'UA-ID';
+
+    expect(actual).to.equal(expected);
+  });
 });

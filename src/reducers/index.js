@@ -12,6 +12,7 @@ import { routeReducer } from 'redux-simple-router';
 const reducers = {
   Google: require('../reducers/Google.js'),
   Overview: require('../reducers/Overview.js'),
-  Facebook: require('../reducers/Facebook.js')
+  Facebook: require('../reducers/Facebook.js'),
+  Reporting: require('../reducers/Reporting.js')
 };
 module.exports = combineReducers(Object.assign({}, reducers, { routing: routeReducer }));
