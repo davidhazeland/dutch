@@ -32,7 +32,7 @@ export function query(viewId, queryParams) {
     'start-date': queryParams.startDate || '30daysAgo',
     'end-date': queryParams.endDate || 'today',
     'metrics': queryParams.metrics.join(','),
-    'max-results': queryParams.maxResults || 100000
+    'max-results': queryParams.maxResults || 10000
   };
 
   if (queryParams.dimensions) {
