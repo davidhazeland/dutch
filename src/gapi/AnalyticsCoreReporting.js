@@ -27,25 +27,28 @@
  * @returns Promise
  */
 export function query(viewId, queryParams) {
-  const id = `ga:${viewId}`;
-  const startDate = queryParams.startDate;
-  const endDate = queryParams.endDate;
-  const metrics = queryParams.metrics.join(',');
-  const dimensions = queryParams.dimensions.join(',');
-  const sort = `${queryParams.sort.direction}${queryParams.sort.name}`;
-  const filters = queryParams.filters.map(filter => {
-    const operator = '=~'; // Regular Expression
-    return `${filter.name}${operator}${filter.expression}`
-  }).join(',');
+  const params = {
+    'ids': `ga:${viewId}`,
+    'start-date': queryParams.startDate || '30daysAgo',
+    'end-date': queryParams.endDate || 'today',
+    'metrics': queryParams.metrics.join(','),
+    'max-results': queryParams.maxResults || 100000
+  };
 
-  return gapi.client.analytics.data.ga.get({
-    'ids': id,
-    'start-date': startDate,
-    'end-date': endDate,
-    'metrics': metrics,
-    'dimensions': dimensions,
-    //'filters': filters,
-    'sort': sort,
-    'max-results': 10000
-  });
+  if (queryParams.dimensions) {
+    params.dimensions = queryParams.dimensions.join(',');
+  }
+
+  if (queryParams.sort) {
+    params.sort = `${queryParams.sort.direction}${queryParams.sort.name}`;
+  }
+
+  if (queryParams.filters) {
+    params.filters = queryParams.filters.map(filter => {
+      const operator = '=~'; // Regular Expression
+      return `${filter.name}${operator}${filter.expression}`
+    }).join(',');
+  }
+
+  return gapi.client.analytics.data.ga.get(params);
 }

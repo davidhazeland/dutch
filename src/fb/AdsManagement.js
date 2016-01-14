@@ -1,8 +1,5 @@
 /* global FB */
 
-import config from 'config';
-
-
 function mapStory(data) {
   return data.map(item => {
     return JSON.parse(item.body).link;
@@ -34,9 +31,9 @@ function mapStoryId(data) {
   });
 }
 
-export function getAdverts(account) {
+export function getAdverts(accountId) {
   return new Promise((resolve, reject) => {
-    const url = `/act_${account.id}/ads?fields=adcreatives{object_story_id}`;
+    const url = `/act_${accountId}/ads?fields=adcreatives{object_story_id}`;
     FB.api(url, (response) => {
       if (response && !response.error) {
         const storyIds = mapStoryId(response.data);
@@ -53,6 +50,5 @@ export function getAdverts(account) {
       }
     });
   });
-
 }
 
