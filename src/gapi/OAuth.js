@@ -4,7 +4,10 @@ import Promise from 'bluebird';
 import config from 'config';
 
 // Set authorized scope.
-const SCOPES = ['https://www.googleapis.com/auth/analytics.readonly'];
+const SCOPES = [
+  'https://www.googleapis.com/auth/analytics.readonly',
+  'https://www.googleapis.com/auth/adsense.readonly'
+];
 
 function hasAPI(callback) {
   if (typeof (gapi) !== 'undefined' && gapi.client) {
@@ -32,7 +35,9 @@ function requestAuthorization(immediate = true) {
 
 
 function loadAPI() {
-  return gapi.client.load('analytics', 'v3');
+  const analytics = gapi.client.load('analytics', 'v3');
+  const adsense = gapi.client.load('adsense', 'v1.4');
+  return new Promise.all([analytics, adsense]);
 }
 
 
