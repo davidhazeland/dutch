@@ -28,7 +28,11 @@ test('Google reducer handles GOOGLE_AUTHORIZE_REQUEST action', assert => {
 
 
 test('Google reducer handles GOOGLE_AUTHORIZE_SUCCESS action', assert => {
-  const state = Immutable.Map();
+  const state = Immutable.fromJS({
+    authorized: false,
+    isAuthorizing: true,
+    isLogining: true
+  });
   const nextState = reducer(state, GoogleAuthorizeSuccess());
 
   const actual = [
@@ -51,13 +55,22 @@ test('Google reducer handles GOOGLE_AUTHORIZE_SUCCESS action', assert => {
 
 
 test('Google reducer handles GOOGLE_AUTHORIZE_FAILURE action', assert => {
-  const state = Immutable.Map();
+  const state = Immutable.fromJS({
+    isAuthorizing: true,
+    isLogining: true
+  });
   const nextState = reducer(state, GoogleAuthorizeFailure());
 
-  const actual = nextState.get('isAuthorizing');
-  const expected = false;
+  const actual = [
+    nextState.get('isAuthorizing'),
+    nextState.get('isLogining')
+  ];
+  const expected = [
+    false,
+    false
+  ];
 
-  assert.equal(actual, expected,
+  assert.deepEqual(actual, expected,
     'Should return state without authorizing');
 
   assert.end();
