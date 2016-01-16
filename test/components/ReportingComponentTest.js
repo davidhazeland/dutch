@@ -9,14 +9,14 @@ import createComponent from 'helpers/shallowRenderHelper';
 
 import ReportingComponent from 'components//ReportingComponent.js';
 
-describe('ReportingComponent', () => {
-    let component;
-
-    beforeEach(() => {
-      component = createComponent(ReportingComponent);
-    });
-
-    //it('should have its component name as default className', () => {
-    //  expect(component.props.className).to.equal('Reporting');
-    //});
-});
+//describe('ReportingComponent', () => {
+//    let component;
+//
+//    beforeEach(() => {
+//      component = createComponent(ReportingComponent);
+//    });
+//
+//    //it('should have its component name as default className', () => {
+//    //  expect(component.props.className).to.equal('Reporting');
+//    //});
+//});
