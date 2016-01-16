@@ -9,12 +9,19 @@ module.exports = function(config) {
     ],
     port: 8080,
     captureTimeout: 60000,
-    frameworks: [ 'phantomjs-shim', 'mocha', 'chai' ],
+    frameworks: [ 'phantomjs-shim', 'tap' ],
     client: {
-      mocha: {}
+
     },
     singleRun: true,
-    reporters: [ 'mocha'],
+    reporters: ['spec'],
+    specReporter: {
+      maxLogLines: 5,         // limit number of lines logged per test
+      suppressErrorSummary: true,  // do not print error summary
+      suppressFailed: false,  // do not print information about failed tests
+      suppressPassed: false,  // do not print information about passed tests
+      suppressSkipped: true  // do not print information about skipped tests
+    },
     preprocessors: {
       'test/loadtests.js': [ 'webpack', 'sourcemap' ]
     },
