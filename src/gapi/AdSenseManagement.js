@@ -1,3 +1,5 @@
+/* global gapi */
+
 function generateReport() {
   return gapi.client.adsense.reports.generate({
     'startDate': '2016-01-13',
@@ -9,5 +11,5 @@ function generateReport() {
 
 
 export function generateReportToday() {
-
+  generateReport();
 }
