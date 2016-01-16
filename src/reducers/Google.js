@@ -14,7 +14,7 @@ const initialState = Immutable.fromJS({
   analyticsAccounts: config.GOOGLE_ANALYTICS_ACCOUNTS
 });
 
-function setAuthorizing(state) {
+function makeAuthorizing(state) {
   return state.set('isAuthorizing', true);
 }
 
@@ -25,34 +25,29 @@ function setAuthorized(state, authorized) {
     .set('authorized', authorized);
 }
 
-function setLogining(state) {
+function makeLogining(state) {
   return state.set('isLogining', true);
 }
 
 module.exports = function(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
-  //let nextState = Object.assign({}, state);
 
   switch(action.type) {
 
     case 'GOOGLE_AUTHORIZE_REQUEST': {
-      // Modify next state depending on the action and return it
-      return setAuthorizing(state);
+      return makeAuthorizing(state);
     } break;
 
     case 'GOOGLE_AUTHORIZE_SUCCESS': {
-      // Modify next state depending on the action and return it
       return setAuthorized(state, true);
     } break;
 
     case 'GOOGLE_AUTHORIZE_FAILURE': {
-      // Modify next state depending on the action and return it
       return setAuthorized(state, false);
     } break;
 
     case 'GOOGLE_LOGIN_REQUEST': {
-      // Modify next state depending on the action and return it
-      return setLogining(state);
+      return makeLogining(state);
     } break;
 
     default: {
