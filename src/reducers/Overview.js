@@ -7,30 +7,32 @@ import Immutable from 'immutable';
 
 const initialState = Immutable.Map();
 
-function requestActiveUsers(state) {
-  return state.setIn(['activeUser', 'isRequesting'], true);
+function setActiveUserFetching(state, isFetching) {
+  return state.setIn(['activeUser', 'isFetching'], isFetching);
 }
 
-function receiveActiveUsers(state, data) {
+function setActiveUserData(state, data) {
   return state
-    .setIn(['activeUser', 'isRequesting'], false)
+    .setIn(['activeUser', 'isFetching'], false)
     .setIn(['activeUser', 'data'], Immutable.fromJS(data));
 }
 
+
 module.exports = function(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
-  //let nextState = Object.assign({}, state);
 
   switch(action.type) {
 
-    case 'OVERVIEW_REQUEST_ACTIVE_USERS': {
-      // Modify next state depending on the action and return it
-      return requestActiveUsers(state);
+    case 'OVERVIEW_FETCH_ACTIVE_USERS_REQUEST': {
+      return setActiveUserFetching(state, true);
     } break;
 
-    case 'OVERVIEW_RECEIVE_ACTIVE_USERS': {
-      // Modify next state depending on the action and return it
-      return receiveActiveUsers(state, action.parameter);
+    case 'OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS': {
+      return setActiveUserData(state, action.parameter);
+    } break;
+
+    case 'OVERVIEW_FETCH_ACTIVE_USERS_FAILURE': {
+      return setActiveUserFetching(state, false);
     } break;
 
     default: {
@@ -38,4 +40,4 @@ module.exports = function(state = initialState, action) {
       return state;
     }
   }
-}
+};
