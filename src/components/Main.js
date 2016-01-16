@@ -10,7 +10,7 @@ import Content from './ContentComponent';
 
 class AppComponent extends React.Component {
   componentDidMount() {
-    this.props.actions.GoogleSignIn();
+    this.props.actions.GoogleLoginRequest();
     this.props.actions.FacebookLogin();
   }
 
@@ -29,7 +29,7 @@ class AppComponent extends React.Component {
       <div className="Main">
         <Header Google={this.props.Google}
                 Facebook={this.props.Facebook}
-                onAuthorizeGoogle={() => this.props.actions.GoogleAuthorize()}
+                onAuthorizeGoogle={() => this.props.actions.GoogleAuthorizeRequest()}
                 onAuthorizeFacebook={() => this.props.actions.FacebookAuthorize()}
         />
         <Navigation/>
