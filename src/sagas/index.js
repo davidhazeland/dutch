@@ -3,7 +3,7 @@ const sagas = [
   require('./OverviewRequestActiveUsers'),
   require('./FacebookAuthorize'),
   require('./FacebookLogin'),
-  require('./GoogleAuthorize'),
+  require('./GoogleAuthorizeRequest'),
   require('./GoogleSignIn')
 ];
 
