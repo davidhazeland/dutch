@@ -21,7 +21,7 @@ test('Google reducer handles GOOGLE_AUTHORIZE_REQUEST action', assert => {
   const expected = true;
 
   assert.equal(actual, expected,
-    'Should return state with authorizing');
+    'Should return a state with authorizing');
 
   assert.end();
 });
@@ -48,7 +48,7 @@ test('Google reducer handles GOOGLE_AUTHORIZE_SUCCESS action', assert => {
   ];
 
   assert.deepEqual(actual, expected,
-    'Should return state with authorize and without authorizing, logining');
+    'Should return a state with authorize and without authorizing, logining');
 
   assert.end();
 });
@@ -71,7 +71,7 @@ test('Google reducer handles GOOGLE_AUTHORIZE_FAILURE action', assert => {
   ];
 
   assert.deepEqual(actual, expected,
-    'Should return state without authorizing');
+    'Should return a state without authorizing');
 
   assert.end();
 });
@@ -85,7 +85,7 @@ test('Google reducer handles GOOGLE_LOGIN_REQUEST action', assert => {
   const expected = true;
 
   assert.equal(actual, expected,
-    'Should return state with logining');
+    'Should return a state with logining');
 
   assert.end();
 });
