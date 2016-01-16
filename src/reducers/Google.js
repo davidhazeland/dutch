@@ -10,7 +10,7 @@ import config from 'config';
 const initialState = Immutable.fromJS({
   authorized: false,
   isAuthorizing: false,
-  isSigningIn: false,
+  isLogining: false,
   analyticsAccounts: config.GOOGLE_ANALYTICS_ACCOUNTS
 });
 
@@ -21,12 +21,12 @@ function setAuthorizing(state) {
 function setAuthorized(state, authorized) {
   return state
     .set('isAuthorizing', false)
-    .set('isSigningIn', false)
+    .set('isLogining', false)
     .set('authorized', authorized);
 }
 
-function setSigningIn(state) {
-  return state.set('isSigningIn', true);
+function setLogining(state) {
+  return state.set('isLogining', true);
 }
 
 module.exports = function(state = initialState, action) {
@@ -35,7 +35,7 @@ module.exports = function(state = initialState, action) {
 
   switch(action.type) {
 
-    case 'GOOGLE_AUTHORIZE': {
+    case 'GOOGLE_AUTHORIZE_REQUEST': {
       // Modify next state depending on the action and return it
       return setAuthorizing(state);
     } break;
@@ -50,9 +50,9 @@ module.exports = function(state = initialState, action) {
       return setAuthorized(state, false);
     } break;
 
-    case 'GOOGLE_SIGN_IN': {
+    case 'GOOGLE_LOGIN_REQUEST': {
       // Modify next state depending on the action and return it
-      return setSigningIn(state);
+      return setLogining(state);
     } break;
 
     default: {
