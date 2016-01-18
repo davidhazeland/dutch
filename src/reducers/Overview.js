@@ -7,14 +7,10 @@ import Immutable from 'immutable';
 
 const initialState = Immutable.Map();
 
-function setActiveUserFetching(state, isFetching) {
-  return state.setIn(['activeUser', 'isFetching'], isFetching);
-}
-
 function setActiveUserData(state, data) {
   return state
-    .setIn(['activeUser', 'isFetching'], false)
-    .setIn(['activeUser', 'data'], Immutable.fromJS(data));
+    .setIn(['activeUser', 'data'], Immutable.fromJS(data))
+    .setIn(['activeUser', 'isFetching'], false);
 }
 
 
@@ -24,7 +20,7 @@ module.exports = function(state = initialState, action) {
   switch(action.type) {
 
     case 'OVERVIEW_FETCH_ACTIVE_USERS_REQUEST': {
-      return setActiveUserFetching(state, true);
+      return state.setIn(['activeUser', 'isFetching'], true);
     } break;
 
     case 'OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS': {
@@ -32,7 +28,7 @@ module.exports = function(state = initialState, action) {
     } break;
 
     case 'OVERVIEW_FETCH_ACTIVE_USERS_FAILURE': {
-      return setActiveUserFetching(state, false);
+      return state.setIn(['activeUser', 'isFetching'], false);
     } break;
 
     default: {

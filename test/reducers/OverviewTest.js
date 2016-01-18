@@ -17,7 +17,7 @@ test('Overview reducer handle OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action', asser
   const expected = true;
 
   assert.equal(actual, expected,
-    'should return a state with fetching');
+    'should return a state be fetching');
 
   assert.end();
 });
@@ -42,7 +42,7 @@ test('Overview reducer handle OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS action', asser
   expected[1] = false;
 
   assert.deepEqual(actual[1], expected[1],
-    'should return a state without fetching');
+    'should return a state be fetching');
 
   assert.end();
 });
@@ -57,44 +57,7 @@ test('Overview reducer handle OVERVIEW_FETCH_ACTIVE_USERS_FAILURE action', asser
   const expected = false;
 
   assert.deepEqual(actual, expected,
-    'should return a state without fetching');
+    'should return a state be fetching');
 
   assert.end();
 });
-
-//describe('Overview', () => {
-//
-//  it('should not change the passed state', (done) => {
-//
-//    const state = Immutable.Map();
-//    reducer(state, {type: 'INVALID'});
-//
-//    done();
-//  });
-//
-//  it('handle REQUEST_ACTIVE_USERS', function(){
-//    const state = Immutable.Map();
-//    const nextState = reducer(state, {type: 'OVERVIEW_REQUEST_ACTIVE_USERS'});
-//
-//    const actual = nextState.getIn(['activeUser', 'isRequesting']);
-//    const expected = true;
-//
-//    expect(actual).to.equal(expected);
-//  });
-//
-//  it('handle RECEIVE_ACTIVE_USERS', function(){
-//    const state = Immutable.Map();
-//    const data = [
-//      {
-//        name: 'Con là tất cả',
-//        users: 130
-//      }
-//    ];
-//    const nextState = reducer(state, {type: 'OVERVIEW_RECEIVE_ACTIVE_USERS', parameter: data});
-//
-//    const actual = nextState.getIn(['activeUser', 'data']).toJS();
-//    const expected = data;
-//
-//    expect(actual).to.deep.equal(expected);
-//  });
-//});
