@@ -14,6 +14,13 @@ function setActiveUserData(state, data) {
 }
 
 
+function setAdSenseReportData(state, data) {
+  return state
+    .setIn(['adSenseReport', 'data'], Immutable.fromJS(data))
+    .setIn(['adSenseReport', 'isFetching'], false);
+}
+
+
 module.exports = function(state = initialState, action) {
   /* Keep the reducer clean - do not mutate the original state. */
 
@@ -29,6 +36,18 @@ module.exports = function(state = initialState, action) {
 
     case 'OVERVIEW_FETCH_ACTIVE_USERS_FAILURE': {
       return state.setIn(['activeUser', 'isFetching'], false);
+    } break;
+
+    case 'OVERVIEW_FETCH_ADSENSE_REPORTS_REQUEST': {
+      return state.setIn(['adSenseReport', 'isFetching'], true);
+    } break;
+
+    case 'OVERVIEW_FETCH_ADSENSE_REPORTS_SUCCESS': {
+      return setAdSenseReportData(state, action.parameter);
+    } break;
+
+    case 'OVERVIEW_FETCH_ADSENSE_REPORTS_FAILURE': {
+      return state.setIn(['adSenseReport', 'isFetching'], false);
     } break;
 
     default: {
