@@ -27,7 +27,7 @@ function mapResult(response) {
 }
 
 
-export function batch(account) {
+export function fetch(account) {
   return new Promise((resolve, reject) => {
     const batch = gapi.client.newBatch();
 

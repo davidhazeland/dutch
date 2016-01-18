@@ -1,9 +1,10 @@
 import config from 'config';
 import delay from 'delay';
 import {call, put, take, fork, race} from 'redux-saga';
-import {batch} from '../gapi/ActiveUsers';
-import OverviewReceiveActiveUsers from '../actions/OverviewReceiveActiveUsers';
-import OverviewRequestActiveUsersFailure from '../actions/OverviewRequestActiveUsersFailure';
+import {fetch} from '../gapi/ActiveUsers';
+import OverviewFetchActiveUsersRequest from '../actions/OverviewFetchActiveUsersRequest';
+import OverviewFetchActiveUsersSuccess from '../actions/OverviewFetchActiveUsersSuccess';
+import OverviewFetchActiveUsersFailure from '../actions/OverviewFetchActiveUsersFailure';
 
 export function* requestActiveUsers(getState) {
   const googleState = getState().Google;

@@ -6,8 +6,8 @@
 import Immutable from 'immutable';
 import {put, call} from 'redux-saga';
 import {requestActiveUsers} from 'sagas/OverviewRequestActiveUsers';
-import {batch} from 'gapi/ActiveUsers';
-import OverviewReceiveActiveUsers from 'actions/OverviewReceiveActiveUsers';
+import {fetch} from 'gapi/ActiveUsers';
+import OverviewFetchActiveUsersRequest from 'actions/OverviewFetchActiveUsersRequest';
 
 //describe('[Saga] Overview Request Active Users', () => {
 //  beforeEach(function() {

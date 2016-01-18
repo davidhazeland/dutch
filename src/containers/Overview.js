@@ -41,8 +41,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
   const actions = {
-    OverviewRequestActiveUsers: require('../actions/OverviewRequestActiveUsers.js'),
-    OverviewStopRequestActiveUsers: require('../actions/OverviewStopRequestActiveUsers.js')
+    OverviewFetchActiveUsersRequest: require('../actions/OverviewFetchActiveUsersRequest.js')
   };
   const actionMap = { actions: bindActionCreators(actions, dispatch) };
   return actionMap;
