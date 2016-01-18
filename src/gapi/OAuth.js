@@ -21,7 +21,7 @@ function hasAPI(callback) {
 }
 
 
-function requestAuthorization(immediate = true) {
+function request(immediate = true) {
   // Handles the authorization flow.
   // `immediate` should be false when invoked from the button click.
   const authData = {
@@ -34,7 +34,7 @@ function requestAuthorization(immediate = true) {
 }
 
 
-function loadAPI() {
+function load() {
   const analytics = gapi.client.load('analytics', 'v3');
   const adsense = gapi.client.load('adsense', 'v1.4');
   return new Promise.all([analytics, adsense]);
@@ -43,8 +43,8 @@ function loadAPI() {
 
 export function authorize(immediate = false) {
   return new Promise((resolve, reject) => {
-    requestAuthorization(immediate).then(response => {
-      loadAPI().then(() => {
+    request(immediate).then(response => {
+      load().then(() => {
         resolve(response);
       }, () => {
         reject(new Error('Google API load failure!'));
@@ -56,7 +56,7 @@ export function authorize(immediate = false) {
 }
 
 
-export function signIn() {
+export function login() {
   return new Promise((resolve, reject) => {
     hasAPI(() => {
       authorize(true).then(response => {

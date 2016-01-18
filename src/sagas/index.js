@@ -4,7 +4,7 @@ const sagas = [
   require('./FacebookAuthorize'),
   require('./FacebookLogin'),
   require('./GoogleAuthorizeRequest'),
-  require('./GoogleSignIn')
+  require('./GoogleLoginRequest')
 ];
 
 module.exports = sagas.map(saga => {

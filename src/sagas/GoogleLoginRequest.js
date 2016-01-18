@@ -1,11 +1,11 @@
 import {call, put, take, fork} from 'redux-saga';
-import {signIn as googleSignIn} from '../gapi/OAuth';
+import {login} from '../gapi/OAuth';
 import GoogleAuthorizeSuccess from '../actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from '../actions/GoogleAuthorizeFailure';
 
-export function* signIn() {
+export function* request() {
   try {
-    const result = yield call(googleSignIn);
+    const result = yield call(login);
     yield put(GoogleAuthorizeSuccess(result));
   }
   catch (err) {
@@ -14,7 +14,7 @@ export function* signIn() {
 }
 
 export default function* () {
-  while (yield take('GOOGLE_SIGN_IN')) {
-    yield fork(signIn);
+  while (yield take('GOOGLE_LOGIN_REQUEST')) {
+    yield fork(request);
   }
 }
