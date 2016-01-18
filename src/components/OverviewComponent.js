@@ -15,9 +15,9 @@ class OverviewComponent extends React.Component {
 
   viewIdToName(id) {
     const map = {
-      '100697044': 'Con là tất cả',
-      '111505121': 'Mang thai lần đầu',
-      '113933233': 'Nhật ký nuôi con'
+      'UA-55012181-3': 'Con là tất cả',
+      'UA-55012181-7': 'Mang thai lần đầu',
+      'UA-55012181-8': 'Nhật ký nuôi con'
     };
 
     return map[id];

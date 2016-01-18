@@ -1,7 +1,6 @@
 /* global gapi */
 
 import Promise from 'bluebird';
-import _ from 'lodash';
 
 function query() {
   return gapi.client.adsense.reports.generate({
