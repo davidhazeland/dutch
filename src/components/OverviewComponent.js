@@ -7,10 +7,12 @@ require('styles/components//Overview.less');
 class OverviewComponent extends React.Component {
   componentDidMount() {
     this.props.actions.OverviewFetchActiveUsersRequest();
+    this.props.actions.OverviewFetchAdSenseReportsRequest();
   }
 
   componentWillUnmount() {
     this.props.actions.OverviewStopFetchActiveUsers();
+    this.props.actions.OverviewStopAdSenseReportsRequest();
   }
 
   viewIdToName(id) {

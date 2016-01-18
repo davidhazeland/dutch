@@ -32,14 +32,12 @@ function handle(response) {
   const result = [];
 
   for (const id in response.result) {
-    if (response.result.hasOwnProperty(id)) {
-      const data = response.result[id].result;
-      result.push({
-        id: id,
-        rows: data.rows,
-        total: data.totalsForAllResults['rt:activeUsers']
-      });
-    }
+    const data = response.result[id].result;
+    result.push({
+      id: id,
+      rows: data.rows,
+      total: data.totalsForAllResults['rt:activeUsers']
+    });
   }
 
   return result;
