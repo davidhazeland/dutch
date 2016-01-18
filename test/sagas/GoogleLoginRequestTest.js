@@ -22,7 +22,7 @@ const setup = () => {
 };
 
 
-test('Google Authorize Request saga', assert => {
+test('Google Login Request saga', assert => {
   const fixtures = setup();
 
   const actual = [];
@@ -50,7 +50,7 @@ test('Google Authorize Request saga', assert => {
 });
 
 
-test('Google Authorize Request saga: request generator', nest => {
+test('Google Login Request saga: request generator', nest => {
 
   nest.test('...without error', assert => {
     const fixtures = setup();
