@@ -1,6 +1,6 @@
 const sagas = [
   require('./ReportingSelectProperty'),
-  require('./OverviewRequestActiveUsers'),
+  require('./OverviewFetchActiveUsersRequest'),
   require('./FacebookAuthorize'),
   require('./FacebookLogin'),
   require('./GoogleAuthorizeRequest'),
