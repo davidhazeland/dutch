@@ -8,7 +8,6 @@ import Immutable from 'immutable';
 import {put, call, fork, take} from 'redux-saga';
 import saga, {request} from 'sagas/GoogleAuthorizeRequest';
 import {authorize} from 'gapi/OAuth';
-import GoogleAuthorizeRequest from 'actions/GoogleAuthorizeRequest';
 import GoogleAuthorizeSuccess from 'actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from 'actions/GoogleAuthorizeFailure';
 
@@ -30,10 +29,10 @@ test('Google Authorize Request saga', assert => {
   const expected = [];
 
   actual[0] = fixtures.sagaIterator.next().value;
-  expected[0] = take(GoogleAuthorizeRequest().type);
+  expected[0] = take('GOOGLE_AUTHORIZE_REQUEST');
 
   assert.deepEqual(actual[0], expected[0],
-    'should wait for Google Authorize Request action');
+    'should wait for GOOGLE_AUTHORIZE_REQUEST action');
 
   actual[1] = fixtures.sagaIterator.next(true).value;
   expected[1] = fork(request);
@@ -42,59 +41,61 @@ test('Google Authorize Request saga', assert => {
     'then fork request generator function');
 
   actual[2] = fixtures.sagaIterator.next().value;
-  expected[2] = take(GoogleAuthorizeRequest().type);
+  expected[2] = take('GOOGLE_AUTHORIZE_REQUEST');
 
   assert.deepEqual(actual[2], expected[2],
-    'and keep waiting Google Authorize Request action');
+    'and keep waiting GOOGLE_AUTHORIZE_REQUEST action');
 
   assert.end();
 });
 
 
-test('Google Authorize Request saga: request generator success', assert => {
-  const fixtures = setup();
+test('Google Authorize Request saga: request generator', nest => {
 
-  const actual = [];
-  const expected = [];
+  nest.test('...without error', assert => {
+    const fixtures = setup();
 
-  actual[0] = fixtures.requestIterator.next().value;
-  expected[0] = call(authorize);
+    const actual = [];
+    const expected = [];
 
-  assert.deepEqual(actual[0], expected[0],
-    'should call authorize service');
+    actual[0] = fixtures.requestIterator.next().value;
+    expected[0] = call(authorize);
 
-  const authorizeResponse = {};
+    assert.deepEqual(actual[0], expected[0],
+      'should call authorize service');
 
-  actual[1] = fixtures.requestIterator.next(authorizeResponse).value;
-  expected[1] = put(GoogleAuthorizeSuccess(authorizeResponse));
+    const authorizeResponse = {};
 
-  assert.deepEqual(actual[1], expected[1],
-    'then dispatch GoogleAuthorizeSuccess action');
+    actual[1] = fixtures.requestIterator.next(authorizeResponse).value;
+    expected[1] = put(GoogleAuthorizeSuccess(authorizeResponse));
 
-  assert.end();
+    assert.deepEqual(actual[1], expected[1],
+      'then dispatch GOOGLE_AUTHORIZE_SUCCESS action');
+
+    assert.end();
+  });
+
+  nest.test('...with error', assert => {
+    const fixtures = setup();
+
+    const actual = [];
+    const expected = [];
+
+    actual[0] = fixtures.requestIterator.next().value;
+    expected[0] = call(authorize);
+
+    assert.deepEqual(actual[0], expected[0],
+      'should call authorize service');
+
+    const authorizeError = new Error();
+
+    actual[1] = fixtures.requestIterator.throw(authorizeError).value;
+    expected[1] = put(GoogleAuthorizeFailure(authorizeError));
+
+    assert.deepEqual(actual[1], expected[1],
+      'then dispatch GOOGLE_AUTHORIZE_FAILURE action');
+
+    assert.end();
+  });
+
 });
-
-
-test('Google Authorize Request saga: request generator failure', assert => {
-  const fixtures = setup();
-
-  const actual = [];
-  const expected = [];
-
-  actual[0] = fixtures.requestIterator.next().value;
-  expected[0] = call(authorize);
-
-  assert.deepEqual(actual[0], expected[0],
-    'should call authorize service');
-
-  const authorizeError = new Error();
-
-  actual[1] = fixtures.requestIterator.throw(authorizeError).value;
-  expected[1] = put(GoogleAuthorizeFailure(authorizeError));
-
-  assert.deepEqual(actual[1], expected[1],
-    'then dispatch GoogleAuthorizeFailure action');
-
-  assert.end();
-});
-
