@@ -21,7 +21,7 @@ export function* request(getState) {
 export function* autoUpdate(getState) {
   while(true) {
     const {stop} = yield race({
-      tick: call(delay, config.OVERVIEW_REFRESH_PERIOD),
+      tick: call(delay, config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD),
       stop: take('OVERVIEW_STOP_FETCH_ACTIVE_USERS')
     });
     if (!stop) {

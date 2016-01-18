@@ -37,7 +37,7 @@ const setup = () => {
 };
 
 
-test('Overview Fetch Request saga', assert => {
+test('Overview Fetch Active Users Request saga', assert => {
   const fixtures = setup();
 
   const actual = [];
@@ -71,7 +71,7 @@ test('Overview Fetch Request saga', assert => {
 });
 
 
-test('Overview Fetch Request saga: request generator', nest => {
+test('Overview Fetch Active Users Request saga: request generator', nest => {
 
   nest.test('...without error', assert => {
     const fixtures = setup();
@@ -87,10 +87,10 @@ test('Overview Fetch Request saga: request generator', nest => {
     assert.deepEqual(actual[0], expected[0],
       'should call fetch service');
 
-    const authorizeResponse = {};
+    const result = {};
 
-    actual[1] = fixtures.requestIterator.next(authorizeResponse).value;
-    expected[1] = put(OverviewFetchActiveUsersSuccess(authorizeResponse));
+    actual[1] = fixtures.requestIterator.next(result).value;
+    expected[1] = put(OverviewFetchActiveUsersSuccess(result));
 
     assert.deepEqual(actual[1], expected[1],
       'then dispatch OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS action');
@@ -112,10 +112,10 @@ test('Overview Fetch Request saga: request generator', nest => {
     assert.deepEqual(actual[0], expected[0],
       'should call fetch service');
 
-    const authorizeError = new Error();
+    const error = new Error();
 
-    actual[1] = fixtures.requestIterator.throw(authorizeError).value;
-    expected[1] = put(OverviewFetchActiveUsersFailure(authorizeError));
+    actual[1] = fixtures.requestIterator.throw(error).value;
+    expected[1] = put(OverviewFetchActiveUsersFailure(error));
 
     assert.deepEqual(actual[1], expected[1],
       'then dispatch OVERVIEW_FETCH_ACTIVE_USERS_FAILURE action');
@@ -126,7 +126,7 @@ test('Overview Fetch Request saga: request generator', nest => {
 });
 
 
-test('Overview Fetch Request saga: autoUpdate generator', nest => {
+test('Overview Fetch Active Users Request saga: autoUpdate generator', nest => {
 
   nest.test('...request interval', assert => {
     const fixtures = setup();
@@ -151,7 +151,7 @@ test('Overview Fetch Request saga: autoUpdate generator', nest => {
 
     actual[2] = fixtures.autoUpdateIterator.next().value;
     expected[2] = race({
-      tick: call(delay, config.OVERVIEW_REFRESH_PERIOD),
+      tick: call(delay, config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD),
       stop: take('OVERVIEW_STOP_FETCH_ACTIVE_USERS')
     });
 
@@ -169,7 +169,7 @@ test('Overview Fetch Request saga: autoUpdate generator', nest => {
 
     actual[0] = fixtures.autoUpdateIterator.next().value;
     expected[0] = race({
-      tick: call(delay, config.OVERVIEW_REFRESH_PERIOD),
+      tick: call(delay, config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD),
       stop: take('OVERVIEW_STOP_FETCH_ACTIVE_USERS')
     });
 
