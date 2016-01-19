@@ -11,7 +11,7 @@ import Content from './ContentComponent';
 class AppComponent extends React.Component {
   componentDidMount() {
     this.props.actions.GoogleLoginRequest();
-    this.props.actions.FacebookLogin();
+    //this.props.actions.FacebookLogin();
   }
 
   renderContent() {

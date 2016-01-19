@@ -29,7 +29,7 @@ class HeaderComponent extends React.Component {
             Dutch Project
           </div>
           <Link to="/overview" className="item active blue">Home</Link>
-          <Link to="/reporting" className="item">Reporting</Link>
+          <Link to="#" className="item">Reporting</Link>
           <div className="right menu">
             <button className={authGoogleClass}
                     onClick={() => this.props.onAuthorizeGoogle()}>

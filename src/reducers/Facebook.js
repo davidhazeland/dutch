@@ -7,7 +7,7 @@ import Immutable from 'immutable';
 import config from 'config';
 
 const initialState = Immutable.fromJS({
-  authorized: false,
+  authorized: true,
   isAuthorizing: false,
   isLoggingIn: false,
   adAccounts: config.FACEBOOK_AD_ACCOUNTS
