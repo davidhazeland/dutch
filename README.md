@@ -27,3 +27,7 @@ To run project:
 ```
 npm start
 ```
+
+### Configuration
+
+Go to `src/config/dist.js` to edit
