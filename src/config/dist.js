@@ -36,7 +36,7 @@ const GOOGLE_ANALYTICS_ACCOUNTS = [
 
 let config = {
   appEnv: 'dist',  // feel free to remove the appEnv property here
-  GOOGLE_API_CLIENT_ID: '60820199865-7tncjaor95g3sdhqe7gcefeobcp1vtn5.apps.googleusercontent.com',
+  GOOGLE_API_CLIENT_ID: '60820199865-7i5o4rj2d7c0oduulugfdt2r02prje3f.apps.googleusercontent.com',
   GOOGLE_ANALYTICS_ACCOUNTS: GOOGLE_ANALYTICS_ACCOUNTS,
   OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD: 10 * 1000, // 10 second
   OVERVIEW_ADSENSE_REPORTS_REFRESH_PERIOD: 60 * 1000 // 60 second
