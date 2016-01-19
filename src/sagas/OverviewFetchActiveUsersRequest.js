@@ -6,7 +6,7 @@ import OverviewFetchActiveUsersSuccess from '../actions/OverviewFetchActiveUsers
 import OverviewFetchActiveUsersFailure from '../actions/OverviewFetchActiveUsersFailure';
 
 export function* request(getState) {
-  const analyticsAccount = getState().Google.get('analyticsAccounts').get(0).toJS();
+  const analyticsAccount = getState().Google.getIn(['analyticsAccounts', 0]).toJS();
 
   try {
     const result = yield call(fetch, analyticsAccount);

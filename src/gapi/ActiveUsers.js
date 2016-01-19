@@ -35,8 +35,7 @@ function handle(response) {
     const data = response.result[id].result;
     result.push({
       id: id,
-      rows: data.rows,
-      total: data.totalsForAllResults['rt:activeUsers']
+      devices: data.rows
     });
   }
 
