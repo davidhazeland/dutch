@@ -4,6 +4,9 @@ import React, {PropTypes} from 'react';
 
 require('styles/components//Overview.less');
 
+import OverviewAllSites from './OverviewAllSitesComponent';
+import OverviewSiteList from './OverviewSiteListComponent';
+
 class OverviewComponent extends React.Component {
   componentDidMount() {
     this.props.actions.OverviewFetchActiveUsersRequest();
@@ -15,77 +18,21 @@ class OverviewComponent extends React.Component {
     this.props.actions.OverviewStopAdSenseReportsRequest();
   }
 
-  viewIdToName(id) {
-    const map = {
-      'UA-55012181-3': 'Con là tất cả',
-      'UA-55012181-7': 'Mang thai lần đầu',
-      'UA-55012181-8': 'Nhật ký nuôi con'
-    };
-
-    return map[id];
-  }
-
-  renderActiveUser() {
-    if (!this.props.Overview.getIn(['activeUser', 'data'])) return null;
-
-    const data = this.props.Overview.getIn(['activeUser', 'data']);
-    const total = data.reduce((reduction, value) => {
-      return reduction + parseInt(value.get('total'));
-    }, 0);
-    return (
-      <div className="">
-        <div className="ui segment">
-          <div className="ui green statistics">
-            <div className="statistic">
-              <div className="value">
-                {total}
-              </div>
-              <div className="grey label">
-                Total
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="ui horizontal segments">
-          {data.map((item, key) => {
-            return (
-              <div className="ui segment" key={key}>
-                <div className="ui orange statistic">
-                  <div className="value">
-                    {item.get('total')}
-                  </div>
-                  <div className="grey label">
-                    {this.viewIdToName(item.get('id'))}
-                  </div>
-                </div>
-                <div className="ui mini grey statistics">
-                  {item.get('rows').map((row, key) => {
-                    return (
-                      <div className="statistic" key={key}>
-                        <div className="value">
-                          {row.get(1)}
-                        </div>
-                        <div className="grey label">
-                          {row.get(0)}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    )
-
-
-  }
 
   render() {
+    const properties = this.props.Google.getIn(['analyticsAccounts', 0, 'properties']);
+    const activeUsers = this.props.Overview.getIn(['activeUser', 'data']);
+    const adSenseReports = this.props.Overview.getIn(['adSenseReport', 'data']);
+
+    const hasData = activeUsers && adSenseReports;
+    if (!hasData) return null;
+
+    const data = properties.mergeDeep(activeUsers, adSenseReports);
+
     return (
       <div className="Overview">
-        {this.renderActiveUser()}
+        <OverviewAllSites data={data}/>
+        <OverviewSiteList data={data}/>
       </div>
     );
   }
@@ -96,7 +43,8 @@ OverviewComponent.displayName = 'OverviewComponent';
 // Uncomment properties you need
 OverviewComponent.propTypes = {
   actions: PropTypes.object.isRequired,
-  Google: PropTypes.object.isRequired
+  Google: PropTypes.object.isRequired,
+  Overview: PropTypes.object.isRequired
 };
 // OverviewComponent.defaultProps = {};
 
