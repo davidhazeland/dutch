@@ -13,7 +13,7 @@ class OverviewAllSitesRevenueComponent extends React.Component {
             ${this.props.revenue}
           </div>
           <div className="grey label">
-            revenue
+            earnings
           </div>
         </div>
       </div>

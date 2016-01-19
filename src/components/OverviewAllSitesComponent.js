@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import Immutable from 'immutable';
 
 require('styles/components//OverviewAllSites.less');
 
@@ -16,7 +15,6 @@ class OverviewAllSitesComponent extends React.Component {
       }, item)
     });
   }
-
 
   render() {
     const total = this.sumUp(this.props.data);
