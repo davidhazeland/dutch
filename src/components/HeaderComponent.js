@@ -7,6 +7,8 @@ import cx from 'classnames';
 
 require('styles/components//Header.less');
 
+import logo from '../images/logo.png';
+
 class HeaderComponent extends React.Component {
   render() {
     const authGoogleClass = cx({
@@ -22,11 +24,12 @@ class HeaderComponent extends React.Component {
     return (
       <div className="Header">
         <div className="ui secondary pointing menu">
-          <Link to="/overview" className="item">Home</Link>
-          <Link to="/reporting" className="item active orange">Reporting</Link>
-          <a className="item">
-            Friends
-          </a>
+          <div className="header item">
+            <img className="logo" src={logo} alt=""/>
+            Dutch Project
+          </div>
+          <Link to="/overview" className="item active blue">Home</Link>
+          <Link to="/reporting" className="item">Reporting</Link>
           <div className="right menu">
             <button className={authGoogleClass}
                     onClick={() => this.props.onAuthorizeGoogle()}>

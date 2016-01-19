@@ -10,34 +10,22 @@ class NavigationComponent extends React.Component {
       <div className="Navigation">
         <div className="ui vertical menu">
           <div className="item">
-            <div className="header">Products</div>
-            <div className="menu">
-              <a className="item">Enterprise</a>
-              <a className="item">Consumer</a>
-            </div>
+            <div className="ui input"><input type="text" placeholder="Search..."/></div>
           </div>
           <div className="item">
-            <div className="header">CMS Solutions</div>
+            This area
             <div className="menu">
-              <a className="item">Rails</a>
-              <a className="item">Python</a>
-              <a className="item">PHP</a>
+              <a className="active item">is</a>
+              <a className="item">coming soon</a>
+              <a className="item">so</a>
             </div>
           </div>
-          <div className="item">
-            <div className="header">Hosting</div>
-            <div className="menu">
-              <a className="item">Shared</a>
-              <a className="item">Dedicated</a>
-            </div>
-          </div>
-          <div className="item">
-            <div className="header">Support</div>
-            <div className="menu">
-              <a className="item">E-mail Support</a>
-              <a className="item">FAQs</a>
-            </div>
-          </div>
+          <a className="item">
+            <i className="grid layout icon"/> You
+          </a>
+          <a className="item">
+            can't do anything
+          </a>
         </div>
       </div>
     );
