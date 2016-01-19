@@ -21,6 +21,8 @@ class HeaderComponent extends React.Component {
       'visible': !this.props.Facebook.get('authorized')
     });
 
+    const authGoogleText = this.props.Google.get('isLogining') ? 'Logining' : 'Authorize';
+
     return (
       <div className="Header">
         <div className="ui secondary pointing menu">
@@ -33,7 +35,7 @@ class HeaderComponent extends React.Component {
           <div className="right menu">
             <button className={authGoogleClass}
                     onClick={() => this.props.onAuthorizeGoogle()}>
-              Authorize Google
+              {authGoogleText} Google
             </button>
             <button className={authFacebookClass}
                     onClick={() => this.props.onAuthorizeFacebook()}>

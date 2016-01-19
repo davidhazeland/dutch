@@ -25,7 +25,14 @@ class OverviewComponent extends React.Component {
     const adSenseReports = this.props.Overview.getIn(['adSenseReport', 'data']);
 
     const hasData = activeUsers && adSenseReports;
-    if (!hasData) return null;
+
+    if (!hasData) return (
+      <div className="Overview">
+        <div className="ui active inverted dimmer">
+          <div className="ui text loader"></div>
+        </div>
+      </div>
+    );
 
     const data = properties.mergeDeep(activeUsers, adSenseReports);
 

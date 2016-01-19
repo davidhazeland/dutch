@@ -5,12 +5,16 @@ import React from 'react';
 require('styles/components//OverviewAllSitesRevenue.less');
 
 class OverviewAllSitesRevenueComponent extends React.Component {
+  round(revenue) {
+    return Math.round(revenue * 10) / 10;
+  }
+
   render() {
     return (
       <div className="OverviewAllSitesRevenue">
         <div className="ui green small statistic">
           <div className="value">
-            ${this.props.revenue}
+            ${this.round(this.props.revenue)}
           </div>
           <div className="grey label">
             earnings

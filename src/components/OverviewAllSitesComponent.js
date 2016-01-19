@@ -11,7 +11,7 @@ class OverviewAllSitesComponent extends React.Component {
   sumUp(data) {
     return data.reduce((reduction, item) => {
       return reduction.mergeWith((x, y) => {
-        return parseInt(x) + parseInt(y);
+        return parseFloat(x) + parseFloat(y);
       }, item)
     });
   }
