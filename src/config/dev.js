@@ -23,6 +23,12 @@ const GOOGLE_ANALYTICS_ACCOUNTS = [
         name: 'Nhật ký nuôi con',
         websiteUrl: 'http://nhatkynuoicon.com',
         defaultProfileId: '113933233'
+      },
+      {
+        id: 'UA-70242167-1',
+        name: '40 tuần thai',
+        websiteUrl: 'http://40tuanthai.com',
+        defaultProfileId: '111940504'
       }
     ]
   }
