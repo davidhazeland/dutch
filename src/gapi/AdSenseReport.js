@@ -18,9 +18,6 @@ export function fetch(account) {
     query().then(response => {
       resolve(handle(response, account));
     }, error => {
-      if (error.status === 401) { // Login Required
-        location.reload();
-      }
       reject(error);
     });
   });

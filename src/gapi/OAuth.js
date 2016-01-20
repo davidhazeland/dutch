@@ -45,7 +45,7 @@ export function authorize(immediate = false) {
   return new Promise((resolve, reject) => {
     request(immediate).then(response => {
       load().then(() => {
-        resolve(response);
+        resolve(handle(response));
       }, () => {
         reject(new Error('Google API load failure!'));
       });
@@ -53,6 +53,19 @@ export function authorize(immediate = false) {
       reject(new Error('Google authorize failure!'));
     });
   });
+}
+
+
+function handle(response) {
+  const expireTime = response.expires_in * 1000;
+  setTimeout(() => {
+    authorize(true).then(() => {
+      // Updated authorization
+    }, () => {
+
+    });
+  }, expireTime);
+  return response;
 }
 
 
