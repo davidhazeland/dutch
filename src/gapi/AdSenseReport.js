@@ -16,7 +16,7 @@ function query() {
 export function fetch(account) {
   return new Promise((resolve, reject) => {
     query().then(response => {
-      const error = response.result.error;
+      const error = response.error;
       if (error) {
         if (error.code === 401) { // Login Required
           location.reload();

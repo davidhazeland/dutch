@@ -21,7 +21,7 @@ export function fetch(account) {
 
     batch.then(response => {
       if (response.result.error) {
-        const message = response.result.error.message;
+        const message = response.error.message;
         reject(new Error(message));
       } else {
         resolve(handle(response));
