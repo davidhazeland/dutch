@@ -30,4 +30,15 @@ npm start
 
 ### Configuration
 
-Go to `src/config/dist.js` to edit
+Go to `src/config/dist.js` to set your config
+
+### Note
+
+If require `semantic-ui` module error, try to fix line 12 in `bower_components/semantic/bower.json` follow:
+
+```
+"main": [
+  "dist/semantic.css", // instead of src/semantic.less
+  "dist/semantic.js"
+]
+```
