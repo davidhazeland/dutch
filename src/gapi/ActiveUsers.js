@@ -20,7 +20,12 @@ export function fetch(account) {
     });
 
     batch.then(response => {
-      resolve(handle(response));
+      if (response.result.error) {
+        const message = response.result.error.message;
+        reject(new Error(message));
+      } else {
+        resolve(handle(response));
+      }
     }, error => {
       reject(new Error(error));
     });

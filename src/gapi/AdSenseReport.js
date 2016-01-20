@@ -16,7 +16,12 @@ function query() {
 export function fetch(account) {
   return new Promise((resolve, reject) => {
     query().then(response => {
-      resolve(handle(response, account));
+      if (response.result.error) {
+        const message = response.result.error.message;
+        reject(new Error(message));
+      } else {
+        resolve(handle(response, account));
+      }
     }, error => {
       reject(error);
     });
