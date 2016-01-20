@@ -57,7 +57,7 @@ export function authorize(immediate = false) {
 
 
 function handle(response) {
-  const expireTime = response.expires_in * 1000;
+  const expireTime = (response.expires_in - 5) * 1000; // refresh token before expire 5 seconds
   setTimeout(() => {
     authorize(true).then(() => {
       // Updated authorization
