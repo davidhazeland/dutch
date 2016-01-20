@@ -1,4 +1,4 @@
-/* global gapi */
+/* global gapi, location */
 
 import Promise from 'bluebird';
 import {query} from './RealTimeReporting';
@@ -20,12 +20,7 @@ export function fetch(account) {
     });
 
     batch.then(response => {
-      if (response.result.error) {
-        const message = response.error.message;
-        reject(new Error(message));
-      } else {
-        resolve(handle(response));
-      }
+      resolve(handle(response));
     }, error => {
       reject(new Error(error));
     });
@@ -37,11 +32,14 @@ function handle(response) {
   const result = [];
 
   for (const id in response.result) {
-    const data = response.result[id].result;
+    const res = response.result[id];
+    if (res.status === 401) {
+      location.reload();
+    }
     result.push({
       id: id,
-      devices: data.rows,
-      totalDevices: data.totalsForAllResults['rt:activeUsers']
+      devices: res.result.rows,
+      totalDevices: res.result.totalsForAllResults['rt:activeUsers']
     });
   }
 
