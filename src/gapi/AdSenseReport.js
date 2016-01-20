@@ -1,4 +1,4 @@
-/* global gapi */
+/* global gapi, location */
 
 import Promise from 'bluebird';
 
@@ -16,9 +16,12 @@ function query() {
 export function fetch(account) {
   return new Promise((resolve, reject) => {
     query().then(response => {
-      if (response.result.error) {
-        const message = response.result.error.message;
-        reject(new Error(message));
+      const error = response.result.error;
+      if (error) {
+        if (error.code === 401) { // Login Required
+          location.reload();
+        }
+        reject(new Error(error.message));
       } else {
         resolve(handle(response, account));
       }
