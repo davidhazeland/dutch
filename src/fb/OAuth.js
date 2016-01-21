@@ -6,6 +6,15 @@ import config from 'config';
 const SCOPES = ['ads_management', 'ads_read'];
 
 
+function init() {
+  FB.init({
+    appId: config.FACEBOOK_APP_ID,
+    xfbml: true,
+    version: 'v2.5'
+  });
+}
+
+
 function hasAPI(callback) {
   if (typeof (FB) !== 'undefined') {
     init();
@@ -16,15 +25,6 @@ function hasAPI(callback) {
       hasAPI(callback);
     }, 50);
   }
-}
-
-
-function init() {
-  FB.init({
-    appId: config.FACEBOOK_APP_ID,
-    xfbml: true,
-    version: 'v2.5'
-  });
 }
 
 
@@ -53,8 +53,9 @@ export function login() {
       });
     });
 
+    const timeout = 5000;
     setTimeout(() => {
       reject(new Error('Facebook not response!'));
-    }, 3000);
+    }, 5000);
   });
 }

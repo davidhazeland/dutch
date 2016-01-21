@@ -33,7 +33,7 @@ function handle(response) {
 
   for (const id in response.result) {
     const res = response.result[id];
-    if (res.status === 401) {
+    if (res.error) {
       continue;
     }
     result.push({
@@ -45,3 +45,4 @@ function handle(response) {
 
   return result;
 }
+
