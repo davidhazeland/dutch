@@ -13,39 +13,41 @@ function query() {
 }
 
 
-export function fetch(account) {
-  return new Promise((resolve, reject) => {
-    query().then(response => {
-      resolve(handle(response, account));
-    }, error => {
-      if (error.status === 401) { // Login Required
-        location.reload();
-      }
-      reject(error);
-    });
-  });
+function isMatchDomain(url, domain) {
+  const urlDomain = url.split('/')[2].split(':')[0];
+  return urlDomain === domain;
 }
 
 
 function handle(response, account) {
-  const result = [];
+  const data = [];
 
   const reports = response.result.rows;
   const properties = account.properties;
 
   properties.forEach((property) => {
-    const report = reports.find(r => isMatchDomain(property.websiteUrl, r[0]));
-    result.push({
+    const report = reports.find(r => {
+      const domain = r[0];
+      return isMatchDomain(property.websiteUrl, domain);
+    });
+
+    const revenue = report[1];
+    data.push({
       id: property.id,
-      revenue: report[1]
+      revenue: revenue
     });
   });
 
-  return result;
+  return data;
 }
 
 
-function isMatchDomain(url, domain) {
-  const d = url.split('/')[2].split(':')[0];
-  return d === domain;
+export function fetch(account) {
+  return new Promise((resolve, reject) => {
+    query().then(response => {
+      resolve(handle(response, account));
+    }, error => {
+      reject(error);
+    });
+  });
 }

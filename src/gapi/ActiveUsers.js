@@ -4,6 +4,25 @@ import Promise from 'bluebird';
 import {query} from './RealTimeReporting';
 
 
+function handle(response) {
+  const data = [];
+
+  for (const id in response.result) {
+    const res = response.result[id];
+    if (res.result.error) {
+      continue;
+    }
+    data.push({
+      id: id,
+      devices: res.result.rows,
+      totalDevices: res.result.totalsForAllResults['rt:activeUsers']
+    });
+  }
+
+  return data;
+}
+
+
 export function fetch(account) {
   return new Promise((resolve, reject) => {
     const batch = gapi.client.newBatch();
@@ -25,23 +44,4 @@ export function fetch(account) {
       reject(new Error(error));
     });
   });
-}
-
-
-function handle(response) {
-  const result = [];
-
-  for (const id in response.result) {
-    const res = response.result[id];
-    if (res.status === 401) {
-      location.reload();
-    }
-    result.push({
-      id: id,
-      devices: res.result.rows,
-      totalDevices: res.result.totalsForAllResults['rt:activeUsers']
-    });
-  }
-
-  return result;
 }

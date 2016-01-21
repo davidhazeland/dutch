@@ -35,9 +35,9 @@ function request(immediate = true) {
 
 
 function load() {
-  const analytics = gapi.client.load('analytics', 'v3');
-  const adsense = gapi.client.load('adsense', 'v1.4');
-  return new Promise.all([analytics, adsense]);
+  const loadAnalytics = gapi.client.load('analytics', 'v3');
+  const loadAdsense = gapi.client.load('adsense', 'v1.4');
+  return new Promise.all([loadAnalytics, loadAdsense]);
 }
 
 
@@ -45,14 +45,24 @@ export function authorize(immediate = false) {
   return new Promise((resolve, reject) => {
     request(immediate).then(response => {
       load().then(() => {
-        resolve(response);
+        resolve(handle(response));
       }, () => {
         reject(new Error('Google API load failure!'));
       });
     }, () => {
-      reject(new Error('Google authorize failure!'));
+      reject(new Error('Google API authorize failure!'));
     });
   });
+}
+
+
+function handle(response) {
+  // refresh token before expire 30 seconds
+  const refreshTokenPeriod = (response.expires_in - 30) * 1000;
+  setTimeout(() => {
+    authorize(true);
+  }, refreshTokenPeriod);
+  return response;
 }
 
 
