@@ -1,9 +1,10 @@
 import delay from 'delay';
 import config from 'config';
 import {call, put, take, fork, race} from 'redux-saga';
-import {fetch} from '../gapi/ActiveUsers';
+import {fetch} from '../services/ActiveUsersCache';
 import OverviewFetchActiveUsersSuccess from '../actions/OverviewFetchActiveUsersSuccess';
 import OverviewFetchActiveUsersFailure from '../actions/OverviewFetchActiveUsersFailure';
+
 
 export function* request(getState) {
   const analyticsAccount = getState().Google.getIn(['analyticsAccounts', 0]).toJS();
