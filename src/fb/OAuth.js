@@ -56,6 +56,6 @@ export function login() {
     const timeout = 5000;
     setTimeout(() => {
       reject(new Error('Facebook not response!'));
-    }, 5000);
+    }, timeout);
   });
 }
