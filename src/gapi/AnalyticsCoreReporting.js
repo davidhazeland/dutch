@@ -26,6 +26,7 @@
  * }
  * @returns Promise
  */
+
 export function query(viewId, queryParams) {
   const params = {
     'ids': `ga:${viewId}`,

@@ -19,7 +19,7 @@ function read(ref, now) {
       } else {
         resolve({
           isExpired: false,
-          cachedResponse: activeUser.response
+          cachedResponse: activeUser.data
         });
       }
     }, err => {
@@ -32,7 +32,7 @@ function read(ref, now) {
 function write(ref, now, response) {
   ref.set({
     updatedAt: now,
-    response: response
+    data: response
   });
 }
 
