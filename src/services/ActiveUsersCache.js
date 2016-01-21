@@ -5,12 +5,10 @@ import config from 'config';
 import {fetch as fetchActiveUsers} from '../gapi/ActiveUsers';
 
 
-function read(ref) {
+function read(ref, now) {
   return new Promise((resolve, reject) => {
     ref.once('value', snap => {
       const activeUser = snap.val();
-
-      const now = Date.now();
       const isExpired = !activeUser || (parseInt(now) - parseInt(activeUser.updatedAt) > config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD);
 
       if (isExpired) {
@@ -31,9 +29,9 @@ function read(ref) {
 }
 
 
-function write(ref, response) {
+function write(ref, now, response) {
   ref.set({
-    updatedAt: Date.now(),
+    updatedAt: now,
     response: response
   });
 }
@@ -41,14 +39,14 @@ function write(ref, response) {
 
 export function fetch(account) {
   return new Promise((resolve, reject) => {
+    const now = Date.now();
     const url = `https://dutch-app.firebaseio.com/analytics/activeUser/${account.id}`;
     const activeUserRef = new Firebase(url);
 
-    read(activeUserRef).then(({isExpired, cachedResponse}) => {
+    read(activeUserRef, now).then(({isExpired, cachedResponse}) => {
       if (isExpired) {
-
         return fetchActiveUsers(account).then(response => {
-          write(activeUserRef, response);
+          write(activeUserRef, now, response);
           resolve(response);
         }, err => {
           reject(err);
