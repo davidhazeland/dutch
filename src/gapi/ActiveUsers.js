@@ -33,7 +33,7 @@ function handle(response) {
 
   for (const id in response.result) {
     const res = response.result[id];
-    if (res.error) {
+    if (res.result.error) {
       continue;
     }
     result.push({
