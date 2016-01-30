@@ -1,6 +1,3 @@
-/*eslint-env node, mocha */
-/*global expect */
-/*eslint no-console: 0*/
 'use strict';
 
 import test from 'tape';
@@ -13,80 +10,81 @@ import GoogleAuthorizeFailure from 'actions/GoogleAuthorizeFailure';
 import GoogleLoginRequest from 'actions/GoogleLoginRequest';
 
 
-test('Google reducer handles GOOGLE_AUTHORIZE_REQUEST action', assert => {
-  const state = Immutable.Map();
-  const nextState = reducer(state, GoogleAuthorizeRequest());
+test('Google reducer', nest => {
+  nest.test('...handle GOOGLE_AUTHORIZE_REQUEST action', assert => {
+    const state = Immutable.Map();
+    const nextState = reducer(state, GoogleAuthorizeRequest());
 
-  const actual = nextState.get('isAuthorizing');
-  const expected = true;
+    const actual = nextState.get('isAuthorizing');
+    const expected = true;
 
-  assert.equal(actual, expected,
-    'Should return a state be authorizing');
+    assert.equal(actual, expected,
+      'should return a state be authorizing');
 
-  assert.end();
-});
-
-
-test('Google reducer handles GOOGLE_AUTHORIZE_SUCCESS action', assert => {
-  const state = Immutable.fromJS({
-    authorized: false,
-    isAuthorizing: true,
-    isLogining: true
+    assert.end();
   });
-  const nextState = reducer(state, GoogleAuthorizeSuccess());
-
-  const actual = [
-    nextState.get('authorized'),
-    nextState.get('isAuthorizing'),
-    nextState.get('isLogining')
-  ];
-
-  const expected = [
-    true,
-    false,
-    false
-  ];
-
-  assert.deepEqual(actual, expected,
-    'Should return a state be authorized');
-
-  assert.end();
-});
 
 
-test('Google reducer handles GOOGLE_AUTHORIZE_FAILURE action', assert => {
-  const state = Immutable.fromJS({
-    isAuthorizing: true,
-    isLogining: true
+  nest.test('...handle GOOGLE_AUTHORIZE_SUCCESS action', assert => {
+    const state = Immutable.fromJS({
+      authorized: false,
+      isAuthorizing: true,
+      isLogining: true
+    });
+    const nextState = reducer(state, GoogleAuthorizeSuccess());
+
+    const actual = [
+      nextState.get('authorized'),
+      nextState.get('isAuthorizing'),
+      nextState.get('isLogining')
+    ];
+
+    const expected = [
+      true,
+      false,
+      false
+    ];
+
+    assert.deepEqual(actual, expected,
+      'should return a state be authorized');
+
+    assert.end();
   });
-  const nextState = reducer(state, GoogleAuthorizeFailure());
 
-  const actual = [
-    nextState.get('isAuthorizing'),
-    nextState.get('isLogining')
-  ];
-  const expected = [
-    false,
-    false
-  ];
 
-  assert.deepEqual(actual, expected,
-    'Should return a state be authorizing');
+  nest.test('...handle GOOGLE_AUTHORIZE_FAILURE action', assert => {
+    const state = Immutable.fromJS({
+      isAuthorizing: true,
+      isLogining: true
+    });
+    const nextState = reducer(state, GoogleAuthorizeFailure());
 
-  assert.end();
+    const actual = [
+      nextState.get('isAuthorizing'),
+      nextState.get('isLogining')
+    ];
+    const expected = [
+      false,
+      false
+    ];
+
+    assert.deepEqual(actual, expected,
+      'should return a state be not authorizing and logining');
+
+    assert.end();
+  });
+
+
+  nest.test('...handle GOOGLE_LOGIN_REQUEST action', assert => {
+    const state = Immutable.Map();
+    const nextState = reducer(state, GoogleLoginRequest());
+
+    const actual = nextState.get('isLogining');
+    const expected = true;
+
+    assert.equal(actual, expected,
+      'should return a state be logining');
+
+    assert.end();
+  });
 });
-
-
-test('Google reducer handles GOOGLE_LOGIN_REQUEST action', assert => {
-  const state = Immutable.Map();
-  const nextState = reducer(state, GoogleLoginRequest());
-
-  const actual = nextState.get('isLogining');
-  const expected = true;
-
-  assert.equal(actual, expected,
-    'Should return a state be logining');
-
-  assert.end();
-});
-
