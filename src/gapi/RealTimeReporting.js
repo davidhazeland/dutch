@@ -1,12 +1,23 @@
 /* global gapi */
 
-export function query(viewId, queryParams) {
-  const metrics = queryParams.metrics.join(',');
-  const dimensions = queryParams.dimensions.join(',');
+export function resolveId(id) {
+  return `ga:${id}`;
+}
 
-  return gapi.client.analytics.data.realtime.get({
-    ids: `ga:${viewId}`,
-    metrics: metrics,
-    dimensions: dimensions
-  });
+export function resolveMetric(metrics) {
+  return metrics.join(',');
+}
+
+export function resolveDimension(dimensions) {
+  return dimensions.join(',');
+}
+
+export function query(viewId, {metrics, dimensions}) {
+  const params = {
+    ids: resolveId(viewId),
+    metrics: resolveMetric(metrics),
+    dimensions: resolveDimension(dimensions)
+  };
+
+  return gapi.client.analytics.data.realtime.get(params);
 }

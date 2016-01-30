@@ -1,25 +1,38 @@
-/* global gapi, location */
+/* global gapi */
 
 import Promise from 'bluebird';
+import {forOwn} from 'lodash/object';
 import {query} from './RealTimeReporting';
 
+const METRICS = {
+  ACTIVE_USERS: 'rt:activeUsers'
+};
 
-function handle(response) {
-  const data = [];
+const DIMENSIONS = {
+  DEVICE_CATEGORY: 'rt:deviceCategory'
+};
 
-  for (const id in response.result) {
-    const res = response.result[id];
-    if (res.result.error) {
-      continue;
-    }
-    data.push({
-      id: id,
-      devices: res.result.rows,
-      totalDevices: res.result.totalsForAllResults['rt:activeUsers']
-    });
+
+function resolveResponse(id, response) {
+  return {
+    id: id,
+    devices: response.result.rows,
+    totalDevices: response.result.totalsForAllResults[METRICS.ACTIVE_USERS]
   }
+}
 
-  return data;
+
+function handle(responses) {
+  const result = [];
+
+  forOwn(responses.result, (response, id) => {
+    if (response.result.error) {
+      return;
+    }
+    result.push(resolveResponse(id, response));
+  });
+
+  return result;
 }
 
 
@@ -27,19 +40,19 @@ export function fetch(account) {
   return new Promise((resolve, reject) => {
     const batch = gapi.client.newBatch();
 
-    const queryParams = {
-      metrics: ['rt:activeUsers'],
-      dimensions: ['rt:deviceCategory']
+    const params = {
+      metrics: [METRICS.ACTIVE_USERS],
+      dimensions: [DIMENSIONS.DEVICE_CATEGORY]
     };
 
     account.properties.forEach(property => {
-      batch.add(query(property.defaultProfileId, queryParams), {
+      batch.add(query(property.defaultProfileId, params), {
         id: property.id
       });
     });
 
-    batch.then(response => {
-      resolve(handle(response));
+    batch.then(responses => {
+      resolve(handle(responses));
     }, error => {
       reject(new Error(error));
     });
