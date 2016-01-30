@@ -28,7 +28,7 @@ class OverviewAllSitesComponent extends React.Component {
                   <OverviewAllSitesActiveUsers activeUsers={total.get('totalDevices')}/>
                 </div>
                 <div className="eight wide column">
-                  <OverviewAllSitesRevenue revenue={total.get('revenue')}/>
+                  <OverviewAllSitesRevenue earning={total.get('earning')}/>
                 </div>
               </div>
             </div>

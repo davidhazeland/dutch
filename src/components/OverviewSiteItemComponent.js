@@ -19,7 +19,7 @@ class OverviewSiteItemComponent extends React.Component {
             <OverviewSiteActiveUsers activeUsers={data.get('totalDevices')}/>
           </div>
           <div className="six wide column">
-            <OverviewSiteRevenue revenue={data.get('revenue')}/>
+            <OverviewSiteRevenue earning={data.get('earning')}/>
           </div>
           <div className="sixteen wide column">
             <OverviewSiteDeviceList devices={data.get('devices')}/>

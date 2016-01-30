@@ -10,7 +10,7 @@ class OverviewSiteRevenueComponent extends React.Component {
       <div className="OverviewSiteRevenue">
         <div className="ui mini green statistic">
           <div className="value">
-            ${this.props.revenue}
+            ${this.props.earning}
           </div>
           <div className="grey label">
             earnings

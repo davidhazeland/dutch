@@ -9,7 +9,7 @@ import config from 'config';
 import Immutable from 'immutable';
 import {put, call, take, fork, race} from 'redux-saga';
 import saga, {request, autoUpdate} from 'sagas/OverviewFetchAdSenseReportRequest';
-import {fetch} from 'gapi/AdSenseReport';
+import {fetch} from 'EarningReport.js';
 import OverviewFetchAdSenseReportsSuccess from 'actions/OverviewFetchAdSenseReportsSuccess';
 import OverviewFetchAdSenseReportsFailure from 'actions/OverviewFetchAdSenseReportsFailure';
 

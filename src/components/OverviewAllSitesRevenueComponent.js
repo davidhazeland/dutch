@@ -14,7 +14,7 @@ class OverviewAllSitesRevenueComponent extends React.Component {
       <div className="OverviewAllSitesRevenue">
         <div className="ui green small statistic">
           <div className="value">
-            ${this.round(this.props.revenue)}
+            ${this.round(this.props.earning)}
           </div>
           <div className="grey label">
             earnings
