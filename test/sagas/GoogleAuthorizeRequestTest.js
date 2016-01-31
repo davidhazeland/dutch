@@ -61,7 +61,7 @@ test('Google Authorize Request saga: request generator', nest => {
     expected[1] = put(GoogleAuthorizeSuccess(authorizeResponse));
 
     assert.deepEqual(actual, expected,
-      'should call authorize service then dispatch GOOGLE_AUTHORIZE_SUCCESS action');
+      'should dispatch success action');
 
     assert.end();
   });
@@ -81,7 +81,7 @@ test('Google Authorize Request saga: request generator', nest => {
     expected[1] = put(GoogleAuthorizeFailure(authorizeError));
 
     assert.deepEqual(actual[1], expected[1],
-      'should call authorize service then dispatch GOOGLE_AUTHORIZE_FAILURE action');
+      'should dispatch failure action');
 
     assert.end();
   });
