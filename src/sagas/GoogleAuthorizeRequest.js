@@ -15,7 +15,7 @@ export function* request() {
 }
 
 export default function* () {
-  while (yield take(GoogleAuthorizeRequest().type)) {
+  while (yield take('GOOGLE_AUTHORIZE_REQUEST')) {
     yield fork(request);
   }
 }

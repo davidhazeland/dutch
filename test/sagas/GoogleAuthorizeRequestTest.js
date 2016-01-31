@@ -31,20 +31,14 @@ test('Google Authorize Request saga', assert => {
   actual[0] = fixtures.sagaIterator.next().value;
   expected[0] = take('GOOGLE_AUTHORIZE_REQUEST');
 
-  assert.deepEqual(actual[0], expected[0],
-    'should wait for GOOGLE_AUTHORIZE_REQUEST action');
-
   actual[1] = fixtures.sagaIterator.next(true).value;
   expected[1] = fork(request);
-
-  assert.deepEqual(actual[1], expected[1],
-    'then fork request generator function');
 
   actual[2] = fixtures.sagaIterator.next().value;
   expected[2] = take('GOOGLE_AUTHORIZE_REQUEST');
 
-  assert.deepEqual(actual[2], expected[2],
-    'and keep waiting GOOGLE_AUTHORIZE_REQUEST action');
+  assert.deepEqual(actual, expected,
+    'should wait for action and fork request generator');
 
   assert.end();
 });
@@ -61,16 +55,13 @@ test('Google Authorize Request saga: request generator', nest => {
     actual[0] = fixtures.requestIterator.next().value;
     expected[0] = call(authorize);
 
-    assert.deepEqual(actual[0], expected[0],
-      'should call authorize service');
-
     const authorizeResponse = {};
 
     actual[1] = fixtures.requestIterator.next(authorizeResponse).value;
     expected[1] = put(GoogleAuthorizeSuccess(authorizeResponse));
 
-    assert.deepEqual(actual[1], expected[1],
-      'then dispatch GOOGLE_AUTHORIZE_SUCCESS action');
+    assert.deepEqual(actual, expected,
+      'should call authorize service then dispatch GOOGLE_AUTHORIZE_SUCCESS action');
 
     assert.end();
   });
@@ -84,16 +75,13 @@ test('Google Authorize Request saga: request generator', nest => {
     actual[0] = fixtures.requestIterator.next().value;
     expected[0] = call(authorize);
 
-    assert.deepEqual(actual[0], expected[0],
-      'should call authorize service');
-
     const authorizeError = new Error();
 
     actual[1] = fixtures.requestIterator.throw(authorizeError).value;
     expected[1] = put(GoogleAuthorizeFailure(authorizeError));
 
     assert.deepEqual(actual[1], expected[1],
-      'then dispatch GOOGLE_AUTHORIZE_FAILURE action');
+      'should call authorize service then dispatch GOOGLE_AUTHORIZE_FAILURE action');
 
     assert.end();
   });
