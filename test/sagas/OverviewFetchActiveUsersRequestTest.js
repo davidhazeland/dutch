@@ -9,7 +9,7 @@ import config from 'config';
 import Immutable from 'immutable';
 import {put, call, take, fork, race} from 'redux-saga';
 import saga, {request, autoUpdate} from 'sagas/OverviewFetchActiveUsersRequest';
-import {fetch} from 'services/ActiveUsersCache';
+import {fetch} from 'gapi/ActiveUsers';
 import OverviewFetchActiveUsersSuccess from 'actions/OverviewFetchActiveUsersSuccess';
 import OverviewFetchActiveUsersFailure from 'actions/OverviewFetchActiveUsersFailure';
 

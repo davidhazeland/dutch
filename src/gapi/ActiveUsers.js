@@ -3,6 +3,7 @@
 import Promise from 'bluebird';
 import {forOwn} from 'lodash/object';
 import {query} from './RealTimeReporting';
+import {cache} from '../services/FirebaseActiveUsers';
 
 const METRICS = {
   ACTIVE_USERS: 'rt:activeUsers'
@@ -36,7 +37,7 @@ function handle(responses) {
 }
 
 
-export function fetch(account) {
+function request(account) {
   return new Promise((resolve, reject) => {
     const batch = gapi.client.newBatch();
 
@@ -57,4 +58,9 @@ export function fetch(account) {
       reject(new Error(error));
     });
   });
+}
+
+
+export function fetch(account) {
+  return cache(request)(account);
 }

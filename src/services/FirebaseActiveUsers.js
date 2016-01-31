@@ -2,23 +2,26 @@ import Firebase from 'firebase';
 import Promise from 'bluebird';
 
 import config from 'config';
-import {fetch as fetchActiveUsers} from '../gapi/ActiveUsers';
+
+function isExpired(updatedAt, now) {
+  return (parseInt(now) - parseInt(updatedAt) > config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD);
+}
 
 
 function read(ref, now) {
   return new Promise((resolve, reject) => {
     ref.once('value', snap => {
       const activeUser = snap.val();
-      const isExpired = !activeUser || (parseInt(now) - parseInt(activeUser.updatedAt) > config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD);
+      const invalidateResponse = !activeUser || isExpired(activeUser.updatedAt, now);
 
-      if (isExpired) {
+      if (invalidateResponse) {
         resolve({
-          isExpired: true,
+          invalidateResponse: true,
           cachedResponse: null
         });
       } else {
         resolve({
-          isExpired: false,
+          invalidateResponse: false,
           cachedResponse: activeUser.data
         });
       }
@@ -37,15 +40,15 @@ function write(ref, now, response) {
 }
 
 
-export function fetch(account) {
+export const cache = request => account => {
   return new Promise((resolve, reject) => {
     const now = Date.now();
     const url = `https://dutch-app.firebaseio.com/analytics/activeUser/${account.id}`;
     const activeUserRef = new Firebase(url);
 
-    read(activeUserRef, now).then(({isExpired, cachedResponse}) => {
-      if (isExpired) {
-        return fetchActiveUsers(account).then(response => {
+    read(activeUserRef, now).then(({invalidateResponse, cachedResponse}) => {
+      if (invalidateResponse) {
+        return request(account).then(response => {
           write(activeUserRef, now, response);
           resolve(response);
         }, err => {
@@ -59,4 +62,4 @@ export function fetch(account) {
       reject(err);
     });
   });
-}
+};
