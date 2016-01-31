@@ -1,6 +1,3 @@
-/*eslint-env node, mocha */
-/*global expect */
-/*eslint no-console: 0*/
 'use strict';
 
 import test from 'tape';
@@ -12,33 +9,23 @@ import GoogleAuthorizeSuccess from 'actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from 'actions/GoogleAuthorizeFailure';
 
 
-const setup = () => {
-  const fixtures = {};
-
-  fixtures.sagaIterator = saga();
-  fixtures.requestIterator = request();
-
-  return fixtures;
-};
-
-
 test('Google Authorize Request saga', assert => {
-  const fixtures = setup();
+  const sagaIterator = saga();
 
   const actual = [];
   const expected = [];
 
-  actual[0] = fixtures.sagaIterator.next().value;
+  actual[0] = sagaIterator.next().value;
   expected[0] = take('GOOGLE_AUTHORIZE_REQUEST');
 
-  actual[1] = fixtures.sagaIterator.next(true).value;
+  actual[1] = sagaIterator.next(true).value;
   expected[1] = fork(request);
 
-  actual[2] = fixtures.sagaIterator.next().value;
+  actual[2] = sagaIterator.next().value;
   expected[2] = take('GOOGLE_AUTHORIZE_REQUEST');
 
   assert.deepEqual(actual, expected,
-    'should wait for action and fork request generator');
+    'should fork request generator when catch request action');
 
   assert.end();
 });
@@ -47,17 +34,17 @@ test('Google Authorize Request saga', assert => {
 test('Google Authorize Request saga: request generator', nest => {
 
   nest.test('...without error', assert => {
-    const fixtures = setup();
+    const requestIterator = request();
 
     const actual = [];
     const expected = [];
 
-    actual[0] = fixtures.requestIterator.next().value;
+    actual[0] = requestIterator.next().value;
     expected[0] = call(authorize);
 
     const authorizeResponse = {};
 
-    actual[1] = fixtures.requestIterator.next(authorizeResponse).value;
+    actual[1] = requestIterator.next(authorizeResponse).value;
     expected[1] = put(GoogleAuthorizeSuccess(authorizeResponse));
 
     assert.deepEqual(actual, expected,
@@ -67,17 +54,17 @@ test('Google Authorize Request saga: request generator', nest => {
   });
 
   nest.test('...with error', assert => {
-    const fixtures = setup();
+    const requestIterator = request();
 
     const actual = [];
     const expected = [];
 
-    actual[0] = fixtures.requestIterator.next().value;
+    actual[0] = requestIterator.next().value;
     expected[0] = call(authorize);
 
     const authorizeError = new Error();
 
-    actual[1] = fixtures.requestIterator.throw(authorizeError).value;
+    actual[1] = requestIterator.throw(authorizeError).value;
     expected[1] = put(GoogleAuthorizeFailure(authorizeError));
 
     assert.deepEqual(actual[1], expected[1],
