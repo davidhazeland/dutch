@@ -23,7 +23,7 @@ function resolveResponse(id, response) {
 }
 
 
-function handle(responses) {
+export function handle(responses) {
   const result = [];
 
   forOwn(responses.result, (response, id) => {
