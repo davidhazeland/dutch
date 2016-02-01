@@ -7,7 +7,7 @@ function isMatchDomain(url, domain) {
 }
 
 
-function handle(response, account) {
+export function handle(response, account) {
   const result = [];
 
   const reports = response.result.rows;
