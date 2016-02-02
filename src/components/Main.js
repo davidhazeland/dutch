@@ -6,7 +6,7 @@ require('styles/index.less');
 import React from 'react';
 import Header from './HeaderComponent';
 import Navigation from './NavigationComponent';
-import Content from './ContentComponent';
+import createContent from './ContentComponent';
 
 class AppComponent extends React.Component {
   componentDidMount() {
@@ -15,6 +15,7 @@ class AppComponent extends React.Component {
   }
 
   renderContent() {
+    const Content = createContent(React);
     return (
       <Content>
         {this.props.children}
