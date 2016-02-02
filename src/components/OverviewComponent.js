@@ -1,6 +1,7 @@
 'use strict';
 
 import React, {PropTypes} from 'react';
+import cx from 'classnames';
 
 require('styles/components//Overview.less');
 
@@ -26,20 +27,24 @@ class OverviewComponent extends React.Component {
 
     const hasData = activeUsers && adSenseReports;
 
-    if (!hasData) return (
-      <div className="Overview">
-        <div className="ui active inverted dimmer">
-          <div className="ui text loader"></div>
-        </div>
-      </div>
-    );
-
-    const data = properties.mergeDeep(activeUsers, adSenseReports);
+    const loaderClass = cx({
+      'ui inverted dimmer': true,
+      'active': !hasData
+    });
 
     return (
       <div className="Overview">
-        <OverviewAllSites data={data}/>
-        <OverviewSiteList data={data}/>
+        <div className={loaderClass}>
+          <div className="ui text loader"></div>
+        </div>
+        <OverviewAllSites
+          properties={properties}
+          activeUsers={activeUsers}
+          adSenseReports={adSenseReports}/>
+        <OverviewSiteList
+          properties={properties}
+          activeUsers={activeUsers}
+          adSenseReports={adSenseReports}/>
       </div>
     );
   }

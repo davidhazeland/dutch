@@ -17,7 +17,11 @@ class OverviewAllSitesComponent extends React.Component {
   }
 
   render() {
-    const total = this.sumUp(this.props.data);
+    const hasData = this.props.activeUsers && this.props.adSenseReports;
+    if (!hasData) return null;
+
+    const data = this.props.properties.mergeDeep(this.props.activeUsers, this.props.adSenseReports);
+    const total = this.sumUp(data);
     return (
       <div className="OverviewAllSites ui two column grid">
         <div className="row">
