@@ -14,6 +14,8 @@ import OverviewFetchAdSenseReportsFailure from 'actions/OverviewFetchAdSenseRepo
 
 test('Overview reducer', nest => {
   nest.test('...handle OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
     const nextState = reducer(state, OverviewFetchActiveUsersRequest());
 
@@ -28,6 +30,8 @@ test('Overview reducer', nest => {
 
 
   nest.test('...handle OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
     const data = ['data'];
 
@@ -50,6 +54,8 @@ test('Overview reducer', nest => {
 
 
   nest.test('...handle OVERVIEW_FETCH_ACTIVE_USERS_FAILURE action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
 
     const nextState = reducer(state, OverviewFetchActiveUsersFailure());
@@ -65,6 +71,8 @@ test('Overview reducer', nest => {
 
 
   nest.test('...handle OVERVIEW_FETCH_ADSENSE_REPORTS_REQUEST action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
     const nextState = reducer(state, OverviewFetchAdSenseReportsRequest());
 
@@ -79,6 +87,8 @@ test('Overview reducer', nest => {
 
 
   nest.test('...handle OVERVIEW_FETCH_ADSENSE_REPORTS_SUCCESS action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
     const data = [];
 
@@ -101,6 +111,8 @@ test('Overview reducer', nest => {
 
 
   nest.test('...handle OVERVIEW_FETCH_ADSENSE_REPORTS_FAILURE action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
 
     const nextState = reducer(state, OverviewFetchAdSenseReportsFailure());

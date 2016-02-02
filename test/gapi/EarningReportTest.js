@@ -33,4 +33,6 @@ test('EarningReport service: handle() function', assert => {
 
   assert.deepEqual(actual, expected,
     'should handle response from Earning Report request');
+
+  assert.end();
 });

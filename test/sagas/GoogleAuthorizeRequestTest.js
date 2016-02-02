@@ -10,6 +10,8 @@ import GoogleAuthorizeFailure from 'actions/GoogleAuthorizeFailure';
 
 
 test('Google Authorize Request saga', assert => {
+  assert.plan(1);
+
   const sagaIterator = saga();
 
   const actual = [];
@@ -32,8 +34,9 @@ test('Google Authorize Request saga', assert => {
 
 
 test('Google Authorize Request saga: request() generator', nest => {
-
   nest.test('...authorize without error', assert => {
+    assert.plan(1);
+
     const requestIterator = request();
 
     const actual = [];
@@ -54,6 +57,8 @@ test('Google Authorize Request saga: request() generator', nest => {
   });
 
   nest.test('...authorize with error', assert => {
+    assert.plan(1);
+
     const requestIterator = request();
 
     const actual = [];
@@ -72,5 +77,4 @@ test('Google Authorize Request saga: request() generator', nest => {
 
     assert.end();
   });
-
 });

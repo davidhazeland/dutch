@@ -12,6 +12,8 @@ import GoogleLoginRequest from 'actions/GoogleLoginRequest';
 
 test('Google reducer', nest => {
   nest.test('...handle GOOGLE_AUTHORIZE_REQUEST action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
     const nextState = reducer(state, GoogleAuthorizeRequest());
 
@@ -26,6 +28,8 @@ test('Google reducer', nest => {
 
 
   nest.test('...handle GOOGLE_AUTHORIZE_SUCCESS action', assert => {
+    assert.plan(1);
+
     const state = Immutable.fromJS({
       authorized: false,
       isAuthorizing: true,
@@ -53,6 +57,8 @@ test('Google reducer', nest => {
 
 
   nest.test('...handle GOOGLE_AUTHORIZE_FAILURE action', assert => {
+    assert.plan(1);
+
     const state = Immutable.fromJS({
       isAuthorizing: true,
       isLogining: true
@@ -76,6 +82,8 @@ test('Google reducer', nest => {
 
 
   nest.test('...handle GOOGLE_LOGIN_REQUEST action', assert => {
+    assert.plan(1);
+
     const state = Immutable.Map();
     const nextState = reducer(state, GoogleLoginRequest());
 

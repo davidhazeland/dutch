@@ -29,6 +29,8 @@ const setup = () => {
 
 
 test('Overview Fetch Active Users Request saga', assert => {
+  assert.plan(1);
+
   const fixtures = setup();
 
   const sagaIterator = saga(fixtures.getState);
@@ -57,6 +59,8 @@ test('Overview Fetch Active Users Request saga', assert => {
 
 test('Overview Fetch Active Users Request saga: request() generator', nest => {
   nest.test('...fetch without error', assert => {
+    assert.plan(1);
+
     const fixtures = setup();
 
     const requestIterator = request(fixtures.getState);
@@ -81,6 +85,8 @@ test('Overview Fetch Active Users Request saga: request() generator', nest => {
   });
 
   nest.test('...fetch with error', assert => {
+    assert.plan(1);
+
     const fixtures = setup();
 
     const requestIterator = request(fixtures.getState);
@@ -108,6 +114,8 @@ test('Overview Fetch Active Users Request saga: request() generator', nest => {
 
 test('Overview Fetch Active Users Request saga: autoUpdate() generator', nest => {
   nest.test('...timeout without catching stop action', assert => {
+    assert.plan(1);
+
     const fixtures = setup();
 
     const autoUpdateIterator = autoUpdate(fixtures.getState);
@@ -137,6 +145,8 @@ test('Overview Fetch Active Users Request saga: autoUpdate() generator', nest =>
   });
 
   nest.test('...catch stop action', assert => {
+    assert.plan(1);
+
     const fixtures = setup();
 
     const autoUpdateIterator = autoUpdate(fixtures.getState);

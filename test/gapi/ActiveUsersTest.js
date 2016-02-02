@@ -27,4 +27,6 @@ test('ActiveUsers service: handle() function', assert => {
 
   assert.deepEqual(actual, expected,
     'should handle responses from Active Users request');
+
+  assert.end();
 });
