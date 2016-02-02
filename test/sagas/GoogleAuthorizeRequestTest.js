@@ -25,15 +25,15 @@ test('Google Authorize Request saga', assert => {
   expected[2] = take('GOOGLE_AUTHORIZE_REQUEST');
 
   assert.deepEqual(actual, expected,
-    'should fork request generator when catch request action');
+    'should wait request action and then request authorization');
 
   assert.end();
 });
 
 
-test('Google Authorize Request saga: request generator', nest => {
+test('Google Authorize Request saga: request() generator', nest => {
 
-  nest.test('...without error', assert => {
+  nest.test('...authorize without error', assert => {
     const requestIterator = request();
 
     const actual = [];
@@ -53,7 +53,7 @@ test('Google Authorize Request saga: request generator', nest => {
     assert.end();
   });
 
-  nest.test('...with error', assert => {
+  nest.test('...authorize with error', assert => {
     const requestIterator = request();
 
     const actual = [];
