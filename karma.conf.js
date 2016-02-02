@@ -14,7 +14,10 @@ module.exports = function(config) {
 
     },
     singleRun: true,
-    reporters: ['spec'],
+    reporters: [
+      //'coverage',
+      'spec'
+    ],
     specReporter: {
       maxLogLines: 5,         // limit number of lines logged per test
       suppressErrorSummary: true,  // do not print error summary
