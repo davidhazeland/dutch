@@ -3,7 +3,7 @@
 import Promise from 'bluebird';
 import {forOwn} from 'lodash/object';
 import {query} from './RealTimeReporting';
-import {cache} from '../services/FirebaseActiveUsers';
+import {cache} from '../services/ActiveUsersCaching';
 
 const METRICS = {
   ACTIVE_USERS: 'rt:activeUsers'
