@@ -32,19 +32,19 @@ class OverviewComponent extends React.Component {
       'active': !hasData
     });
 
+    const props = {
+      properties,
+      activeUsers,
+      adSenseReports
+    };
+
     return (
       <div className="Overview">
         <div className={loaderClass}>
           <div className="ui text loader"></div>
         </div>
-        <OverviewAllSites
-          properties={properties}
-          activeUsers={activeUsers}
-          adSenseReports={adSenseReports}/>
-        <OverviewSiteList
-          properties={properties}
-          activeUsers={activeUsers}
-          adSenseReports={adSenseReports}/>
+        <OverviewAllSites {...props}/>
+        <OverviewSiteList {...props}/>
       </div>
     );
   }
