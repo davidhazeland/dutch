@@ -13,7 +13,7 @@ import OverviewFetchActiveUsersFailure from 'actions/OverviewFetchActiveUsersFai
 const setup = () => {
   const fixtures = {};
 
-  fixtures.state = {
+  const state = {
     Google: Immutable.fromJS({
       analyticsAccounts: [
         {
@@ -22,8 +22,7 @@ const setup = () => {
       ]
     })
   };
-
-  fixtures.getState = () => fixtures.state;
+  fixtures.getState = () => state;
 
   return fixtures;
 };
@@ -50,14 +49,14 @@ test('Overview Fetch Active Users Request saga', assert => {
   expected[3] = take('OVERVIEW_FETCH_ACTIVE_USERS_REQUEST');
 
   assert.deepEqual(actual, expected,
-    'should request and auto update when catch request action');
+    'should wait request action and then request, auto update data');
 
   assert.end();
 });
 
 
-test('Overview Fetch Active Users Request saga: request generator', nest => {
-  nest.test('...without error', assert => {
+test('Overview Fetch Active Users Request saga: request() generator', nest => {
+  nest.test('...fetch without error', assert => {
     const fixtures = setup();
 
     const requestIterator = request(fixtures.getState);
@@ -67,7 +66,7 @@ test('Overview Fetch Active Users Request saga: request generator', nest => {
 
     actual[0] = requestIterator.next().value;
 
-    const account = fixtures.state.Google.getIn(['analyticsAccounts', 0]).toJS();
+    const account = fixtures.getState().Google.getIn(['analyticsAccounts', 0]).toJS();
     expected[0] = call(fetch, account);
 
     const result = {};
@@ -81,7 +80,7 @@ test('Overview Fetch Active Users Request saga: request generator', nest => {
     assert.end();
   });
 
-  nest.test('...with error', assert => {
+  nest.test('...fetch with error', assert => {
     const fixtures = setup();
 
     const requestIterator = request(fixtures.getState);
@@ -91,7 +90,7 @@ test('Overview Fetch Active Users Request saga: request generator', nest => {
 
     actual[0] = requestIterator.next().value;
 
-    const account = fixtures.state.Google.getIn(['analyticsAccounts', 0]).toJS();
+    const account = fixtures.getState().Google.getIn(['analyticsAccounts', 0]).toJS();
     expected[0] = call(fetch, account);
 
     const error = new Error();
@@ -107,8 +106,8 @@ test('Overview Fetch Active Users Request saga: request generator', nest => {
 });
 
 
-test('Overview Fetch Active Users Request saga: autoUpdate generator', nest => {
-  nest.test('...request interval', assert => {
+test('Overview Fetch Active Users Request saga: autoUpdate() generator', nest => {
+  nest.test('...timeout without catching stop action', assert => {
     const fixtures = setup();
 
     const autoUpdateIterator = autoUpdate(fixtures.getState);
@@ -132,12 +131,12 @@ test('Overview Fetch Active Users Request saga: autoUpdate generator', nest => {
     });
 
     assert.deepEqual(actual, expected,
-      'should request when timeout');
+      'should request data and continue tick');
 
     assert.end();
   });
 
-  nest.test('..with stop action', assert => {
+  nest.test('...catch stop action', assert => {
     const fixtures = setup();
 
     const autoUpdateIterator = autoUpdate(fixtures.getState);
@@ -155,7 +154,7 @@ test('Overview Fetch Active Users Request saga: autoUpdate generator', nest => {
     expected[1] = undefined;
 
     assert.deepEqual(actual, expected,
-      'should exit when catch stop action');
+      'should stop auto update');
 
     assert.end();
   });
