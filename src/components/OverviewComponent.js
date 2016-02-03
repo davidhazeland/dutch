@@ -40,7 +40,7 @@ class OverviewComponent extends React.Component {
     return (
       <div className="Overview">
         <div className={loaderClass}>
-          <div className="ui text loader"></div>
+          <div className="ui indeterminate loader"></div>
         </div>
         <OverviewAllSites {...props}/>
         <OverviewSiteList {...props}/>
