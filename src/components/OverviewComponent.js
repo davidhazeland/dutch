@@ -27,8 +27,7 @@ class OverviewComponent extends React.Component {
 
     const hasData = activeUsers && adSenseReports;
 
-    const loaderClass = cx({
-      'ui inverted dimmer': true,
+    const loaderClass = cx('ui inverted dimmer', {
       'active': !hasData
     });
 
