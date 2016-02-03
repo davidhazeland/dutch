@@ -7,18 +7,15 @@ require('styles/components//OverviewSiteDeviceItem.less');
 
 class OverviewSiteDeviceItemComponent extends React.Component {
   render() {
-    const name = this.props.device.get(0);
-    const activeUsers = this.props.device.get(1);
-
     const labelClass = cx('label', name.toLowerCase());
 
     return (
       <div className="OverviewSiteDeviceItem statistic">
         <div className="value">
-          {activeUsers}
+          {this.props.activeUsers}
         </div>
         <div className={labelClass}>
-          {name}
+          {this.props.device}
         </div>
       </div>
     );
