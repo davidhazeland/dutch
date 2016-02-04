@@ -1,16 +1,16 @@
 'use strict';
 
-import React from 'react';
-
 require('styles/components//OverviewSiteActiveUsers.less');
 
-class OverviewSiteActiveUsersComponent extends React.Component {
-  render() {
+export default React => {
+  const {string} = React.PropTypes;
+
+  const OverviewSiteActiveUsers = ({activeUsers}) => {
     return (
       <div className="OverviewSiteActiveUsers">
         <div className="ui small grey statistic">
           <div className="value">
-            {this.props.activeUsers}
+            {activeUsers}
           </div>
           <div className="label">
             active users
@@ -18,13 +18,9 @@ class OverviewSiteActiveUsersComponent extends React.Component {
         </div>
       </div>
     );
+  };
+
+  OverviewSiteActiveUsers.propTypes = {
+    activeUsers: string.isRequired
   }
-}
-
-OverviewSiteActiveUsersComponent.displayName = 'OverviewSiteActiveUsersComponent';
-
-// Uncomment properties you need
-// OverviewSiteActiveUsersComponent.propTypes = {};
-// OverviewSiteActiveUsersComponent.defaultProps = {};
-
-export default OverviewSiteActiveUsersComponent;
+};

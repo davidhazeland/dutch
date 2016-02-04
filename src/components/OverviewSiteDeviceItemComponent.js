@@ -1,31 +1,31 @@
 'use strict';
 
-import React from 'react';
 import cx from 'classnames';
 
 require('styles/components//OverviewSiteDeviceItem.less');
 
-class OverviewSiteDeviceItemComponent extends React.Component {
-  render() {
+export default React => {
+  const {string} = React.PropTypes;
+
+  const OverviewSiteDeviceItem = ({activeUsers, device}) => {
     const labelClass = cx('label', name.toLowerCase());
 
     return (
       <div className="OverviewSiteDeviceItem statistic">
         <div className="value">
-          {this.props.activeUsers}
+          {activeUsers}
         </div>
         <div className={labelClass}>
-          {this.props.device}
+          {device}
         </div>
       </div>
     );
-  }
-}
+  };
 
-OverviewSiteDeviceItemComponent.displayName = 'OverviewSiteDeviceItemComponent';
+  OverviewSiteDeviceItem.propTypes = {
+    activeUsers: string.isRequired,
+    device: string.isRequired
+  };
 
-// Uncomment properties you need
-// OverviewSiteDeviceItemComponent.propTypes = {};
-// OverviewSiteDeviceItemComponent.defaultProps = {};
-
-export default OverviewSiteDeviceItemComponent;
+  return OverviewSiteDeviceItem;
+};

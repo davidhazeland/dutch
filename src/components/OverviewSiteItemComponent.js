@@ -1,16 +1,17 @@
 'use strict';
 
-import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewSiteItem.less');
 
 import OverviewSiteActiveUsers from './OverviewSiteActiveUsersComponent';
-import OverviewSiteRevenue from './OverviewSiteRevenueComponent';
+import OverviewSiteRevenue from './OverviewSiteEarningsComponent';
 import OverviewSiteDeviceList from './OverviewSiteDeviceListComponent';
 
-class OverviewSiteItemComponent extends React.Component {
-  render() {
-    const data = this.props.data;
+export default React => {
+  const {any} = React.PropTypes;
+
+  const OverviewSiteItem = ({data}) => {
     return (
       <div className="OverviewSiteItem ui segment">
         <div className="ui top attached label">{data.get('name')}</div>
@@ -19,21 +20,22 @@ class OverviewSiteItemComponent extends React.Component {
             <OverviewSiteActiveUsers activeUsers={data.get('totalDevices')}/>
           </div>
           <div className="six wide column">
-            <OverviewSiteRevenue earning={data.get('earning')}/>
+            <OverviewSiteRevenue earning={data.get('earnings')}/>
           </div>
           <div className="sixteen wide column">
             <OverviewSiteDeviceList devices={data.get('devices')}/>
           </div>
         </div>
       </div>
-    );
+    )
+  };
+
+  OverviewSiteItem.propTypes = {
+    data: ImmutablePropTypes.contains({
+      name: any.isRequired,
+      totalDevices: any.isRequired,
+      earning: any.isRequired,
+      devices: any
+    })
   }
-}
-
-OverviewSiteItemComponent.displayName = 'OverviewSiteItemComponent';
-
-// Uncomment properties you need
-// OverviewSiteItemComponent.propTypes = {};
-// OverviewSiteItemComponent.defaultProps = {};
-
-export default OverviewSiteItemComponent;
+};

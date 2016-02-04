@@ -1,6 +1,5 @@
 'use strict';
 
-import React from 'react';
 import {Iterable, fromJS} from 'immutable';
 
 require('styles/components//OverviewSiteDeviceList.less');
@@ -16,14 +15,12 @@ const resolve = devices => {
   return Iterable(defaultDevices.mergeDeep(devices.fromEntrySeq()).entries());
 };
 
-class OverviewSiteDeviceListComponent extends React.Component {
-  render() {
-    const devices = resolve(this.props.devices);
-
+export default React => {
+  const OverviewSiteDeviceList = ({devices}) => {
     return (
       <div className="OverviewSiteDeviceList">
         <div className="ui mini grey statistics">
-          {devices.map((device, key) => {
+          {resolve(devices).map((device, key) => {
             return (
               <OverviewSiteDeviceItem key={key}
                                       device={device[0]}
@@ -33,13 +30,11 @@ class OverviewSiteDeviceListComponent extends React.Component {
         </div>
       </div>
     );
-  }
-}
+  };
 
-OverviewSiteDeviceListComponent.displayName = 'OverviewSiteDeviceListComponent';
+  OverviewSiteDeviceList.propTypes = {
 
-// Uncomment properties you need
-// OverviewSiteDeviceListComponent.propTypes = {};
-// OverviewSiteDeviceListComponent.defaultProps = {};
+  };
 
-export default OverviewSiteDeviceListComponent;
+  return OverviewSiteDeviceList;
+};
