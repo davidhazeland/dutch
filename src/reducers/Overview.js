@@ -3,20 +3,20 @@
  * If you change the type from object to something else, do not forget to update
  * src/container/App.js accordingly.
  */
-import Immutable from 'immutable';
+import {fromJS, Map} from 'immutable';
 
-const initialState = Immutable.Map();
+const initialState = Map();
 
 function setActiveUserData(state, data) {
   return state
-    .setIn(['activeUser', 'data'], Immutable.fromJS(data))
+    .setIn(['activeUser', 'data'], fromJS(data))
     .setIn(['activeUser', 'isFetching'], false);
 }
 
 
 function setAdSenseReportData(state, data) {
   return state
-    .setIn(['adSenseReport', 'data'], Immutable.fromJS(data))
+    .setIn(['adSenseReport', 'data'], fromJS(data))
     .setIn(['adSenseReport', 'isFetching'], false);
 }
 

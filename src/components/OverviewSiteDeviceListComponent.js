@@ -1,18 +1,13 @@
 'use strict';
 
-import {Iterable, fromJS} from 'immutable';
+import {Iterable} from 'immutable';
 
 require('styles/components//OverviewSiteDeviceList.less');
 
 import createOverviewSiteDeviceItem from './OverviewSiteDeviceItemComponent';
 
 const resolve = devices => {
-  const defaultDevices = fromJS({
-    'DESKTOP': 0,
-    'MOBILE': 0,
-    'TABLET': 0
-  });
-  return Iterable(defaultDevices.mergeDeep(devices.fromEntrySeq()).entries());
+  return Iterable(devices.entries());
 };
 
 export default React => {

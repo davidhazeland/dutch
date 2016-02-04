@@ -9,7 +9,10 @@ test('ActiveUsers service: handle() function', assert => {
     result: {
       'ID': {
         result: {
-          rows: ['rows'],
+          rows: [
+            ['DESKTOP', 3],
+            ['TABLET', 2]
+          ],
           totalsForAllResults: {
             'rt:activeUsers': ['activeUsers']
           }
@@ -21,7 +24,11 @@ test('ActiveUsers service: handle() function', assert => {
   const actual = handle(responses);
   const expected = [{
     id: 'ID',
-    devices: ['rows'],
+    devices: {
+      'DESKTOP': 3,
+      'MOBILE': 0,
+      'TABLET': 2
+    },
     totalDevices: ['activeUsers']
   }];
 
