@@ -4,26 +4,35 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewSiteItem.less');
 
-import OverviewSiteActiveUsers from './OverviewSiteActiveUsersComponent';
-import OverviewSiteRevenue from './OverviewSiteEarningsComponent';
-import OverviewSiteDeviceList from './OverviewSiteDeviceListComponent';
+import createOverviewSiteActiveUsers from './OverviewSiteActiveUsersComponent';
+import createOverviewSiteEarnings from './OverviewSiteEarningsComponent';
+import createOverviewSiteDeviceList from './OverviewSiteDeviceListComponent';
 
 export default React => {
-  const {any} = React.PropTypes;
+  const {string, any} = React.PropTypes;
 
   const OverviewSiteItem = ({data}) => {
+    const OverviewSiteActiveUsers = createOverviewSiteActiveUsers(React);
+    const OverviewSiteEarnings = createOverviewSiteEarnings(React);
+    const OverviewSiteDeviceList = createOverviewSiteDeviceList(React);
+
+    const name = data.get('name');
+    const activeUsers = parseFloat(data.get('totalDevices'));
+    const earnings = parseFloat(data.get('earnings'));
+    const devices = data.get('devices');
+
     return (
       <div className="OverviewSiteItem ui segment">
-        <div className="ui top attached label">{data.get('name')}</div>
+        <div className="ui top attached label">{name}</div>
         <div className="ui grid">
           <div className="ten wide column">
-            <OverviewSiteActiveUsers activeUsers={data.get('totalDevices')}/>
+            <OverviewSiteActiveUsers activeUsers={activeUsers}/>
           </div>
           <div className="six wide column">
-            <OverviewSiteRevenue earning={data.get('earnings')}/>
+            <OverviewSiteEarnings earnings={earnings}/>
           </div>
           <div className="sixteen wide column">
-            <OverviewSiteDeviceList devices={data.get('devices')}/>
+            <OverviewSiteDeviceList devices={devices}/>
           </div>
         </div>
       </div>
@@ -32,10 +41,11 @@ export default React => {
 
   OverviewSiteItem.propTypes = {
     data: ImmutablePropTypes.contains({
-      name: any.isRequired,
+      name: string.isRequired,
       totalDevices: any.isRequired,
-      earning: any.isRequired,
-      devices: any
+      earnings: any.isRequired
     })
-  }
+  };
+
+  return OverviewSiteItem;
 };

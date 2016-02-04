@@ -3,7 +3,7 @@
 require('styles/components//OverviewSiteEarnings.less');
 
 export default React => {
-  const {string} = React.PropTypes;
+  const {number} = React.PropTypes;
 
   const OverviewSiteEarnings = ({earnings}) => {
     return (
@@ -21,7 +21,7 @@ export default React => {
   };
 
   OverviewSiteEarnings.propTypes = {
-    earnings: string.isRequired
+    earnings: number.isRequired
   };
 
   return OverviewSiteEarnings;

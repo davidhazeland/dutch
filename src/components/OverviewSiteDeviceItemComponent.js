@@ -5,9 +5,9 @@ import cx from 'classnames';
 require('styles/components//OverviewSiteDeviceItem.less');
 
 export default React => {
-  const {string} = React.PropTypes;
+  const {string, number} = React.PropTypes;
 
-  const OverviewSiteDeviceItem = ({activeUsers, device}) => {
+  const OverviewSiteDeviceItem = ({activeUsers, name}) => {
     const labelClass = cx('label', name.toLowerCase());
 
     return (
@@ -16,15 +16,15 @@ export default React => {
           {activeUsers}
         </div>
         <div className={labelClass}>
-          {device}
+          {name}
         </div>
       </div>
     );
   };
 
   OverviewSiteDeviceItem.propTypes = {
-    activeUsers: string.isRequired,
-    device: string.isRequired
+    activeUsers: number.isRequired,
+    name: string.isRequired
   };
 
   return OverviewSiteDeviceItem;

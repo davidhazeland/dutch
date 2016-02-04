@@ -23,6 +23,8 @@ export default React => {
     const OverviewAllSitesRevenue = createOverviewAllSitesRevenue(React);
 
     const total = sum(data);
+    const activeUsers = total.get('totalDevices');
+    const earnings = total.get('earnings');
 
     return (
       <div className="OverviewAllSites ui two column grid">
@@ -31,10 +33,10 @@ export default React => {
             <div className="ui raised blue segment">
               <div className="ui grid">
                 <div className="eight wide column">
-                  <OverviewAllSitesActiveUsers activeUsers={total.get('totalDevices')}/>
+                  <OverviewAllSitesActiveUsers activeUsers={activeUsers}/>
                 </div>
                 <div className="eight wide column">
-                  <OverviewAllSitesRevenue earnings={total.get('earnings')}/>
+                  <OverviewAllSitesRevenue earnings={earnings}/>
                 </div>
               </div>
             </div>

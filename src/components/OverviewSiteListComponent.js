@@ -4,10 +4,12 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewSiteList.less');
 
-import OverviewSiteItem from './OverviewSiteItemComponent';
+import createOverviewSiteItem from './OverviewSiteItemComponent';
 
 export default React => {
   const OverviewSiteList = ({data}) => {
+    const OverviewSiteItem = createOverviewSiteItem(React);
+
     return (
       <div className="OverviewSiteList">
         <div className="ui three column grid">
@@ -26,4 +28,6 @@ export default React => {
   OverviewSiteList.propTypes = {
     data: ImmutablePropTypes.list.isRequired
   };
+
+  return OverviewSiteList;
 };

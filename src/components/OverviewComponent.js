@@ -1,12 +1,11 @@
 'use strict';
 
-import React, {PropTypes} from 'react';
-import cx from 'classnames';
+import React from 'react';
 
 require('styles/components//Overview.less');
 
-import OverviewAllSites from './OverviewAllSitesComponent';
-import OverviewSiteList from './OverviewSiteListComponent';
+import createOverviewAllSites from './OverviewAllSitesComponent';
+import createOverviewSiteList from './OverviewSiteListComponent';
 
 class OverviewComponent extends React.Component {
   componentDidMount() {
@@ -19,6 +18,15 @@ class OverviewComponent extends React.Component {
     this.props.actions.OverviewStopAdSenseReportsRequest();
   }
 
+  renderLoader() {
+    return (
+      <div className="Overview">
+        <div className="ui inverted dimmer active">
+          <div className="ui indeterminate loader"></div>
+        </div>
+      </div>
+    );
+  }
 
   render() {
     const properties = this.props.Google.getIn(['analyticsAccounts', 0, 'properties']);
@@ -26,24 +34,17 @@ class OverviewComponent extends React.Component {
     const adSenseReports = this.props.Overview.getIn(['adSenseReport', 'data']);
 
     const hasData = activeUsers && adSenseReports;
+    if (!hasData) return this.renderLoader();
 
-    const loaderClass = cx('ui inverted dimmer', {
-      'active': !hasData
-    });
+    const data = properties.mergeDeep(activeUsers, adSenseReports);
 
-    const props = {
-      properties,
-      activeUsers,
-      adSenseReports
-    };
+    const OverviewAllSites = createOverviewAllSites(React);
+    const OverviewSiteList = createOverviewSiteList(React);
 
     return (
       <div className="Overview">
-        <div className={loaderClass}>
-          <div className="ui indeterminate loader"></div>
-        </div>
-        <OverviewAllSites {...props}/>
-        <OverviewSiteList {...props}/>
+        <OverviewAllSites data={data}/>
+        <OverviewSiteList data={data}/>
       </div>
     );
   }
@@ -52,11 +53,9 @@ class OverviewComponent extends React.Component {
 OverviewComponent.displayName = 'OverviewComponent';
 
 // Uncomment properties you need
-OverviewComponent.propTypes = {
-  actions: PropTypes.object.isRequired,
-  Google: PropTypes.object.isRequired,
-  Overview: PropTypes.object.isRequired
-};
+//OverviewComponent.propTypes = {
+//
+//};
 // OverviewComponent.defaultProps = {};
 
 export default OverviewComponent;

@@ -3,7 +3,7 @@
 require('styles/components//OverviewSiteActiveUsers.less');
 
 export default React => {
-  const {string} = React.PropTypes;
+  const {number} = React.PropTypes;
 
   const OverviewSiteActiveUsers = ({activeUsers}) => {
     return (
@@ -21,6 +21,8 @@ export default React => {
   };
 
   OverviewSiteActiveUsers.propTypes = {
-    activeUsers: string.isRequired
-  }
+    activeUsers: number.isRequired
+  };
+
+  return OverviewSiteActiveUsers;
 };
