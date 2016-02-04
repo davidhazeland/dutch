@@ -2,6 +2,7 @@
 
 import Promise from 'bluebird';
 import fromPairs from 'lodash.frompairs';
+import toPairs from 'lodash.topairs';
 import {forOwn} from 'lodash/object';
 import {query} from './RealTimeReporting';
 import {cache} from '../services/ActiveUsersCaching';
@@ -15,19 +16,25 @@ const DIMENSIONS = {
 };
 
 
-function resolveResponse(id, response) {
+function setDefaultDeviceValues(devices) {
   const defaultDeviceValues = {
     'DESKTOP': 0,
     'MOBILE': 0,
     'TABLET': 0
   };
 
+  return toPairs(Object.assign(defaultDeviceValues, fromPairs(devices)));
+}
+
+
+function resolveResponse(id, response) {
+
   const devices = response.result.rows;
   const totalDevices = response.result.totalsForAllResults[METRICS.ACTIVE_USERS];
 
   return {
     id: id,
-    devices: Object.assign(defaultDeviceValues, fromPairs(devices)),
+    devices: setDefaultDeviceValues(devices),
     totalDevices: totalDevices
   }
 }

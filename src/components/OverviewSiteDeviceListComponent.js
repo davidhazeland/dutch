@@ -1,14 +1,8 @@
 'use strict';
 
-import {Iterable} from 'immutable';
-
 require('styles/components//OverviewSiteDeviceList.less');
 
 import createOverviewSiteDeviceItem from './OverviewSiteDeviceItemComponent';
-
-const resolve = devices => {
-  return Iterable(devices.entries());
-};
 
 export default React => {
   const OverviewSiteDeviceList = ({devices}) => {
@@ -17,13 +11,13 @@ export default React => {
     return (
       <div className="OverviewSiteDeviceList">
         <div className="ui mini grey statistics">
-          {resolve(devices).map((device, key) => {
-            const name = device[0];
-            const activeUsers = parseFloat(device[1]);
+          {devices.map((device, key) => {
+            const deviceName = device.get(0);
+            const activeUsers = parseFloat(device.get(1));
             return (
               <OverviewSiteDeviceItem
                 key={key}
-                name={name}
+                name={deviceName}
                 activeUsers={activeUsers}/>
             );
           })}

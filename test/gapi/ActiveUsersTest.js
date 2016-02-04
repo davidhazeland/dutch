@@ -24,11 +24,11 @@ test('ActiveUsers service: handle() function', assert => {
   const actual = handle(responses);
   const expected = [{
     id: 'ID',
-    devices: {
-      'DESKTOP': 3,
-      'MOBILE': 0,
-      'TABLET': 2
-    },
+    devices: [
+      ['DESKTOP', 3],
+      ['MOBILE', 0],
+      ['TABLET', 2]
+    ],
     totalDevices: ['activeUsers']
   }];
 
