@@ -9,7 +9,7 @@ import createOverviewSiteEarnings from './OverviewSiteEarningsComponent';
 import createOverviewSiteDeviceList from './OverviewSiteDeviceListComponent';
 
 export default React => {
-  const {string, any} = React.PropTypes;
+  const {string} = React.PropTypes;
 
   const OverviewSiteItem = ({data}) => {
     const OverviewSiteActiveUsers = createOverviewSiteActiveUsers(React);
@@ -41,9 +41,7 @@ export default React => {
 
   OverviewSiteItem.propTypes = {
     data: ImmutablePropTypes.contains({
-      name: string.isRequired,
-      totalDevices: any.isRequired,
-      earnings: any.isRequired
+      name: string.isRequired
     })
   };
 
