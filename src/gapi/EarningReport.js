@@ -23,7 +23,7 @@ export function handle(response, account) {
 
     result.push({
       id: property.id,
-      earning: report[earningIndex]
+      earnings: report[earningIndex]
     });
   });
 
