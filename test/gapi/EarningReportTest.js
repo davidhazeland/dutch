@@ -27,7 +27,7 @@ test('EarningReport service: handle() function', assert => {
   const expected = [
     {
       id: 1,
-      earning: '13.7'
+      earnings: '13.7'
     }
   ];
 
