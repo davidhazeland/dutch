@@ -1,57 +1,43 @@
 'use strict';
 
-import React from 'react';
-import { Link } from 'react-router';
-
 import cx from 'classnames';
+import { Link } from 'react-router';
 
 require('styles/components//Header.less');
 
 import logo from '../images/logo.png';
 
-class HeaderComponent extends React.Component {
-  render() {
-    const authGoogleClass = cx({
-      'Header-authButton ui item': true,
-      'visible': !this.props.Google.get('authorized')
-    });
+export default React => ({Google, Facebook, actions: {GoogleAuthorizeRequest}}) => {
+  const authGoogleClass = cx('Header-authButton ui item', {
+    'visible': !Google.get('authorized')
+  });
 
-    const authFacebookClass = cx({
-      'Header-authButton ui item': true,
-      'visible': !this.props.Facebook.get('authorized')
-    });
+  const authFacebookClass = cx('Header-authButton ui item', {
+    'visible': !Facebook.get('authorized')
+  });
 
-    const authGoogleText = this.props.Google.get('isLogining') ? 'Logining' : 'Authorize';
+  const authGoogleText = Google.get('isLogining') ? 'Logining' : 'Authorize';
 
-    return (
-      <div className="Header">
-        <div className="ui secondary pointing menu">
-          <div className="header item">
-            <img className="logo" src={logo} alt=""/>
-            Dutch Project
-          </div>
-          <Link to="/overview" className="item active blue">Home</Link>
-          <Link to="#" className="item">Reporting</Link>
-          <div className="right menu">
-            <button className={authGoogleClass}
-                    onClick={() => this.props.onAuthorizeGoogle()}>
-              {authGoogleText} Google
-            </button>
-            <button className={authFacebookClass}
-                    onClick={() => this.props.onAuthorizeFacebook()}>
-              Login Facebook
-            </button>
-          </div>
+  return (
+    <div className="Header">
+      <div className="ui secondary pointing menu">
+        <div className="header item">
+          <img className="logo" src={logo} alt=""/>
+          Dutch Project
+        </div>
+        <Link to="/overview" className="item active blue">Home</Link>
+        <Link to="#" className="item">Reporting</Link>
+        <div className="right menu">
+          <button className={authGoogleClass}
+                  onClick={() => GoogleAuthorizeRequest}>
+            {authGoogleText} Google
+          </button>
+          <button className={authFacebookClass}
+                  onClick={() => {}}>
+            Login Facebook
+          </button>
         </div>
       </div>
-    );
-  }
-}
-
-HeaderComponent.displayName = 'HeaderComponent';
-
-// Uncomment properties you need
-// HeaderComponent.propTypes = {};
-// HeaderComponent.defaultProps = {};
-
-export default HeaderComponent;
+    </div>
+  );
+};

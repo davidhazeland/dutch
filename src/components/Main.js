@@ -4,8 +4,8 @@ require('normalize.css');
 require('styles/index.less');
 
 import React from 'react';
-import Header from './HeaderComponent';
-import Navigation from './NavigationComponent';
+import createHeader from './HeaderComponent';
+import createNavigation from './NavigationComponent';
 import createContent from './ContentComponent';
 
 class AppComponent extends React.Component {
@@ -24,15 +24,14 @@ class AppComponent extends React.Component {
   }
 
   render() {
+    const Header = createHeader(React);
+    const Navigation = createNavigation(React);
+
     const authorized = this.props.Google.get('authorized') && this.props.Facebook.get('authorized');
     const content = authorized ? this.renderContent() : null;
     return (
       <div className="Main">
-        <Header Google={this.props.Google}
-                Facebook={this.props.Facebook}
-                onAuthorizeGoogle={() => this.props.actions.GoogleAuthorizeRequest()}
-                onAuthorizeFacebook={() => this.props.actions.FacebookAuthorize()}
-        />
+        <Header {...this.props}/>
         <Navigation/>
         {content}
       </div>
