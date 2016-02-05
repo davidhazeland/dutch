@@ -13,7 +13,7 @@ npm install && bower install
 To build project:
 
 ```
-npm dist
+npm run dist
 ```
 
 To test project:
@@ -41,7 +41,7 @@ If require `semantic-ui` module error, try to fix line 12 in `bower_components/s
 
 ```json
 "main": [
-  "dist/semantic.css", // instead of src/semantic.less
+  "dist/semantic.css",
   "dist/semantic.js"
 ]
 ```
