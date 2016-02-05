@@ -1,39 +1,49 @@
 'use strict';
 
-import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewSiteItem.less');
 
-import OverviewSiteActiveUsers from './OverviewSiteActiveUsersComponent';
-import OverviewSiteRevenue from './OverviewSiteRevenueComponent';
-import OverviewSiteDeviceList from './OverviewSiteDeviceListComponent';
+import createOverviewSiteActiveUsers from './OverviewSiteActiveUsersComponent';
+import createOverviewSiteEarnings from './OverviewSiteEarningsComponent';
+import createOverviewSiteDeviceList from './OverviewSiteDeviceListComponent';
 
-class OverviewSiteItemComponent extends React.Component {
-  render() {
-    const data = this.props.data;
+export default React => {
+  const {string} = React.PropTypes;
+
+  const OverviewSiteItem = ({data}) => {
+    const OverviewSiteActiveUsers = createOverviewSiteActiveUsers(React);
+    const OverviewSiteEarnings = createOverviewSiteEarnings(React);
+    const OverviewSiteDeviceList = createOverviewSiteDeviceList(React);
+
+    const name = data.get('name');
+    const activeUsers = parseFloat(data.get('totalDevices'));
+    const earnings = parseFloat(data.get('earnings'));
+    const devices = data.get('devices');
+
     return (
       <div className="OverviewSiteItem ui segment">
-        <div className="ui top attached label">{data.get('name')}</div>
+        <div className="ui top attached label">{name}</div>
         <div className="ui grid">
           <div className="ten wide column">
-            <OverviewSiteActiveUsers activeUsers={data.get('totalDevices')}/>
+            <OverviewSiteActiveUsers activeUsers={activeUsers}/>
           </div>
           <div className="six wide column">
-            <OverviewSiteRevenue revenue={data.get('revenue')}/>
+            <OverviewSiteEarnings earnings={earnings}/>
           </div>
           <div className="sixteen wide column">
-            <OverviewSiteDeviceList devices={data.get('devices')}/>
+            <OverviewSiteDeviceList devices={devices}/>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    )
+  };
 
-OverviewSiteItemComponent.displayName = 'OverviewSiteItemComponent';
+  OverviewSiteItem.propTypes = {
+    data: ImmutablePropTypes.contains({
+      name: string.isRequired
+    })
+  };
 
-// Uncomment properties you need
-// OverviewSiteItemComponent.propTypes = {};
-// OverviewSiteItemComponent.defaultProps = {};
-
-export default OverviewSiteItemComponent;
+  return OverviewSiteItem;
+};

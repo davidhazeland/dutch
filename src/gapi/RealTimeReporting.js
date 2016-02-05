@@ -1,12 +1,15 @@
 /* global gapi */
 
-export function query(viewId, queryParams) {
-  const metrics = queryParams.metrics.join(',');
-  const dimensions = queryParams.dimensions.join(',');
+export function resolveId(id) {
+  return `ga:${id}`;
+}
 
-  return gapi.client.analytics.data.realtime.get({
-    ids: `ga:${viewId}`,
+export function query(viewId, {metrics, dimensions}) {
+  const params = {
+    ids: resolveId(viewId),
     metrics: metrics,
     dimensions: dimensions
-  });
+  };
+
+  return gapi.client.analytics.data.realtime.get(params);
 }

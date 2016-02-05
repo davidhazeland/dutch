@@ -3,42 +3,37 @@ require('semantic');
 require('normalize.css');
 require('styles/index.less');
 
-import React from 'react';
-import Header from './HeaderComponent';
-import Navigation from './NavigationComponent';
-import Content from './ContentComponent';
+import createHeader from './HeaderComponent';
+import createNavigation from './NavigationComponent';
+import createContent from './ContentComponent';
 
-class AppComponent extends React.Component {
-  componentDidMount() {
-    this.props.actions.GoogleLoginRequest();
-    //this.props.actions.FacebookLogin();
-  }
-
-  renderContent() {
+export default React => {
+  const renderContent = (children) => {
+    const Content = createContent(React);
     return (
       <Content>
-        {this.props.children}
+        {children}
       </Content>
     );
-  }
+  };
 
-  render() {
-    const authorized = this.props.Google.get('authorized') && this.props.Facebook.get('authorized');
-    const content = authorized ? this.renderContent() : null;
+  const App = (props) => {
+    const Header = createHeader(React);
+    const Navigation = createNavigation(React);
+
+    const isAuthorized = props.Google.get('authorized') && props.Facebook.get('authorized');
+    const content = isAuthorized ? renderContent(props.children) : null;
+
     return (
       <div className="Main">
-        <Header Google={this.props.Google}
-                Facebook={this.props.Facebook}
-                onAuthorizeGoogle={() => this.props.actions.GoogleAuthorizeRequest()}
-                onAuthorizeFacebook={() => this.props.actions.FacebookAuthorize()}
-        />
+        <Header {...props}/>
         <Navigation/>
         {content}
       </div>
     );
-  }
-}
+  };
 
-AppComponent.defaultProps = {};
+  App.propTypes = {};
 
-export default AppComponent;
+  return App;
+};

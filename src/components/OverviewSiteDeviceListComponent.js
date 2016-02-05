@@ -1,31 +1,38 @@
 'use strict';
 
-import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewSiteDeviceList.less');
 
-import OverviewSiteDeviceItem from './OverviewSiteDeviceItemComponent';
+import createOverviewSiteDeviceItem from './OverviewSiteDeviceItemComponent';
 
-class OverviewSiteDeviceListComponent extends React.Component {
-  render() {
+export default React => {
+  const OverviewSiteDeviceList = ({devices}) => {
+    const OverviewSiteDeviceItem = createOverviewSiteDeviceItem(React);
+
+    const siteDevices = devices.map((device, key) => {
+      const deviceName = device.get(0);
+      const activeUsers = parseFloat(device.get(1));
+      return (
+        <OverviewSiteDeviceItem
+          key={key}
+          name={deviceName}
+          activeUsers={activeUsers}/>
+      );
+    });
+
     return (
       <div className="OverviewSiteDeviceList">
         <div className="ui mini grey statistics">
-          {this.props.devices.map((device, key) => {
-            return (
-              <OverviewSiteDeviceItem device={device} key={key}/>
-            )
-          })}
+          {siteDevices}
         </div>
       </div>
     );
-  }
-}
+  };
 
-OverviewSiteDeviceListComponent.displayName = 'OverviewSiteDeviceListComponent';
+  OverviewSiteDeviceList.propTypes = {
+    devices: ImmutablePropTypes.list.isRequired
+  };
 
-// Uncomment properties you need
-// OverviewSiteDeviceListComponent.propTypes = {};
-// OverviewSiteDeviceListComponent.defaultProps = {};
-
-export default OverviewSiteDeviceListComponent;
+  return OverviewSiteDeviceList;
+};

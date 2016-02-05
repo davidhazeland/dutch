@@ -10,10 +10,21 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import OverviewComponent from '../components/OverviewComponent';
+import createOverviewComponent from '../components/OverviewComponent';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
+  componentDidMount() {
+    this.props.actions.OverviewFetchActiveUsersRequest();
+    this.props.actions.OverviewFetchAdSenseReportsRequest();
+  }
+
+  componentWillUnmount() {
+    this.props.actions.OverviewStopFetchActiveUsers();
+    this.props.actions.OverviewStopAdSenseReportsRequest();
+  }
+
   render() {
+    const OverviewComponent = createOverviewComponent(React);
     const {actions, Google, Overview} = this.props;
     return (
       <OverviewComponent actions={actions} Google={Google} Overview={Overview}/>

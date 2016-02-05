@@ -1,27 +1,26 @@
 'use strict';
 
-import React from 'react';
-import { Link } from 'react-router';
-
 import cx from 'classnames';
+import { Link } from 'react-router';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//Header.less');
 
 import logo from '../images/logo.png';
 
-class HeaderComponent extends React.Component {
-  render() {
-    const authGoogleClass = cx({
-      'Header-authButton ui item': true,
-      'visible': !this.props.Google.get('authorized')
+export default React => {
+  const {shape, func} = React.PropTypes;
+
+  const Header = ({Google, Facebook, actions: {GoogleAuthorizeRequest}}) => {
+    const authGoogleClass = cx('Header-authButton ui item', {
+      'visible': !Google.get('authorized')
     });
 
-    const authFacebookClass = cx({
-      'Header-authButton ui item': true,
-      'visible': !this.props.Facebook.get('authorized')
+    const authFacebookClass = cx('Header-authButton ui item', {
+      'visible': !Facebook.get('authorized')
     });
 
-    const authGoogleText = this.props.Google.get('isLogining') ? 'Logining' : 'Authorize';
+    const authGoogleText = Google.get('isLogining') ? 'Logining' : 'Authorize';
 
     return (
       <div className="Header">
@@ -34,24 +33,26 @@ class HeaderComponent extends React.Component {
           <Link to="#" className="item">Reporting</Link>
           <div className="right menu">
             <button className={authGoogleClass}
-                    onClick={() => this.props.onAuthorizeGoogle()}>
+                    onClick={() => GoogleAuthorizeRequest}>
               {authGoogleText} Google
             </button>
             <button className={authFacebookClass}
-                    onClick={() => this.props.onAuthorizeFacebook()}>
+                    onClick={() => {}}>
               Login Facebook
             </button>
           </div>
         </div>
       </div>
     );
-  }
-}
+  };
 
-HeaderComponent.displayName = 'HeaderComponent';
+  Header.propTypes = {
+    Google: ImmutablePropTypes.map.isRequired,
+    Facebook: ImmutablePropTypes.map.isRequired,
+    actions: shape({
+      GoogleAuthorizeRequest: func.isRequired
+    })
+  };
 
-// Uncomment properties you need
-// HeaderComponent.propTypes = {};
-// HeaderComponent.defaultProps = {};
-
-export default HeaderComponent;
+  return Header;
+};

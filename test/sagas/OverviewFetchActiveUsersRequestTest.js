@@ -1,6 +1,3 @@
-/*eslint-env node, mocha */
-/*global expect */
-/*eslint no-console: 0*/
 'use strict';
 
 import test from 'tape';
@@ -9,15 +6,14 @@ import config from 'config';
 import Immutable from 'immutable';
 import {put, call, take, fork, race} from 'redux-saga';
 import saga, {request, autoUpdate} from 'sagas/OverviewFetchActiveUsersRequest';
-import {fetch} from 'services/ActiveUsersCache';
+import {fetch} from 'gapi/ActiveUsers';
 import OverviewFetchActiveUsersSuccess from 'actions/OverviewFetchActiveUsersSuccess';
 import OverviewFetchActiveUsersFailure from 'actions/OverviewFetchActiveUsersFailure';
-
 
 const setup = () => {
   const fixtures = {};
 
-  fixtures.state = {
+  const state = {
     Google: Immutable.fromJS({
       analyticsAccounts: [
         {
@@ -26,163 +22,150 @@ const setup = () => {
       ]
     })
   };
-
-  fixtures.getState = () => fixtures.state;
-
-  fixtures.sagaIterator = saga(fixtures.getState);
-  fixtures.requestIterator = request(fixtures.getState);
-  fixtures.autoUpdateIterator = autoUpdate(fixtures.getState);
+  fixtures.getState = () => state;
 
   return fixtures;
 };
 
 
 test('Overview Fetch Active Users Request saga', assert => {
+  assert.plan(1);
+
   const fixtures = setup();
+
+  const sagaIterator = saga(fixtures.getState);
 
   const actual = [];
   const expected = [];
 
-  actual[0] = fixtures.sagaIterator.next().value;
+  actual[0] = sagaIterator.next().value;
   expected[0] = take('OVERVIEW_FETCH_ACTIVE_USERS_REQUEST');
 
-  assert.deepEqual(actual[0], expected[0],
-    'should wait for OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action');
-
-  actual[1] = fixtures.sagaIterator.next(true).value;
+  actual[1] = sagaIterator.next(true).value;
   expected[1] = fork(request, fixtures.getState);
 
-  assert.deepEqual(actual[1], expected[1],
-    'should fork request when catch OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action');
-
-  actual[2] = fixtures.sagaIterator.next().value;
+  actual[2] = sagaIterator.next().value;
   expected[2] = fork(autoUpdate, fixtures.getState);
 
-  assert.deepEqual(actual[2], expected[2],
-    'then fork auto update');
-
-  actual[3] = fixtures.sagaIterator.next().value;
+  actual[3] = sagaIterator.next().value;
   expected[3] = take('OVERVIEW_FETCH_ACTIVE_USERS_REQUEST');
 
-  assert.deepEqual(actual[3], expected[3],
-    'then continue waiting for OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action');
+  assert.deepEqual(actual, expected,
+    'should wait request action and then request, auto update data');
 
   assert.end();
 });
 
 
-test('Overview Fetch Active Users Request saga: request generator', nest => {
+test('Overview Fetch Active Users Request saga: request() generator', nest => {
+  nest.test('...fetch without error', assert => {
+    assert.plan(1);
 
-  nest.test('...without error', assert => {
     const fixtures = setup();
+
+    const requestIterator = request(fixtures.getState);
 
     const actual = [];
     const expected = [];
 
-    actual[0] = fixtures.requestIterator.next().value;
+    actual[0] = requestIterator.next().value;
 
-    const account = fixtures.state.Google.get('analyticsAccounts').get(0).toJS();
+    const account = fixtures.getState().Google.getIn(['analyticsAccounts', 0]).toJS();
     expected[0] = call(fetch, account);
-
-    assert.deepEqual(actual[0], expected[0],
-      'should call fetch service');
 
     const result = {};
 
-    actual[1] = fixtures.requestIterator.next(result).value;
+    actual[1] = requestIterator.next(result).value;
     expected[1] = put(OverviewFetchActiveUsersSuccess(result));
 
-    assert.deepEqual(actual[1], expected[1],
-      'then dispatch OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS action');
+    assert.deepEqual(actual, expected,
+      'should dispatch success action');
 
     assert.end();
   });
 
-  nest.test('...with error', assert => {
+  nest.test('...fetch with error', assert => {
+    assert.plan(1);
+
     const fixtures = setup();
+
+    const requestIterator = request(fixtures.getState);
 
     const actual = [];
     const expected = [];
 
-    actual[0] = fixtures.requestIterator.next().value;
+    actual[0] = requestIterator.next().value;
 
-    const account = fixtures.state.Google.get('analyticsAccounts').get(0).toJS();
+    const account = fixtures.getState().Google.getIn(['analyticsAccounts', 0]).toJS();
     expected[0] = call(fetch, account);
-
-    assert.deepEqual(actual[0], expected[0],
-      'should call fetch service');
 
     const error = new Error();
 
-    actual[1] = fixtures.requestIterator.throw(error).value;
+    actual[1] = requestIterator.throw(error).value;
     expected[1] = put(OverviewFetchActiveUsersFailure(error));
 
-    assert.deepEqual(actual[1], expected[1],
-      'then dispatch OVERVIEW_FETCH_ACTIVE_USERS_FAILURE action');
+    assert.deepEqual(actual, expected,
+      'should dispatch failure action');
 
     assert.end();
   });
-
 });
 
 
-test('Overview Fetch Active Users Request saga: autoUpdate generator', nest => {
+test('Overview Fetch Active Users Request saga: autoUpdate() generator', nest => {
+  nest.test('...timeout without catching stop action', assert => {
+    assert.plan(1);
 
-  nest.test('...request interval', assert => {
     const fixtures = setup();
+
+    const autoUpdateIterator = autoUpdate(fixtures.getState);
 
     const actual = [];
     const expected = [];
 
-    actual[0] = fixtures.autoUpdateIterator.next().value;
+    actual[0] = autoUpdateIterator.next().value;
     expected[0] = race({
       tick: call(delay, config.OVERVIEW_REFRESH_PERIOD),
       stop: take('OVERVIEW_STOP_FETCH_ACTIVE_USERS')
     });
 
-    assert.deepEqual(actual[0], expected[0],
-      'should wait for OVERVIEW_STOP_FETCH_ACTIVE_USERS action or timeout');
-
-    actual[1] = fixtures.autoUpdateIterator.next({stop: false}).value;
+    actual[1] = autoUpdateIterator.next({stop: false}).value;
     expected[1] = fork(request, fixtures.getState);
 
-    assert.deepEqual(actual[1], expected[1],
-      'should fork request generator when timeout');
-
-    actual[2] = fixtures.autoUpdateIterator.next().value;
+    actual[2] = autoUpdateIterator.next().value;
     expected[2] = race({
       tick: call(delay, config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD),
       stop: take('OVERVIEW_STOP_FETCH_ACTIVE_USERS')
     });
 
-    assert.deepEqual(actual[2], expected[2],
-      'then continue waiting for OVERVIEW_STOP_FETCH_ACTIVE_USERS action or timeout');
+    assert.deepEqual(actual, expected,
+      'should request data and continue tick');
 
     assert.end();
   });
 
-  nest.test('..with stop action', assert => {
+  nest.test('...catch stop action', assert => {
+    assert.plan(1);
+
     const fixtures = setup();
+
+    const autoUpdateIterator = autoUpdate(fixtures.getState);
 
     const actual = [];
     const expected = [];
 
-    actual[0] = fixtures.autoUpdateIterator.next().value;
+    actual[0] = autoUpdateIterator.next().value;
     expected[0] = race({
       tick: call(delay, config.OVERVIEW_ACTIVE_USERS_REFRESH_PERIOD),
       stop: take('OVERVIEW_STOP_FETCH_ACTIVE_USERS')
     });
 
-    assert.deepEqual(actual[0], expected[0],
-      'should wait for OVERVIEW_STOP_FETCH_ACTIVE_USERS action or timeout');
-
-    actual[1] = fixtures.autoUpdateIterator.next({stop: true}).value;
+    actual[1] = autoUpdateIterator.next({stop: true}).value;
     expected[1] = undefined;
 
-    assert.deepEqual(actual[1], expected[1],
-      'should exit when catch OVERVIEW_STOP_FETCH_ACTIVE_USERS action');
+    assert.deepEqual(actual, expected,
+      'should stop auto update');
 
     assert.end();
   });
-
 });

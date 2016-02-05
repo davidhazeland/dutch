@@ -1,17 +1,19 @@
 'use strict';
 
-import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewSiteList.less');
 
-import OverviewSiteItem from './OverviewSiteItemComponent';
+import createOverviewSiteItem from './OverviewSiteItemComponent';
 
-class OverviewSiteListComponent extends React.Component {
-  render() {
+export default React => {
+  const OverviewSiteList = ({data}) => {
+    const OverviewSiteItem = createOverviewSiteItem(React);
+
     return (
       <div className="OverviewSiteList">
         <div className="ui three column grid">
-          {this.props.data.map((item, key) => {
+          {data.map((item, key) => {
             return (
               <div className="column" key={key}>
                 <OverviewSiteItem data={item}/>
@@ -21,13 +23,11 @@ class OverviewSiteListComponent extends React.Component {
         </div>
       </div>
     );
-  }
-}
+  };
 
-OverviewSiteListComponent.displayName = 'OverviewSiteListComponent';
+  OverviewSiteList.propTypes = {
+    data: ImmutablePropTypes.list.isRequired
+  };
 
-// Uncomment properties you need
-// OverviewSiteListComponent.propTypes = {};
-// OverviewSiteListComponent.defaultProps = {};
-
-export default OverviewSiteListComponent;
+  return OverviewSiteList;
+};

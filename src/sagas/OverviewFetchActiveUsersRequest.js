@@ -1,7 +1,7 @@
 import delay from 'delay';
 import config from 'config';
 import {call, put, take, fork, race} from 'redux-saga';
-import {fetch} from '../services/ActiveUsersCache';
+import {fetch} from '../gapi/ActiveUsers';
 import OverviewFetchActiveUsersSuccess from '../actions/OverviewFetchActiveUsersSuccess';
 import OverviewFetchActiveUsersFailure from '../actions/OverviewFetchActiveUsersFailure';
 

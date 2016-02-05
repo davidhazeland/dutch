@@ -12,109 +12,117 @@ import OverviewFetchAdSenseReportsSuccess from 'actions/OverviewFetchAdSenseRepo
 import OverviewFetchAdSenseReportsFailure from 'actions/OverviewFetchAdSenseReportsFailure';
 
 
-test('Overview reducer handle OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action', assert => {
-  const state = Immutable.Map();
-  const nextState = reducer(state, OverviewFetchActiveUsersRequest());
+test('Overview reducer', nest => {
+  nest.test('...handle OVERVIEW_FETCH_ACTIVE_USERS_REQUEST action', assert => {
+    assert.plan(1);
 
-  const actual = nextState.getIn(['activeUser', 'isFetching']);
-  const expected = true;
+    const state = Immutable.Map();
+    const nextState = reducer(state, OverviewFetchActiveUsersRequest());
 
-  assert.equal(actual, expected,
-    'should return a state be fetching');
+    const actual = nextState.getIn(['activeUser', 'isFetching']);
+    const expected = true;
 
-  assert.end();
-});
+    assert.equal(actual, expected,
+      'should return a state with active users be fetching');
 
-
-test('Overview reducer handle OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS action', assert => {
-  const state = Immutable.Map();
-  const data = [];
-
-  const nextState = reducer(state, OverviewFetchActiveUsersSuccess(data));
-
-  const actual = [];
-  const expected = [];
-
-  actual[0] = nextState.getIn(['activeUser', 'data']).toJS();
-  expected[0] = [];
-
-  assert.deepEqual(actual[0], expected[0],
-    'should return a state with data stored');
-
-  actual[1] = nextState.getIn(['activeUser', 'isFetching']);
-  expected[1] = false;
-
-  assert.deepEqual(actual[1], expected[1],
-    'should return a state be fetching');
-
-  assert.end();
-});
+    assert.end();
+  });
 
 
-test('Overview reducer handle OVERVIEW_FETCH_ACTIVE_USERS_FAILURE action', assert => {
-  const state = Immutable.Map();
+  nest.test('...handle OVERVIEW_FETCH_ACTIVE_USERS_SUCCESS action', assert => {
+    assert.plan(1);
 
-  const nextState = reducer(state, OverviewFetchActiveUsersFailure());
+    const state = Immutable.Map();
+    const data = ['data'];
 
-  const actual = nextState.getIn(['activeUser', 'isFetching']);
-  const expected = false;
+    const nextState = reducer(state, OverviewFetchActiveUsersSuccess(data));
 
-  assert.deepEqual(actual, expected,
-    'should return a state be fetching');
+    const actual = [];
+    const expected = [];
 
-  assert.end();
-});
+    actual[0] = nextState.getIn(['activeUser', 'data']).toJS();
+    expected[0] = ['data'];
 
+    actual[1] = nextState.getIn(['activeUser', 'isFetching']);
+    expected[1] = false;
 
-test('Overview reducer handle OVERVIEW_FETCH_ADSENSE_REPORTS_REQUEST action', assert => {
-  const state = Immutable.Map();
-  const nextState = reducer(state, OverviewFetchAdSenseReportsRequest());
+    assert.deepEqual(actual, expected,
+      'should return a state with stored active users data');
 
-  const actual = nextState.getIn(['adSenseReport', 'isFetching']);
-  const expected = true;
-
-  assert.equal(actual, expected,
-    'should return a state be fetching');
-
-  assert.end();
-});
+    assert.end();
+  });
 
 
-test('Overview reducer handle OVERVIEW_FETCH_ADSENSE_REPORTS_SUCCESS action', assert => {
-  const state = Immutable.Map();
-  const data = [];
+  nest.test('...handle OVERVIEW_FETCH_ACTIVE_USERS_FAILURE action', assert => {
+    assert.plan(1);
 
-  const nextState = reducer(state, OverviewFetchAdSenseReportsSuccess(data));
+    const state = Immutable.Map();
 
-  const actual = [];
-  const expected = [];
+    const nextState = reducer(state, OverviewFetchActiveUsersFailure());
 
-  actual[0] = nextState.getIn(['adSenseReport', 'data']).toJS();
-  expected[0] = [];
+    const actual = nextState.getIn(['activeUser', 'isFetching']);
+    const expected = false;
 
-  assert.deepEqual(actual[0], expected[0],
-    'should return a state with data stored');
+    assert.deepEqual(actual, expected,
+      'should return a state be not fetching');
 
-  actual[1] = nextState.getIn(['adSenseReport', 'isFetching']);
-  expected[1] = false;
-
-  assert.deepEqual(actual[1], expected[1],
-    'should return a state be fetching');
-
-  assert.end();
-});
+    assert.end();
+  });
 
 
-test('Overview reducer handle OVERVIEW_FETCH_ADSENSE_REPORTS_FAILURE action', assert => {
-  const state = Immutable.Map();
+  nest.test('...handle OVERVIEW_FETCH_ADSENSE_REPORTS_REQUEST action', assert => {
+    assert.plan(1);
 
-  const nextState = reducer(state, OverviewFetchAdSenseReportsFailure());
+    const state = Immutable.Map();
+    const nextState = reducer(state, OverviewFetchAdSenseReportsRequest());
 
-  const actual = nextState.getIn(['adSenseReport', 'isFetching']);
-  const expected = false;
+    const actual = nextState.getIn(['adSenseReport', 'isFetching']);
+    const expected = true;
 
-  assert.deepEqual(actual, expected,
-    'should return a state be fetching');
+    assert.equal(actual, expected,
+      'should return a state be fetching');
 
-  assert.end();
+    assert.end();
+  });
+
+
+  nest.test('...handle OVERVIEW_FETCH_ADSENSE_REPORTS_SUCCESS action', assert => {
+    assert.plan(1);
+
+    const state = Immutable.Map();
+    const data = [];
+
+    const nextState = reducer(state, OverviewFetchAdSenseReportsSuccess(data));
+
+    const actual = [];
+    const expected = [];
+
+    actual[0] = nextState.getIn(['adSenseReport', 'data']).toJS();
+    expected[0] = [];
+
+    actual[1] = nextState.getIn(['adSenseReport', 'isFetching']);
+    expected[1] = false;
+
+    assert.deepEqual(actual, expected,
+      'should return a state with stored adsense reports data');
+
+    assert.end();
+  });
+
+
+  nest.test('...handle OVERVIEW_FETCH_ADSENSE_REPORTS_FAILURE action', assert => {
+    assert.plan(1);
+
+    const state = Immutable.Map();
+
+    const nextState = reducer(state, OverviewFetchAdSenseReportsFailure());
+
+    const actual = nextState.getIn(['adSenseReport', 'isFetching']);
+    const expected = false;
+
+    assert.deepEqual(actual, expected,
+      'should return a state be not fetching');
+
+    assert.end();
+  });
 });

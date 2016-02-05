@@ -1,6 +1,5 @@
 import {call, put, take, fork} from 'redux-saga';
 import {authorize as googleAuthorize} from '../gapi/OAuth';
-import GoogleAuthorizeRequest from '../actions/GoogleAuthorizeRequest';
 import GoogleAuthorizeSuccess from '../actions/GoogleAuthorizeSuccess';
 import GoogleAuthorizeFailure from '../actions/GoogleAuthorizeFailure';
 
@@ -15,7 +14,7 @@ export function* request() {
 }
 
 export default function* () {
-  while (yield take(GoogleAuthorizeRequest().type)) {
+  while (yield take('GOOGLE_AUTHORIZE_REQUEST')) {
     yield fork(request);
   }
 }

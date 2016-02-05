@@ -1,7 +1,7 @@
 import delay from 'delay';
 import config from 'config';
 import {call, put, take, fork, race} from 'redux-saga';
-import {fetch} from '../gapi/AdSenseReport';
+import {fetch} from '../gapi/EarningReport';
 import OverviewFetchAdSenseReportsSuccess from '../actions/OverviewFetchAdSenseReportsSuccess';
 import OverviewFetchAdSenseReportsFailure from '../actions/OverviewFetchAdSenseReportsFailure';
 

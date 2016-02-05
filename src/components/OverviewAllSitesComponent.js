@@ -1,23 +1,31 @@
 'use strict';
 
-import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 require('styles/components//OverviewAllSites.less');
 
-import OverviewAllSitesActiveUsers from './OverviewAllSitesActiveUsersComponent'
-import OverviewAllSitesRevenue from './OverviewAllSitesRevenueComponent'
+import createOverviewAllSitesActiveUsers from './OverviewAllSitesActiveUsersComponent'
+import createOverviewAllSitesRevenue from './OverviewAllSitesEarningsComponent'
 
-class OverviewAllSitesComponent extends React.Component {
-  sumUp(data) {
-    return data.reduce((reduction, item) => {
-      return reduction.mergeWith((x, y) => {
-        return parseFloat(x) + parseFloat(y);
-      }, item)
-    });
-  }
+const sum = data => {
+  return data.reduce((reduction, item) => {
+    return reduction.mergeWith((x, y) => {
+      return parseFloat(x) + parseFloat(y);
+    }, item)
+  });
+};
 
-  render() {
-    const total = this.sumUp(this.props.data);
+export default React => {
+  const {any} = React.PropTypes;
+
+  const OverviewAllSites = ({data}) => {
+    const OverviewAllSitesActiveUsers = createOverviewAllSitesActiveUsers(React);
+    const OverviewAllSitesRevenue = createOverviewAllSitesRevenue(React);
+
+    const total = sum(data);
+    const activeUsers = total.get('totalDevices');
+    const earnings = total.get('earnings');
+
     return (
       <div className="OverviewAllSites ui two column grid">
         <div className="row">
@@ -25,10 +33,10 @@ class OverviewAllSitesComponent extends React.Component {
             <div className="ui raised blue segment">
               <div className="ui grid">
                 <div className="eight wide column">
-                  <OverviewAllSitesActiveUsers activeUsers={total.get('totalDevices')}/>
+                  <OverviewAllSitesActiveUsers activeUsers={activeUsers}/>
                 </div>
                 <div className="eight wide column">
-                  <OverviewAllSitesRevenue revenue={total.get('revenue')}/>
+                  <OverviewAllSitesRevenue earnings={earnings}/>
                 </div>
               </div>
             </div>
@@ -36,15 +44,16 @@ class OverviewAllSitesComponent extends React.Component {
         </div>
       </div>
     );
-  }
+  };
+
+  OverviewAllSites.propTypes = {
+    data: ImmutablePropTypes.listOf(
+      ImmutablePropTypes.contains({
+        totalDevices: any.isRequired,
+        earnings: any.isRequired
+      })
+    ).isRequired
+  };
+
+  return OverviewAllSites;
 }
-
-OverviewAllSitesComponent.displayName = 'OverviewAllSitesComponent';
-
-// Uncomment properties you need
-OverviewAllSitesComponent.propTypes = {
-
-};
-// OverviewAllSitesComponent.defaultProps = {};
-
-export default OverviewAllSitesComponent;
