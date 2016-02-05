@@ -33,7 +33,7 @@ export default React => {
           <Link to="#" className="item">Reporting</Link>
           <div className="right menu">
             <button className={authGoogleClass}
-                    onClick={() => GoogleAuthorizeRequest}>
+                    onClick={() => GoogleAuthorizeRequest()}>
               {authGoogleText} Google
             </button>
             <button className={authFacebookClass}
