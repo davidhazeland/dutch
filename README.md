@@ -13,7 +13,7 @@ npm install && bower install
 To build project:
 
 ```
-npm dist
+npm run dist
 ```
 
 To test project:
