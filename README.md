@@ -30,13 +30,16 @@ npm start
 
 ### Configuration
 
-Go to `src/config/dist.js` to set your config
+- Activate Google Analytics Real Time Reporting and Google AdSense Management API
+
+- Go to `src/config/dist.js` to setup your config
+
 
 ### Note
 
 If require `semantic-ui` module error, try to fix line 12 in `bower_components/semantic/bower.json` follow:
 
-```
+```json
 "main": [
   "dist/semantic.css", // instead of src/semantic.less
   "dist/semantic.js"
