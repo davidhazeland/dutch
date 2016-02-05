@@ -52,5 +52,7 @@ export default React => {
     actions: shape({
       GoogleAuthorizeRequest: func.isRequired
     })
-  }
+  };
+
+  return Header;
 };

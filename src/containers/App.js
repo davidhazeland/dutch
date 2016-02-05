@@ -10,10 +10,16 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import createMain from '../components/Main';
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
+  componentDidMount() {
+    this.props.actions.GoogleLoginRequest();
+  }
+
   render() {
+    const Main = createMain(React);
+
     const {actions, Google, Facebook} = this.props;
     return (
       <Main
