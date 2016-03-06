@@ -29,6 +29,12 @@ const GOOGLE_ANALYTICS_ACCOUNTS = [
         name: '40 tuần thai',
         websiteUrl: 'http://40tuanthai.com',
         defaultProfileId: '111940504'
+      },
+      {
+        id: 'UA-55012181-9',
+        name: 'Nuôi con kiểu mỹ',
+        websiteUrl: 'http://nuoiconkieumy.com',
+        defaultProfileId: '117677228'
       }
     ]
   }
